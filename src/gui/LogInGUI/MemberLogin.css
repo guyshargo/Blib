@@ -1,0 +1,73 @@
+/* Base Pane background */
+.root {
+    -fx-background-color: rgba(0, 0, 0, 0.3); /* 30% opacity */
+    -fx-background-image: url(../HeaderImage/background.png);
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-blend-mode: multiply; /* Blends the image with the background */
+}
+
+.overlay {
+    -fx-background-color: rgba(225, 139, 66, 0.8); /* 30% opacity */
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #fff2d8;
+    -fx-background-radius: 100;
+    -fx-text-fill: black; /* Consistent white text */
+    -fx-font-size: 20px; /* Font size */
+    -fx-font-family: "Assistant SemiBold"; /* Consistent font family */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #f6ac9e;
+    -fx-opacity: 0.9; /* Subtle fade effect */
+    -fx-text-fill: #333; /* Keep dark text */
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 0, 3);
+    -fx-cursor: hand;
+}
+
+#btnReturn {
+    -fx-background-color: #95918b;  /* Light grey */
+    -fx-text-fill: white;
+    -fx-font-size: 19;
+}
+
+#btnReturn:hover {
+    -fx-background-color: #808080;  /* Medium grey */
+}
+
+#btnReturn:pressed {
+    -fx-background-color: #696969;  /* Dark grey when pressed */
+}
+
+.right-bar{
+    -fx-background-color: rgba(220, 175, 140, 0.4);
+}
+
+.text-field{
+    -fx-background-radius:40;
+    -fx-font-size: 20;
+    -fx-font-family: "Assistant SemiBold";
+}
+.leftBar{
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+}
+
+.leftBar-text{
+    -fx-font-family: "Assistant SemiBold";
+    -fx-font-size: 25;
+}
+
+
+.label-blib{
+    -fx-font-size: 40;
+    -fx-font-family: "Assistant";
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+

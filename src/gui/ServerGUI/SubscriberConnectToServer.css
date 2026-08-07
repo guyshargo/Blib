@@ -1,21 +1,18 @@
 .root {
-    -fx-background-color: #f4f4f4;
+    -fx-background-color: #fff2d8;
 }
 
-/* Styling for buttons */
+/* Style for round buttons */
 .button {
-    -fx-background-color: #6ab7f6;
-    -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-font-family: "Arial"; 
-    -fx-border-radius: 5px; 
-    -fx-background-radius: 5px;
-    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+    -fx-background-radius: 100;  /* Makes the button round */
+    -fx-font-size: 15px;
+    -fx-background-color: #ecbba7; /* Optional: You can change the color */
 }
-
-/* Button hover effect */
 .button:hover {
-    -fx-background-color: #4890cb; 
+    -fx-background-color: rgb(140, 109, 109); /* Slightly darker blue */
+    -fx-opacity: 0.9; /* Subtle fade effect */
+    -fx-text-fill: #333; /* Keep dark text */
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 0, 3);
     -fx-cursor: hand;
 }
 
@@ -30,5 +27,20 @@
 
 .button .text {
     -fx-font-weight: bold;
-    -fx-font-size: 12px;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;  /* Optional: Text color */
+    -fx-font-family: "Assistant SemiBold";
+}
+/* Style for the label */
+.label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Assistant SemiBold";
+}
+
+.text-field{
+    -fx-background-radius: 20px;
+}
+#btnConnect:hover{
+    -fx-background-color: #76d856;
 }

@@ -1,70 +1,292 @@
 package logic;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
+/**
+ * Description:
+ * Class for the representing the subscribers in the system
+ */
 public class Subscriber implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private int subscriber_id;
-	private String subscriber_name;
-	private int detailed_subscription_history;
-	private String subscriber_phone_number;
-	private String subscriber_email;
+    private static final long serialVersionUID = 1L; // Recommended for Serializable classes
+    private int membershipNumber;
+    private String memberFullName;
+    private String userName;
+    private String password;
+    private FreezeStatus memberFreezeStatus; // Use enum type for freeze status
+    private String emailAddress;
+    private String memberPhoneNumber;
+    private LocalDate freezeStatusDate;
+    private String readerCardBarcode;
+    private boolean loginStatus;
 
-	// Constructor
-	public Subscriber(int id, String name, int detail_history, String phone, String email) {
-		this.subscriber_id = id;
-		this.subscriber_name = name;
-		this.detailed_subscription_history = detail_history;
-		this.subscriber_phone_number = phone;
-		this.subscriber_email = email;
-	}
-	
-	//setters and getters
-	
-	public int getSubscriber_id() {
-		return subscriber_id;
-	}
+    /**
+     * Description:
+     * Method for constructing the given class (without the freeze date)
+     *
+     * @param membershipNumber   int
+     * @param memberFullName     String.class
+     * @param userName           String.class
+     * @param password           String.class
+     * @param memberFreezeStatus FreezeStatus.class
+     * @param emailAddress       String.class
+     * @param memberPhoneNumber  String.class
+     * @param readerCardBarcode  String.class
+     */
+    public Subscriber(int membershipNumber, String memberFullName, String userName, String password,
+                      FreezeStatus memberFreezeStatus, String emailAddress, String memberPhoneNumber, String readerCardBarcode) {
+        this.membershipNumber = membershipNumber;
+        this.memberFullName = memberFullName;
+        this.userName = userName;
+        this.password = password;
+        this.memberFreezeStatus = memberFreezeStatus;
+        this.emailAddress = emailAddress;
+        this.memberPhoneNumber = memberPhoneNumber;
+        this.readerCardBarcode = readerCardBarcode;
+    }
 
-	public void setSubscriber_id(int subscriber_id) {
-		this.subscriber_id = subscriber_id;
-	}
+    /**
+     * Description:
+     * Method for constructing the given class
+     *
+     * @param membershipNumber   int
+     * @param memberFullName     String.class
+     * @param userName           String.class
+     * @param password           String.class
+     * @param memberFreezeStatus FreezeStatus.class
+     * @param emailAddress       String.class
+     * @param memberPhoneNumber  String.class
+     * @param freezeStatusDate   LocalDate.class
+     * @param readerCardBarcode  String.class
+     */
+    public Subscriber(int membershipNumber, String memberFullName, String userName, String password,
+                      FreezeStatus memberFreezeStatus, String emailAddress, String memberPhoneNumber, LocalDate freezeStatusDate, String readerCardBarcode) {
+        this.membershipNumber = membershipNumber;
+        this.memberFullName = memberFullName;
+        this.userName = userName;
+        this.password = password;
+        this.memberFreezeStatus = memberFreezeStatus;
+        this.emailAddress = emailAddress;
+        this.memberPhoneNumber = memberPhoneNumber;
+        this.freezeStatusDate = freezeStatusDate;
+        this.readerCardBarcode = readerCardBarcode;
+    }
 
-	public String getSubscriber_name() {
-		return subscriber_name;
-	}
+    /**
+     * Description:
+     * Setter method for the subscriber's login status
+     *
+     * @param loginStatus boolean
+     */
+    public void setLoginStatus(boolean loginStatus) {
+        this.loginStatus = loginStatus;
+    }
 
-	public void setSubscriber_name(String subscriber_name) {
-		this.subscriber_name = subscriber_name;
-	}
+    /**
+     * Description:
+     * Getter method for the subscriber's login status
+     *
+     * @return loginStatus boolean
+     */
+    public boolean getLoginStatus() {
+        return loginStatus;
+    }
 
-	public int getDetailed_subscription_history() {
-		return detailed_subscription_history;
-	}
+    /**
+     * Description:
+     * Getter method for the subscriber's barcode
+     *
+     * @return readerCardBarcode String.class
+     */
+    public String getreaderCardBarcode() {
+        return readerCardBarcode;
+    }
 
-	public void setDetailed_subscription_history(int detailed_subscription_history) {
-		this.detailed_subscription_history = detailed_subscription_history;
-	}
+    /**
+     * Description:
+     * Setter method for the subscriber's barcode
+     *
+     * @param readerCardBarcode String.class
+     */
+    public void setreaderCardBarcode(String readerCardBarcode) {
+        this.readerCardBarcode = readerCardBarcode;
+    }
 
-	public String getSubscriber_phone_number() {
-		return subscriber_phone_number;
-	}
+    /**
+     * Description:
+     * Getter method for the subscriber's freeze date
+     *
+     * @return freezeStatusDate LocalDate.class
+     */
+    public LocalDate getFreezeStatusDate() {
+        return freezeStatusDate;
+    }
 
-	public void setSubscriber_phone_number(String subscriber_phone_number) {
-		this.subscriber_phone_number = subscriber_phone_number;
-	}
+    /**
+     * Description:
+     * Setter method for the subscriber's freeze date
+     *
+     * @param freezeStatusDate LocalDate.class
+     */
+    public void setFreezeStatusDate(LocalDate freezeStatusDate) {
+        this.freezeStatusDate = freezeStatusDate;
+    }
 
-	public String getSubscriber_email() {
-		return subscriber_email;
-	}
+    /**
+     * Description:
+     * Getter method for the subscriber's membership number
+     *
+     * @return membershipNumber int
+     */
+    public int getMembershipNumber() {
+        return membershipNumber;
+    }
 
-	public void setSubscriber_email(String subscriber_email) {
-		this.subscriber_email = subscriber_email;
-	}
+    /**
+     * Description:
+     * Setter method for the subscriber's membership number
+     *
+     * @param membershipNumber int
+     */
+    public void setMembershipNumber(int membershipNumber) {
+        this.membershipNumber = membershipNumber;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("Id: %d, name: %s, history: %d, phone number: %s, email: %s", this.subscriber_id,
-				this.subscriber_name, this.detailed_subscription_history, this.subscriber_phone_number,
-				this.subscriber_email);
-	}
+    /**
+     * Description:
+     * Getter method for the subscriber's full name
+     *
+     * @return memberFullName String.class
+     */
+    public String getMemberFullName() {
+        return memberFullName;
+    }
+
+    /**
+     * Description:
+     * Setter method for the subscriber's full name
+     *
+     * @param memberFullName String.class
+     */
+    public void setMemberFullName(String memberFullName) {
+        this.memberFullName = memberFullName;
+    }
+
+    /**
+     * Description:
+     * Getter method for the subscriber's username
+     *
+     * @return userName String.class
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * Description:
+     * Setter method for the subscriber's username
+     *
+     * @param userName String.class
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * Description:
+     * Getter method for the subscriber's password
+     *
+     * @return password String.class
+     */
+    public String getMemberPassword() {
+        return password;
+    }
+
+    /**
+     * Description:
+     * Setter method for the subscriber's password
+     *
+     * @param password String.class
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Description:
+     * Getter method for the subscriber's freeze status
+     *
+     * @return memberFreezeStatus FreezeStatus.class
+     */
+    public FreezeStatus getMemberFreezeStatus() {
+        return memberFreezeStatus;
+    }
+
+    /**
+     * Description:
+     * Setter method for the subscriber's freeze status
+     *
+     * @param memberFreezeStatus FreezeStatus.class
+     */
+    public void setMemberFreezeStatus(FreezeStatus memberFreezeStatus) {
+        this.memberFreezeStatus = memberFreezeStatus;
+    }
+
+    /**
+     * Description:
+     * Getter method for the subscriber's email
+     *
+     * @return emailAddress String.class
+     */
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    /**
+     * Description:
+     * Setter method for the subscriber's email
+     *
+     * @param emailAddress String.class
+     */
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    /**
+     * Description:
+     * Getter method for the subscriber's phone number
+     *
+     * @return memberPhoneNumber String.class
+     */
+    public String getMemberPhoneNumber() {
+        return memberPhoneNumber;
+    }
+
+    /**
+     * Description:
+     * Setter method for the subscriber's phone number
+     *
+     * @param memberPhoneNumber String.class
+     */
+    public void setMemberPhoneNumber(String memberPhoneNumber) {
+        this.memberPhoneNumber = memberPhoneNumber;
+    }
+
+    /**
+     * Description:
+     * Method for generating a string representing the given class object
+     *
+     * @return String.class
+     */
+    @Override
+    public String toString() {
+        return "Subscriber{" +
+                "membershipNumber=" + membershipNumber +
+                ", memberFullName='" + memberFullName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", memberFreezeStatus=" + memberFreezeStatus +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", memberPhoneNumber='" + memberPhoneNumber + '\'' +
+                '}';
+    }
 }

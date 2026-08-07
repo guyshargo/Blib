@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="BookDetailsPage" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Book_Details.BookDetailsPageController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" stylesheets="@BookDetailsPage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="800.0" styleClass="frame" stylesheets="@BookDetailsPage.css" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="68.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../HeaderImage/book_logo.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header-label" text="Book Details" textAlignment="CENTER" wrappingWidth="354.00001525878906" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="usernameLoggedIn" prefHeight="34.0" prefWidth="230.0" styleClass="username" text=" Username">
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../HeaderImage/user_circle.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@BookDetailsPage.css" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="402.0" prefWidth="800.0" spacing="25.0" styleClass="text" stylesheets="@BookDetailsPage.css">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="800.0" spacing="20.0" styleClass="label-text" stylesheets="@BookDetailsPage.css">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Name:" wrappingWidth="216.33670043945312">
+                                 <font>
+                                    <Font name="Assistant SemiBold" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="bookName" editable="false" prefHeight="45.0" prefWidth="330.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="61.0" prefWidth="800.0" spacing="20.0" styleClass="label-text">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Status :" wrappingWidth="219.33670043945312">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="BookStatus" editable="false" prefHeight="45.0" prefWidth="330.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="56.0" prefWidth="800.0" spacing="20.0" styleClass="label-text" stylesheets="@BookDetailsPage.css">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Shelf Location:" wrappingWidth="222.33670043945312">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="ShelfLocation" editable="false" prefHeight="45.0" prefWidth="330.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="55.0" prefWidth="800.0" styleClass="label-text">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Closest Return Date:" wrappingWidth="242.93667602539062">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="ReturnDate" editable="false" prefHeight="45.0" prefWidth="330.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="800.0" styleClass="label-text">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Summary:" wrappingWidth="242.93667602539062">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                              <TextArea fx:id="summaryTxt" editable="false" prefHeight="82.0" prefWidth="330.0" wrapText="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="800.0" styleClass="frame" stylesheets="@BookDetailsPage.css" BorderPane.alignment="CENTER_LEFT">
+               <children>
+                  <Button fx:id="returnbtn" mnemonicParsing="false" onAction="#getReturnButton" prefHeight="35.0" prefWidth="100.0" styleClass="return" stylesheets="@BookDetailsPage.css" text="Return">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <Button fx:id="LogoutBtn" layoutX="665.0" layoutY="14.0" onAction="#getLogoutButton" prefHeight="33.0" prefWidth="87.0" text="Logout" visible="false" />
+      <Button fx:id="LoginBtn" layoutX="673.0" layoutY="18.0" onAction="#getLoginButton" prefHeight="34.0" prefWidth="104.0" text="Login" visible="false" />
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>

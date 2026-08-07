@@ -1,0 +1,87 @@
+.root {
+    -fx-background-color: #fff2d8;
+}
+
+/* Style for the subscriber name label */
+#librarianName {
+    -fx-font-size: 17px;
+    -fx-font-family: "Assistant SemiBold";
+    -fx-text-fill: black;         /* Dark blue text color */
+    -fx-alignment: left;     /* Align text to the left */
+}
+
+/* Header Styling */
+.header-label {
+    -fx-font-size: 25px;
+    -fx-font-family: "Assistant";
+    -fx-font-weight: bold;
+    -fx-text-fill: black; /* Dark text for good readability */
+}
+
+/* Menu Button Styling */
+.menu-button {
+    -fx-pref-height: 75;
+    -fx-pref-width: 210;
+    -fx-background-color: #fec999;
+    -fx-background-radius: 100;
+}
+
+/* Menu Button Hover Effect */
+.menu-button:hover {
+    -fx-background-color: rgba(253, 169, 92, 0.65);
+    -fx-text-fill: #333; /* Keep dark text */
+    -fx-cursor: hand;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 3);
+
+}
+
+/* Additional Button Text Styling */
+.menu-button .text {
+    -fx-text-fill: black; /* Consistent white text */
+    -fx-font-size: 23px; /* Font size */
+    -fx-font-family: "Assistant SemiBold"; /* Consistent font family */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+}
+
+/* Top and bottom bar */
+.frame{
+    -fx-background-color: rgb(218, 196, 165);
+    -fx-font-size: 25px;
+    -fx-font-family: "Assistant";
+    -fx-font-weight: bold;
+    -fx-text-fill: black; /* Dark text for good readability */
+}
+
+
+/* Logout Button Styling */
+.logout-button {
+    -fx-background-color: rgba(89, 214, 237);
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 15px;
+    -fx-font-family: "Assistant";
+    -fx-font-weight: bold;
+    -fx-background-radius: 100px;
+    -fx-pref-width: 80;
+    -fx-pref-height: 35;
+}
+
+/* Logout Button Hover Effect */
+.logout-button:hover {
+    -fx-background-color: rgba(73, 62, 62, 0.5);
+    -fx-cursor: hand;
+}
+
+#invoiceButton{
+    -fx-background-radius: 100px;
+    -fx-font-family: "Assistant SemiBold";
+    -fx-background-color: rgb(189, 94, 123,0.3);
+    -fx-font-size: 14px;
+}
+
+#invoiceButton:hover{
+    -fx-background-radius: 100px;
+    -fx-font-family: "Assistant SemiBold";
+    -fx-background-color: rgba(189, 94, 123, 0.47);
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}

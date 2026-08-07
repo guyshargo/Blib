@@ -1,0 +1,50 @@
+/* Style for centering the title */
+.root{
+    -fx-background-color: #fff2d8;
+
+}
+#connectionTableTitle {
+    -fx-alignment: center;
+    -fx-layout-x: 50%;
+    -fx-text-alignment: center;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Assistant SemiBold"; /* Consistent font family */
+}
+
+/* Style for round buttons */
+.button {
+    -fx-background-radius: 100;  /* Makes the button round */
+    -fx-font-size: 15px;
+    -fx-background-color: #ecbba7; /* Optional: You can change the color */
+    -fx-text-fill: black;  /* Optional: Text color */
+    -fx-font-family: "Assistant SemiBold";
+}
+.button:hover {
+    -fx-background-color: rgb(236, 216, 209); /* Slightly darker blue */
+    -fx-opacity: 0.9; /* Subtle fade effect */
+    -fx-text-fill: #333; /* Keep dark text */
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 0, 3);
+    -fx-cursor: hand;
+}
+
+/* Style for the label */
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Assistant SemiBold";
+}
+
+.table-view{
+    -fx-font-family: "Assistant";
+    -fx-background-radius: 10px;
+}
+
+#btnShutDownServer:hover{
+    -fx-background-color: #ff8457;
+
+}
+
+#btnRunServer:hover{
+    -fx-background-color: #76d856;
+}
