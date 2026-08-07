@@ -1,0 +1,130 @@
+/* Root background */
+.root {
+    -fx-background-color: #fff2d8;
+}
+
+/* Style for the subscriber name label */
+#librarianName {
+    -fx-font-size: 17px;
+    -fx-font-family: "Assistant SemiBold";
+    -fx-text-fill: black;         /* Dark blue text color */
+    -fx-alignment: left;     /* Align text to the left */
+}
+
+/* Top and bottom bar */
+.frame{
+    -fx-background-color: rgb(218, 196, 165);
+    -fx-font-size: 25px;
+    -fx-font-family: "Assistant";
+    -fx-font-weight: bold;
+    -fx-text-fill: black; /* Dark text for good readability */
+}
+
+
+.label-text{
+    -fx-font-family: "Assistant SemiBold";
+    -fx-font-size: 20px;
+}
+
+.text-field{
+    -fx-background-radius:17;
+    -fx-font-family: "Assistantd";
+    -fx-font-size: 14;
+}
+
+.table-view .table-cell {
+    -fx-alignment: center;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 2px;
+}
+
+/* Menu Button Styling */
+.menu-button {
+    -fx-background-color: #fec999;
+    -fx-background-radius: 100;
+    -fx-text-fill: black; /* Dark text */
+    -fx-font-size: 18px;
+    -fx-border-width: 2px; /* Border thickness */
+    -fx-font-family: "Assistant SemiBold";
+}
+
+/* Menu Button Hover Effect */
+.menu-button:hover {
+    -fx-background-color: rgba(253, 169, 92, 0.65);
+    -fx-text-fill: #333; /* Keep dark text */
+    -fx-cursor: hand;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 3);
+}
+
+.menu-button .text {
+    -fx-text-fill: black; /* Consistent white text */
+    -fx-font-size: 15px; /* Font size */
+    -fx-font-family: "Assistant SemiBold"; /* Consistent font family */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+}
+/* Button pressed effect */
+.menu-button:pressed {
+    -fx-background-color: #388e3c;
+}
+
+/* Styling for the "Submit" button */
+#submitButton {
+    -fx-background-color: #6ab7f6; /* Blueish palette */
+    -fx-font-weight: bold;
+}
+
+#submitButton:hover {
+    -fx-background-color: #4890cb; /* Darker blue */
+}
+
+/* Styling for the "Clear" button */
+#clearButton {
+    -fx-background-color: #ffba52;  /* Yellow/Orange palette */
+    -fx-text-fill: white;
+}
+
+#clearButton:hover {
+    -fx-background-color: #ff8457;  /* Darker yellow/orange */
+}
+
+/* Styling for the "Return" button (Grey palette) */
+#returnBtn {
+    -fx-background-color: rgba(228, 227, 226, 0.6); /* 30% opacity */
+    -fx-text-fill: black;
+    -fx-background-radius: 100;
+    -fx-font-size: 16px;
+    -fx-font-family: "Assistant SemiBold";
+    -fx-pref-width: 90px;
+    -fx-pref-height: 35px;
+}
+
+#returnBtn:hover {
+    -fx-background-color: #696969;  /* Dark grey when pressed */
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 3);
+    -fx-cursor: hand;}
+
+#returnBtn:pressed {
+    -fx-background-color: #696969;  /* Dark grey when pressed */
+}
+
+
+/* Logout Button Styling */
+#logoutButton {
+    -fx-background-color: rgb(96, 188, 205);
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 15px;
+    -fx-font-family: "Assistant";
+    -fx-font-weight: bold;
+    -fx-background-radius: 100px;
+    -fx-pref-width: 80;
+    -fx-pref-height: 35;
+}
+
+/* Logout Button Hover Effect */
+#logoutButton:hover {
+    -fx-background-color: rgba(73, 62, 62, 0.5);
+    -fx-cursor: hand;
+}

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@MemberRegistrationPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LibrarianGUI.MemberRegistration.MemberRegistrationPageController">
+
+    <children>
+      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <top>
+              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@MemberRegistrationPage.css" BorderPane.alignment="CENTER">
+                  <children>
+                      <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                          <image>
+                              <Image url="@../../HeaderImage/book_logo.png" />
+                          </image>
+                          <HBox.margin>
+                              <Insets />
+                          </HBox.margin>
+                      </ImageView>
+
+                      <!-- Title for Borrow Book -->
+                      <Label alignment="CENTER" prefHeight="42.0" prefWidth="384.0" style="-fx-font-size: 26px;" styleClass="text-title" text="New Member Registration" textAlignment="CENTER" />
+                      <Label fx:id="librarianName" alignment="BASELINE_LEFT" prefHeight="42.0" prefWidth="208.0" text="librarian name">
+                          <HBox.margin>
+                              <Insets />
+                          </HBox.margin>
+                          <graphic>
+                          </graphic>
+                          <font>
+                              <Font size="16.0" />
+                          </font>
+                          <graphic>
+                              <ImageView fitHeight="33.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../../HeaderImage/user_circle.png" />
+                                  </image>
+                              </ImageView>
+                          </graphic>
+                      </Label>
+                      <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getLogoutButton" prefHeight="45.0" prefWidth="94.0" style="-fx-text-fill: white; -fx-font-weight: bold;" stylesheets="@MemberRegistrationPage.css" text="Logout">
+                          <HBox.margin>
+                              <Insets />
+                          </HBox.margin>
+                     <styleClass>
+                        <String fx:value="logout-button" />
+                        <String fx:value="menu-button" />
+                     </styleClass>
+                      </Button>
+                  </children>
+              </HBox>
+          </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="401.0" prefWidth="800.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="342.0" prefWidth="693.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="251.0" prefWidth="514.0" spacing="7.0" style="-fx-background-color: #f8eaea; -fx-background-radius: 25;">
+                                 <children>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                    
+                                            <!-- ID Field -->
+                                            <Label prefHeight="30.0" prefWidth="162.0" styleClass="label-text" text="ID:" />
+                                            <TextField fx:id="idField" prefWidth="300.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                    
+                                            <!-- Full Name Field -->
+                                            <Label prefHeight="30.0" prefWidth="162.0" styleClass="label-text" text="Full Name:" />
+                                            <TextField fx:id="fullNameField" prefWidth="300.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                    
+                                            <!-- Username Field -->
+                                            <Label prefHeight="30.0" prefWidth="161.0" styleClass="label-text" text="Username:" />
+                                            <TextField fx:id="usernameField" prefWidth="300.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                    
+                                            <!-- Password Field -->
+                                            <Label prefHeight="30.0" prefWidth="159.0" styleClass="label-text" text="Password:" />
+                                            <TextField fx:id="passwordtextField" prefWidth="300.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                    
+                                            <!-- Phone Number Field -->
+                                            <Label prefHeight="30.0" prefWidth="162.0" styleClass="label-text" text="Phone Number:" />
+                                            <TextField fx:id="phoneField" prefWidth="300.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                    
+                                            <!-- Email Address Field -->
+                                            <Label prefHeight="30.0" prefWidth="163.0" styleClass="label-text" text="Email Address:" />
+                                            <TextField fx:id="emailField" prefWidth="300.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children></VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="200.0" prefWidth="800.0" spacing="50.0">
+                           <children>
+                              <ImageView fitHeight="125.0" fitWidth="286.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../HeaderImage/register.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <effect>
+                                    <ColorAdjust hue="1.0" />
+                                 </effect>
+                              </ImageView>
+                              <HBox alignment="TOP_CENTER" prefHeight="141.0" prefWidth="294.0" spacing="15.0">
+                                 <children>
+                              
+                                      <!-- Buttons -->
+                              
+                                      <Button fx:id="submitButton" onAction="#handleSubmit" prefHeight="35.0" prefWidth="100.0" styleClass="menu-button" text="Submit" />
+                                      <Button fx:id="clearButton" onAction="#handleClear" prefHeight="35.0" prefWidth="100.0" styleClass="menu-button" text="Clear" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="70.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children></VBox>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="800.0" styleClass="frame" BorderPane.alignment="CENTER">
+               <children>
+                    <Button fx:id="btnReturn" onAction="#handleReturn" prefHeight="39.0" prefWidth="104.0" styleClass="return" text="Return">
+                     <HBox.margin>
+                        <Insets left="8.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+    </children>
+
+</AnchorPane>
