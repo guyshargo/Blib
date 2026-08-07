@@ -1,0 +1,41 @@
+.root {
+    -fx-background-color: #f4f4f4;
+}
+
+
+/* Styling for buttons */
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 5px; /* rounded corners */
+    -fx-background-radius: 5px;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1); /* shadow effect */
+}
+
+/* Button hover effect */
+.button:hover {
+    -fx-background-color: #45a049;
+    -fx-cursor: hand;
+}
+
+/* Button pressed effect */
+.button:pressed {
+    -fx-background-color: #388e3c;
+}
+
+/* "Exit" button */
+#btnReturn {
+    -fx-background-color: #ffba52;
+}
+
+#btnReturn:hover {
+    -fx-background-color: #ff8457;
+}
+
+/* General text properties for button text */
+.button .text {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
