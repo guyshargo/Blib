@@ -52,7 +52,7 @@ public class mysqlConnection {
     private void openConnection() {
         try {
             if (conn == null || conn.isClosed()) {
-                conn = DriverManager.getConnection("jdbc:mysql://localhost/blib?serverTimezone=IST", "root", "Aa123456");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/blib?serverTimezone=Asia/Jerusalem", "root", "Aa123456");
             }
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());

@@ -239,25 +239,23 @@ public class subscriberLogic {
      * @param membershipNumber int
      * @param username         String.class
      * @param email            String.class
-     * @return returnMsg Message.class
+     * @return String containing error messages, or null if no duplicates exist
      */
-    public synchronized Message checkDuplicates(int membershipNumber, String username, String email) {
-        Message returnmsg = new Message("RegistrationSuccess", null);
-        String data = "";
+    public synchronized String checkDuplicates(int membershipNumber, String username, String email) {
+        StringBuilder errors = new StringBuilder();
+
         if (isIDTaken(membershipNumber)) {
-            returnmsg.setCommand("RegistrationFailed");
-            data += "-Id already exist in the system please enter different id\n";
+            errors.append("-Id already exist in the system please enter different id\n");
         }
         if (isUsernameTaken(username)) {
-            returnmsg.setCommand("RegistrationFailed");
-            data += "-userName is already taken please enter a different username\n";
+            errors.append("-userName is already taken please enter a different username\n");
         }
         if (isEmailTaken(email)) {
-            returnmsg.setCommand("RegistrationFailed");
-            data += "-Email already exist in the system please enter different email address";
+            errors.append("-Email already exist in the system please enter different email address");
         }
-        returnmsg.setData(data);
-        return returnmsg;
+
+        return errors.length()>0 ? errors.toString() : null;
+        
     }
 
     /**
