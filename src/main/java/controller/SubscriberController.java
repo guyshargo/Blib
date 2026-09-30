@@ -1,15 +1,16 @@
 package controller;
 
-import logic.RegisterRequest;
-import logic.FreezeStatus;
-import logic.Subscriber;
-import logic.subscriberLogic;
-import logic.ReportControl.MemberStatusChange;
-import logic.ReportControl.ReportLogic;
-import logic.ReportControl.StatusTracking;
+import logic.SubscriberLogic;
+import logic.ReportLogic;
+import model.MemberStatusChange;
+import model.StatusTracking;
+import model.Subscriber;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import dto.RegisterRequest;
+import enums.FreezeStatus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +20,7 @@ import java.util.List;
 @RequestMapping("/api/subscribers")
 public class SubscriberController {
 
-    private final subscriberLogic subLogic = new subscriberLogic();
+    private final SubscriberLogic subLogic = new SubscriberLogic();
     private final ReportLogic reportLogic = new ReportLogic();
 
     // view subscriber data

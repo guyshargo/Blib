@@ -1,9 +1,10 @@
 package controller;
 
-import logic.Librarian;
-import logic.Subscriber;
 import logic.LibrarianLogic;
-import logic.subscriberLogic;
+import logic.SubscriberLogic;
+import model.Librarian;
+import model.Subscriber;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final LibrarianLogic librarianLogic = new LibrarianLogic();
-    private final subscriberLogic subLogic = new subscriberLogic();
+    private final SubscriberLogic subLogic = new SubscriberLogic();
 
     @GetMapping("/login/librarian")
     public ResponseEntity<Librarian> loginLibrarian(@RequestParam String username) {

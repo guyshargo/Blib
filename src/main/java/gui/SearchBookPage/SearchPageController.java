@@ -1,12 +1,12 @@
-package gui.SearchBookPage;
+package gui.searchbookpage;
 
 import client.ChatClient;
 import client.ClientUI;
-import gui.Book_Details.BookDetailsPageController;
-import gui.LibrarianGUI.LibrarianMainPageController;
-import gui.LogInGUI.LogInController;
-import gui.LogInGUI.LogoutUtil;
-import gui.MemberGUI.MemberMainPageController;
+import gui.bookdetails.BookDetailsPageController;
+import gui.librarian.LibrarianMainPageController;
+import gui.login.LogInController;
+import gui.login.LogoutUtil;
+import gui.subscriber.MemberMainPageController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.BookControl.Book;
+import model.Book;
 
 import java.io.IOException;
 import java.util.List;

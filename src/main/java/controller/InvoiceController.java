@@ -1,7 +1,8 @@
 package controller;
 
-import logic.InvoiceControl.InvoiceLogic;
-import logic.InvoiceControl.InvoiceMessage;
+import logic.InvoiceLogic;
+import model.InvoiceMessage;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

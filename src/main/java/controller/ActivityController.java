@@ -1,11 +1,13 @@
 package controller;
 
-import logic.ActivityControl.Activity;
-import logic.ActivityControl.ActivityType;
-import logic.ActivityControl.ActivityLogic;
-import logic.ActivityRequest;
+import logic.ActivityLogic;
+import model.Activity;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import dto.ActivityRequest;
+import enums.ActivityType;
 
 import java.time.LocalDateTime;
 import java.util.List;

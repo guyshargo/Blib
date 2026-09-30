@@ -1,24 +1,25 @@
 package controller;
 
-import logic.BookControl.Book;
-import logic.BookControl.BookLogic;
-import logic.BookControl.BorrowedBook;
-import logic.BookControl.CopyOfBook;
-import logic.BookControl.BorrowStatus;
-import logic.BorrowControl.BorrowLogic;
-import logic.ExtensionControl.ExtensionLogic;
-import logic.InvoiceControl.InvoiceLogic;
-import logic.InvoiceControl.Subject;
-import logic.ReportControl.BorrowHistory;
-import logic.ReportControl.BorrowTracking;
-import logic.ReportControl.ReportLogic;
-import logic.Subscriber;
-import logic.subscriberLogic;
-import logic.BorrowRequest;
-import logic.ChangeReturnDateRequest;
+import logic.BookLogic;
+import logic.BorrowLogic;
+import logic.ExtensionLogic;
+import logic.InvoiceLogic;
+import logic.ReportLogic;
+import model.Book;
+import model.BorrowHistory;
+import model.BorrowTracking;
+import model.BorrowedBook;
+import model.CopyOfBook;
+import model.Subscriber;
+import logic.SubscriberLogic;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import dto.BorrowRequest;
+import dto.ChangeReturnDateRequest;
+import enums.BorrowStatus;
+import enums.Subject;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +32,7 @@ public class BorrowController {
     private final BorrowLogic borrowLogic = new BorrowLogic();
     private final BookLogic bookLogic = new BookLogic();
     private final ReportLogic reportLogic = new ReportLogic();
-    private final subscriberLogic subLogic = new subscriberLogic();
+    private final SubscriberLogic subLogic = new SubscriberLogic();
     private final ExtensionLogic extensionLogic = new ExtensionLogic();
     private final InvoiceLogic invoiceLogic = new InvoiceLogic();
     
@@ -68,7 +69,7 @@ public class BorrowController {
     // view all borrowed books of a specific subscriber
     @GetMapping("/subscriber/{subId}")
     public ResponseEntity<List<BorrowedBook>> getBorrowedBooks(@PathVariable int subId){
-        List<BorrowedBook> suBorrowedBooks = bookLogic.importBorrowedBooks(subId);
+        List<BorrowedBook> suBorrowedBooks = borrowLogic.importBorrowedBooks(subId);
         return ResponseEntity.ok(suBorrowedBooks);
     }
 
@@ -94,7 +95,7 @@ public class BorrowController {
             );
 
             if(updatedReturnDate && opLibrarian){
-                BorrowedBook book = bookLogic.fetchBorrowedBook(
+                BorrowedBook book = borrowLogic.fetchBorrowedBook(
                     request.getMemberId(),
                     request.getCopyOfBookId()
                 );
@@ -116,7 +117,7 @@ public class BorrowController {
     // due date extension request
     @PutMapping("/subscriber/{subId}/book/{copyOfBookId}/extend")
     public ResponseEntity<String> extendBorrow(@PathVariable int subId, @PathVariable int copyOfBookId){
-        BorrowedBook book = bookLogic.fetchBorrowedBook(subId, copyOfBookId);
+        BorrowedBook book = borrowLogic.fetchBorrowedBook(subId, copyOfBookId);
         
         if (book == null) {
             return ResponseEntity.notFound().build();
@@ -124,7 +125,7 @@ public class BorrowController {
 
         boolean isExtend = extensionLogic.borrowExtensionRequest(book);
         if(isExtend){
-            BorrowedBook exBook = bookLogic.fetchBorrowedBook(subId, copyOfBookId);
+            BorrowedBook exBook = borrowLogic.fetchBorrowedBook(subId, copyOfBookId);
             reportLogic.updateOriginalReturnDate(subId, copyOfBookId, exBook.getBorrowDate(), exBook.getReturnDate());
         
             Subscriber sub = subLogic.fetchSubscriberById(subId);
@@ -141,12 +142,12 @@ public class BorrowController {
     // a borrowed book was returned - delete it from "borrowed"
     @DeleteMapping("/copy/{copyOfBookId}/subscriber/{subId}")
     public ResponseEntity<String> deleteBorrowedBook(@PathVariable int copyOfBookId, @PathVariable int subId){
-        BorrowedBook book = bookLogic.fetchBorrowedBook(subId, copyOfBookId);
+        BorrowedBook book = borrowLogic.fetchBorrowedBook(subId, copyOfBookId);
 
         if(book != null){
             boolean delBook = borrowLogic.deleteBorrowedBook(copyOfBookId); 
             if(delBook){
-                CopyOfBook delBookCopyId = borrowLogic.findCopyOfBook(copyOfBookId);
+                CopyOfBook delBookCopyId = bookLogic.findCopyOfBook(copyOfBookId);
                 delBookCopyId.setBorrowStatus(BorrowStatus.NOT_BORROWED);
                 bookLogic.changeBookCopyBorrowStatus(delBookCopyId);
 
@@ -162,7 +163,7 @@ public class BorrowController {
     // find a book copy which can be borrowed
     @GetMapping("/book/{bookId}/available-copy/subscriber/{subId}")
     public ResponseEntity<CopyOfBook> findAvailableCopy(@PathVariable int bookId, @PathVariable int subId){
-        CopyOfBook availableBookCopy = borrowLogic.getAvailableCopyOfBook(bookId);
+        CopyOfBook availableBookCopy = bookLogic.getAvailableCopyOfBook(bookId);
 
         if(availableBookCopy != null){
             Book book = bookLogic.fetchBook(bookId);
@@ -189,7 +190,7 @@ public class BorrowController {
     @PutMapping("/book/{bookId}/decrease-copies")
     public ResponseEntity<String> decreaseBorrowedCopies(@PathVariable int bookId){
         try{
-            boolean decrease = borrowLogic.decreaseBorrowedCopies(bookId);
+            boolean decrease = bookLogic.decreaseBorrowedCopies(bookId);
 
             if(decrease){
                 return ResponseEntity.ok("Decreased copies amount by 1.");

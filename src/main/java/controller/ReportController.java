@@ -1,7 +1,8 @@
 package controller;
 
-import logic.ReportControl.Report;
-import logic.ReportControl.ReportLogic;
+import logic.ReportLogic;
+import model.Report;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

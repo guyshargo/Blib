@@ -1,8 +1,8 @@
 package controller;
 
-import logic.BookControl.Book;
-import logic.BookControl.BookLogic;
-import logic.BorrowControl.BorrowLogic;
+import logic.BookLogic;
+import model.Book;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +13,11 @@ import java.util.List;
 public class BookController {
     
     private final BookLogic bookLogic = new BookLogic();
-    private final BorrowLogic borrowLogic = new BorrowLogic();
 
     // find book by id
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable int id){
-        Book book = borrowLogic.findBookById(id);
+        Book book = bookLogic.fetchBook(id);
 
         if(book != null){
             return ResponseEntity.ok(book);
