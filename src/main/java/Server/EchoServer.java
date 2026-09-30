@@ -18,7 +18,7 @@ import logic.ExtensionControl.ExtensionLogic;
 
 import logic.*;
 import logic.ActivityControl.Activity;
-import logic.ActivityControl.activityLogic;
+import logic.ActivityControl.ActivityLogic;
 import logic.BookControl.*;
 import logic.BorrowControl.BorrowLogic;
 import ocsf.server.AbstractServer;
@@ -68,7 +68,7 @@ public class EchoServer extends AbstractServer {
         ReportLogic reportLogic = new ReportLogic();
         BookLogic bookLogic = new BookLogic();
         subscriberLogic subLogic = new subscriberLogic();
-        activityLogic actLogic = new activityLogic();
+        ActivityLogic actLogic = new ActivityLogic();
         BorrowLogic borrowLogic = new BorrowLogic();
         LibrarianLogic liblogic = new LibrarianLogic();
 

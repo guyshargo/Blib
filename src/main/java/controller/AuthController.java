@@ -23,7 +23,7 @@ public class AuthController {
         return ResponseEntity.status(401).build(); // Returns Unauthorized
     }
 
-    @GetMapping("/login/member")
+    @GetMapping("/login/subscriber")
     public ResponseEntity<Subscriber> loginMember(@RequestParam String username) {
         Subscriber sub = subLogic.fetchMemberByUsername(username);
         if (sub != null) {

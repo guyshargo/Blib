@@ -1,5 +1,6 @@
 package controller;
 
+import logic.Librarian;
 import logic.LibrarianLogic;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/librarians")
 public class LibrarianController {
     private final LibrarianLogic librarianLogic = new LibrarianLogic();
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Librarian> getLibrarian(@PathVariable int id) {
+        Librarian lib = librarianLogic.fetchLibrarianByID(id);
+        if (lib != null) {
+            return ResponseEntity.ok(lib);
+        }
+        return ResponseEntity.notFound().build();
+    }
 
     // change login status when user logins\logouts
     @PutMapping("/{id}/login-status")

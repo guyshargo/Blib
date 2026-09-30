@@ -8,7 +8,6 @@ import logic.ReportControl.MemberStatusChange;
 import logic.ReportControl.ReportLogic;
 import logic.ReportControl.StatusTracking;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -110,8 +109,8 @@ public class SubscriberController {
             }
             return ResponseEntity.badRequest().body("Failed to update status");
         
-        } catch (Exception error) {
-            return ResponseEntity.status(500).body(error.toString());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.toString());
         }
     }
 

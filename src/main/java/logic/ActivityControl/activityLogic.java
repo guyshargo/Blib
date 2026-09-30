@@ -10,7 +10,7 @@ import java.util.List;
  * Description:
  * Class for the activities that have been done in the system
  */
-public class activityLogic {
+public class ActivityLogic {
     /**
      * Connection to the mySQL database
      */
@@ -20,7 +20,7 @@ public class activityLogic {
      * Description:
      * Method for constructing the given class
      */
-    public activityLogic() {
+    public ActivityLogic() {
         dbConnector = mysqlConnection.getInstance(); // Singleton database connector
     }
 
