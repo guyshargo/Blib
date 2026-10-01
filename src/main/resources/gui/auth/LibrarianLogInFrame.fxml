@@ -38,7 +38,7 @@
                      <children>
                         <ImageView fitHeight="45.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/user.png" />
+                              <Image url="@/gui/images/user.png" />
                            </image>
                            <HBox.margin>
                               <Insets />
@@ -55,7 +55,7 @@
                      <children>
                         <ImageView fitHeight="45.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/padlock.png" />
+                              <Image url="@/gui/images/padlock.png" />
                            </image>
                         </ImageView>
                         <PasswordField fx:id="librarianPassword" prefHeight="45.0" prefWidth="290.0" promptText="Password" />
