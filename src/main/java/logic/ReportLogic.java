@@ -7,7 +7,6 @@ import model.MemberStatusChange;
 import model.Report;
 import model.StatusTracking;
 import model.Subscriber;
-import logic.SubscriberLogic;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -400,7 +399,12 @@ public class ReportLogic {
         SubscriberLogic subLogic = new SubscriberLogic();
         List<Subscriber> subscriberList = subLogic.fetchAllSubscribers();
         for (Subscriber subscriber : subscriberList) {
-            reportLogic.saveMemberStatusChange(new MemberStatusChange(subscriber.getMembershipNumber(), subscriber.getMemberFullName(), subscriber.getMemberFreezeStatus(), subscriber.getFreezeStatusDate()));
+            reportLogic.saveMemberStatusChange(new MemberStatusChange(
+                subscriber.getMembershipNumber(),
+                subscriber.getFullName(),
+                subscriber.getFreezeStatus(),
+                subscriber.getFreezeStatusDate()
+            ));
         }
     }
 
@@ -410,7 +414,7 @@ public class ReportLogic {
         int frozen = 0;
         int notFrozen = 0;
         for (Subscriber sub : subLogic.fetchAllSubscribers()) {
-            if (sub.getMemberFreezeStatus() == FreezeStatus.FROZEN)
+            if (sub.getFreezeStatus() == FreezeStatus.FROZEN)
                 frozen++;
             else
                 notFrozen++;
@@ -425,7 +429,7 @@ public class ReportLogic {
         List<BorrowedBook> borrowedBooks = borrowLogic.importAllBorrowedBooks();
         for (BorrowedBook borrowedBook : borrowedBooks) {
             Subscriber subscriber = subLogic.fetchSubscriberById(borrowedBook.getMembershipNumber());
-            reportLogic.saveBorrowHistory(new BorrowHistory(borrowedBook.getMembershipNumber(), subscriber.getMemberFullName(), borrowedBook.getNameOfBook(), borrowedBook.getBorrowDate(), borrowedBook.getReturnDate(), borrowedBook.getCopyOfBookId()));
+            reportLogic.saveBorrowHistory(new BorrowHistory(borrowedBook.getMembershipNumber(), subscriber.getFullName(), borrowedBook.getNameOfBook(), borrowedBook.getBorrowDate(), borrowedBook.getReturnDate(), borrowedBook.getCopyOfBookId()));
         }
     }
 

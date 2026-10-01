@@ -1,14 +1,8 @@
 package gui.librarian;
 
-import client.ChatClient;
-import gui.librarian.BorrowBook.BorrowBookPageController;
-import gui.librarian.InvoicePage.InvoicePageController;
-import gui.librarian.ManageMember.ManageMemberController;
-import gui.librarian.MemberRegistration.MemberRegistrationPageController;
-import gui.librarian.ReportsPage.ReportsPageController;
-import gui.librarian.ReturnBookPage.ReturnBookPageController;
-import gui.login.LogoutUtil;
-import gui.searchbookpage.SearchPageController;
+import client.SessionManager;
+import gui.auth.LogoutUtil;
+import gui.search.SearchPageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,10 +50,10 @@ public class LibrarianMainPageController {
      */
     private void librarianShowInfo() {
         String librarian_name;
-        if (ChatClient.librarianLogin == null) {
+        if (SessionManager.currentLibrarian == null) {
             librarian_name = "librarian";
         } else {
-            librarian_name = ChatClient.librarianLogin.getFullName();
+            librarian_name = SessionManager.currentLibrarian.getFullName();
         }
         librarianName.setText(librarian_name);
     }
@@ -72,10 +66,10 @@ public class LibrarianMainPageController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LibrarianGUI/LibrarianMainPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/LibrarianMainPage.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/LibrarianGUI/LibrarianMainPage.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/librarian/LibrarianMainPage.css").toExternalForm());
         primaryStage.setTitle("Librarian Dashboard");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/HeaderImage/book_logo.png")));
         primaryStage.setScene(scene);

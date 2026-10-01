@@ -22,6 +22,8 @@ public class Subscriber implements Serializable {
     private String readerCardBarcode;
     private boolean loginStatus;
 
+    public Subscriber(){}
+
     /**
      * Description:
      * Method for constructing the given class (without the freeze date)
@@ -160,7 +162,7 @@ public class Subscriber implements Serializable {
      *
      * @return memberFullName String.class
      */
-    public String getMemberFullName() {
+    public String getFullName() {
         return memberFullName;
     }
 
@@ -170,7 +172,7 @@ public class Subscriber implements Serializable {
      *
      * @param memberFullName String.class
      */
-    public void setMemberFullName(String memberFullName) {
+    public void setFullName(String memberFullName) {
         this.memberFullName = memberFullName;
     }
 
@@ -200,7 +202,7 @@ public class Subscriber implements Serializable {
      *
      * @return password String.class
      */
-    public String getMemberPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -220,7 +222,7 @@ public class Subscriber implements Serializable {
      *
      * @return memberFreezeStatus FreezeStatus.class
      */
-    public FreezeStatus getMemberFreezeStatus() {
+    public FreezeStatus getFreezeStatus() {
         return memberFreezeStatus;
     }
 
@@ -230,7 +232,7 @@ public class Subscriber implements Serializable {
      *
      * @param memberFreezeStatus FreezeStatus.class
      */
-    public void setMemberFreezeStatus(FreezeStatus memberFreezeStatus) {
+    public void setFreezeStatus(FreezeStatus memberFreezeStatus) {
         this.memberFreezeStatus = memberFreezeStatus;
     }
 
@@ -260,7 +262,7 @@ public class Subscriber implements Serializable {
      *
      * @return memberPhoneNumber String.class
      */
-    public String getMemberPhoneNumber() {
+    public String getPhoneNumber() {
         return memberPhoneNumber;
     }
 
@@ -270,7 +272,7 @@ public class Subscriber implements Serializable {
      *
      * @param memberPhoneNumber String.class
      */
-    public void setMemberPhoneNumber(String memberPhoneNumber) {
+    public void setPhoneNumber(String memberPhoneNumber) {
         this.memberPhoneNumber = memberPhoneNumber;
     }
 

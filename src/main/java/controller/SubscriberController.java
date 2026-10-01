@@ -97,10 +97,10 @@ public class SubscriberController {
             if(setStatus){
                 Subscriber sub = subLogic.fetchSubscriberById(id);
                 reportLogic.saveMemberStatusChange(new MemberStatusChange(
-                    sub.getMembershipNumber(), sub.getMemberFullName(), FreezeStatus.fromDbValue(status), freezDate)
+                    sub.getMembershipNumber(), sub.getFullName(), FreezeStatus.fromDbValue(status), freezDate)
                 );
 
-                if(sub.getMemberFreezeStatus() == FreezeStatus.NOT_FROZEN){
+                if(sub.getFreezeStatus() == FreezeStatus.NOT_FROZEN){
                     reportLogic.updateStatusTracking(new StatusTracking(LocalDate.now(), -1, 1));
                 } else{
                     reportLogic.updateStatusTracking(new StatusTracking(LocalDate.now(), 1, -1));

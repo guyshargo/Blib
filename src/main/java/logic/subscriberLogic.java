@@ -25,7 +25,7 @@ public class SubscriberLogic {
         String query = "UPDATE member_db SET memberFreezeStatus = ?, memberFreezeDate = ? WHERE membershipNumber = ?";
         
         Subscriber subscriber = this.fetchSubscriberById(id);
-        if (subscriber != null && subscriber.getMemberFreezeStatus().getDbValue().equals(freezeStatus)) {
+        if (subscriber != null && subscriber.getFreezeStatus().getDbValue().equals(freezeStatus)) {
             return false;
         }
             

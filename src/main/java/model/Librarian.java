@@ -19,6 +19,8 @@ public class Librarian implements Serializable {
     private String emailAddress;
     private boolean loginStatus;
 
+    public Librarian(){}
+
     /**
      * Description:
      * Method for constructing the given class

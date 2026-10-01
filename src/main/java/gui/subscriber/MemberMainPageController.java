@@ -1,9 +1,8 @@
 package gui.subscriber;
 
-import client.ChatClient;
-import gui.login.LogoutUtil;
-import gui.searchbookpage.SearchPageController;
-import gui.subscriber.PersonalInfo.PersonalInfoController;
+import client.SessionManager;
+import gui.auth.LogoutUtil;
+import gui.search.SearchPageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,29 +20,12 @@ import java.io.IOException;
  * Controller class for the member's main page
  */
 public class MemberMainPageController {
-    // Goto extend my borrowed books page button
-    @FXML
-    public Button extendBorrowPageButton;
-
-    // Goto search a book page button
-    @FXML
-    public Button searchBookButton;
-
-    // Goto update and view my personal info page button
-    @FXML
-    public Button viewPersonalInfoButton;
-
-    // Goto order a book page button
-    @FXML
-    public Button orderPageButton;
-
-    // Logout my account button
-    @FXML
-    public Button logoutButton;
-
-    // text to show subscribers name with greetings text
-    @FXML
-    private Label subscriberName;
+    @FXML public Button extendBorrowPageButton;
+    @FXML public Button searchBookButton;
+    @FXML public Button viewPersonalInfoButton;
+    @FXML public Button orderPageButton;
+    @FXML public Button logoutButton;
+    @FXML private Label subscriberName;
 
     /**
      * Description:
@@ -53,10 +35,10 @@ public class MemberMainPageController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MemberGUI/MemberMainPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/MemberMainPage.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/MemberGUI/MemberMainPage.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/subscriber/MemberMainPage.css").toExternalForm());
         primaryStage.setTitle("Subscriber Dashboard");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -71,10 +53,10 @@ public class MemberMainPageController {
      */
     private void subscriberShowInfo() {
         String subname;
-        if (ChatClient.subscriberLogin == null)
+        if (SessionManager.currentSubscriber == null)
             subname = "subscriber";
         else
-            subname = ChatClient.subscriberLogin.getMemberFullName();
+            subname = SessionManager.currentSubscriber.getFullName();
         subscriberName.setText("" + subname);
     }
 
@@ -135,11 +117,11 @@ public class MemberMainPageController {
     @FXML
     private void handleExtendBorrowPageButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MemberGUI/BorrowExtendPage/BorrowExtendPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/borrowextend/BorrowExtendPage.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene.getStylesheets().add(getClass().getResource("/gui/MemberGUI/BorrowExtendPage/BorrowExtendPage.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/gui/subscriber/borrowextend/BorrowExtendPage.css").toExternalForm());
             currentStage.setScene(scene);
             currentStage.setTitle("My borrowed books");
 
@@ -159,11 +141,11 @@ public class MemberMainPageController {
     @FXML
     private void handleOrderPageButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MemberGUI/OrderPage/OrderPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/order/OrderPage.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene.getStylesheets().add(getClass().getResource("/gui/MemberGUI/OrderPage/OrderPage.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/gui/subscriber/order/OrderPage.css").toExternalForm());
             currentStage.setScene(scene);
             currentStage.setTitle("My Orders");
             LogoutUtil.addWindowCloseListener(currentStage); // Register window close listener for logout

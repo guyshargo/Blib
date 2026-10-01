@@ -3,7 +3,6 @@ package logic;
 import model.BorrowedBook;
 import model.OrderedBook;
 import model.Subscriber;
-import logic.SubscriberLogic;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -41,7 +40,7 @@ public class Notification {
                         "<p>This is a friendly reminder to return the book: <strong>%s</strong> by the date: <strong>%s</strong>.</p>" +
                         "<p>Thank you for your cooperation!</p>" +
                         "<p>Best regards,<br/>Blib Library</p>",
-                sendToSub.getMemberFullName(), book.getNameOfBook(), formattedReturnDate);
+                sendToSub.getFullName(), book.getNameOfBook(), formattedReturnDate);
         SendEmail(emailContent, to);
     }
 
@@ -66,7 +65,7 @@ public class Notification {
                         "<p>The book will be reserved for you until <strong>%s</strong>. Please make sure to visit the library and borrow it by this date to secure your reservation.</p>" +
                         "<p>If you have any questions, feel free to contact us.</p>" +
                         "<p>Best regards,<br/>Blib Library</p>",
-                sendToSub.getMemberFullName(), book.getBookName(), formattedExpiryDate);
+                sendToSub.getFullName(), book.getBookName(), formattedExpiryDate);
         // Send the email
         SendEmail(emailContent, to);
     }
@@ -91,7 +90,7 @@ public class Notification {
                         "<p>The book was reserved for you but was not picked up yesterday. As a result, the reservation was canceled on <strong>%s</strong>.</p>" +
                         "<p>We encourage you to place a new order if you still wish to borrow the book.</p>" +
                         "<p>Best regards,<br/>Blib Library</p>",
-                sendToSub.getMemberFullName(), book.getBookName(), formattedCancellationDate);
+                sendToSub.getFullName(), book.getBookName(), formattedCancellationDate);
         // Send the email
         SendEmail(emailContent, to);
     }

@@ -1,10 +1,19 @@
 package gui.bookdetails;
 
-import client.ChatClient;
-import client.ClientUI;
-import gui.login.LogInController;
-import gui.login.LogoutUtil;
-import gui.searchbookpage.SearchPageController;
+import client.SessionManager;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
+import java.net.http.HttpRequest;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import gui.auth.LogInController;
+import gui.auth.LogoutUtil;
+import gui.search.SearchPageController;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -13,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import model.Book;
 import model.BorrowedBook;
 import model.CopyOfBook;
@@ -22,32 +32,15 @@ import model.CopyOfBook;
  * Controller class for showing a book's details
  */
 public class BookDetailsPageController {
-    @FXML
-    private TextField bookName;
-
-    @FXML
-    private TextArea summaryTxt;
-
-    @FXML
-    private TextField BookStatus;
-
-    @FXML
-    private TextField ShelfLocation;
-
-    @FXML
-    private TextField ReturnDate;
-
-    @FXML
-    private Button returnbtn;
-
-    @FXML
-    private Button LogoutBtn;
-
-    @FXML
-    private Button LoginBtn;
-
-    @FXML
-    private Label usernameLoggedIn;
+    @FXML private TextField bookName;
+    @FXML private TextArea summaryTxt;
+    @FXML private TextField BookStatus;
+    @FXML private TextField ShelfLocation;
+    @FXML private TextField ReturnDate;
+    @FXML private Button returnbtn;
+    @FXML private Button LogoutBtn;
+    @FXML private Button LoginBtn;
+    @FXML private Label usernameLoggedIn;
 
 
     /**
@@ -61,10 +54,10 @@ public class BookDetailsPageController {
         LoginBtn.setVisible(false);
         usernameLoggedIn.setText("Guest");
 
-        if (ChatClient.subscriberLogin != null && ChatClient.librarianLogin == null){
-            usernameLoggedIn.setText(ChatClient.subscriberLogin.getMemberFullName());
-        } else if (ChatClient.subscriberLogin == null && ChatClient.librarianLogin != null){
-            usernameLoggedIn.setText(ChatClient.librarianLogin.getFullName());
+        if (SessionManager.currentSubscriber != null && SessionManager.currentLibrarian == null){
+            usernameLoggedIn.setText(SessionManager.currentSubscriber.getFullName());
+        } else if (SessionManager.currentSubscriber == null && SessionManager.currentLibrarian != null){
+            usernameLoggedIn.setText(SessionManager.currentLibrarian.getFullName());
         } else {
             LogoutBtn.setVisible(false);
             LoginBtn.setVisible(true);
@@ -83,45 +76,52 @@ public class BookDetailsPageController {
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
-    /**
-     * Description:
-     * Method for showing a book's soonest available copy based on the book given
-     *
-     * @param selectedBook Book.class
-     */
     public void loadBooks(Book selectedBook) {
-        // Display the book name from the selectedBook object
         bookName.setText(selectedBook.getBookName());
-        String command = "findAvailableCopyOfBook:" + selectedBook.getBookID() + ',' + 0;
-        ClientUI.chat.accept(command);
-        CopyOfBook availableCopy = ChatClient.availableCopy;
         summaryTxt.setText(selectedBook.getBookSummary());
+        
+        int memberId = (SessionManager.currentSubscriber != null) ? SessionManager.currentSubscriber.getMembershipNumber() : 0;
 
-        // Check if any copy of the book is available
-        if (availableCopy != null) {
-            // Display details of the available copy
-            bookName.setText(availableCopy.getCopyOfBookName());
-            BookStatus.setText("Available");
-            ShelfLocation.setText(availableCopy.getShelfLocation());
-            ReturnDate.setText("-"); // No return date since it's available
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
 
-        } else {
-            // Fetch the closest return date if no copies are available
-            command = "ClosestReturnDateBook:" + selectedBook.getBookID();
-            ClientUI.chat.accept(command);
-            BorrowedBook closestReturnBook = ChatClient.closetReturnBook;
-            if (closestReturnBook != null) {
-                bookName.setText(closestReturnBook.getNameOfBook());  // Get the book name from BorrowedBook
-                BookStatus.setText("Borrowed");
-                ShelfLocation.setText("-"); // No shelf location since it's borrowed
-                ReturnDate.setText(closestReturnBook.getReturnDate().toString());
-            } else {
-                // If no borrowed books found, display default message
-                BookStatus.setText("No copies found");
-                ShelfLocation.setText("-");
+            // 1. Fetch available copy
+            HttpRequest availableReq = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/api/borrows/book/" + selectedBook.getBookID() + "/available-copy/subscriber/" + memberId))
+                    .GET().build();
+            
+            HttpResponse<String> availableRes = client.send(availableReq, HttpResponse.BodyHandlers.ofString());
+            
+            if (availableRes.statusCode() == 200) {
+                CopyOfBook availableCopy = mapper.readValue(availableRes.body(), CopyOfBook.class);
+                bookName.setText(availableCopy.getCopyOfBookName());
+                BookStatus.setText("Available");
+                ShelfLocation.setText(availableCopy.getShelfLocation());
                 ReturnDate.setText("-");
-                summaryTxt.setText("-");
+            } else {
+                // 2. Fallback: Fetch closest return date
+                HttpRequest closestReq = HttpRequest.newBuilder()
+                        .uri(URI.create("http://localhost:8080/api/borrows/book/" + selectedBook.getBookID() + "/closest-return-date"))
+                        .GET().build();
+                        
+                HttpResponse<String> closestRes = client.send(closestReq, HttpResponse.BodyHandlers.ofString());
+                
+                if (closestRes.statusCode() == 200) {
+                    BorrowedBook closestReturnBook = mapper.readValue(closestRes.body(), BorrowedBook.class);
+                    bookName.setText(closestReturnBook.getNameOfBook());
+                    BookStatus.setText("Borrowed");
+                    ShelfLocation.setText("-");
+                    ReturnDate.setText(closestReturnBook.getReturnDate().toString());
+                } else {
+                    BookStatus.setText("No copies found");
+                    ShelfLocation.setText("-");
+                    ReturnDate.setText("-");
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

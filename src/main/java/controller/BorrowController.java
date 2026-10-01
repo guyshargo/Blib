@@ -53,7 +53,7 @@ public class BorrowController {
 
             reportLogic.saveBorrowHistory(new BorrowHistory(
                 sub.getMembershipNumber(), 
-                sub.getMemberFullName(), 
+                sub.getFullName(), 
                 book.getNameOfBook(),
                 book.getBorrowDate(), 
                 book.getReturnDate(),
@@ -129,10 +129,10 @@ public class BorrowController {
             reportLogic.updateOriginalReturnDate(subId, copyOfBookId, exBook.getBorrowDate(), exBook.getReturnDate());
         
             Subscriber sub = subLogic.fetchSubscriberById(subId);
-            String notification = "Subscriber " + sub.getMemberFullName() + "has extended the due date of the book \"" +
+            String notification = "Subscriber " + sub.getFullName() + "has extended the due date of the book \"" +
                 exBook.getNameOfBook() + "\". Please notice the change in his Activity List.";
             
-            invoiceLogic.sendMessage(subId, sub.getUserName(), sub.getMemberFullName(), Subject.EXTENSION, notification);
+            invoiceLogic.sendMessage(subId, sub.getUserName(), sub.getFullName(), Subject.EXTENSION, notification);
 
             return ResponseEntity.ok("Borrow successfully extended.");
         }
