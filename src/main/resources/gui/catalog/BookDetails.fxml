@@ -15,11 +15,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="BookDetailsPage" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.bookdetails.BookDetailsPageController">
+<AnchorPane fx:id="BookDetailsPage" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.bookdetails.BookDetailsController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" stylesheets="@BookDetailsPage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="800.0" styleClass="frame" stylesheets="@BookDetailsPage.css" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="800.0" styleClass="frame" stylesheets="@BookDetails.css" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="68.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -44,11 +44,11 @@
             </HBox>
          </top>
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@BookDetailsPage.css" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@BookDetails.css" BorderPane.alignment="CENTER">
                <children>
-                  <VBox alignment="CENTER" prefHeight="402.0" prefWidth="800.0" spacing="25.0" styleClass="text" stylesheets="@BookDetailsPage.css">
+                  <VBox alignment="CENTER" prefHeight="402.0" prefWidth="800.0" spacing="25.0" styleClass="text" stylesheets="@BookDetails.css">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="800.0" spacing="20.0" styleClass="label-text" stylesheets="@BookDetailsPage.css">
+                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="800.0" spacing="20.0" styleClass="label-text" stylesheets="@BookDetails.css">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Name:" wrappingWidth="216.33670043945312">
                                  <font>
@@ -68,7 +68,7 @@
                               <TextField fx:id="BookStatus" editable="false" prefHeight="45.0" prefWidth="330.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="56.0" prefWidth="800.0" spacing="20.0" styleClass="label-text" stylesheets="@BookDetailsPage.css">
+                        <HBox alignment="CENTER" prefHeight="56.0" prefWidth="800.0" spacing="20.0" styleClass="label-text" stylesheets="@BookDetails.css">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Shelf Location:" wrappingWidth="222.33670043945312">
                                  <font>
@@ -104,9 +104,9 @@
             </VBox>
          </center>
          <bottom>
-            <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="800.0" styleClass="frame" stylesheets="@BookDetailsPage.css" BorderPane.alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="800.0" styleClass="frame" stylesheets="@BookDetails.css" BorderPane.alignment="CENTER_LEFT">
                <children>
-                  <Button fx:id="returnbtn" mnemonicParsing="false" onAction="#getReturnButton" prefHeight="35.0" prefWidth="100.0" styleClass="return" stylesheets="@BookDetailsPage.css" text="Return">
+                  <Button fx:id="returnbtn" mnemonicParsing="false" onAction="#getReturnButton" prefHeight="35.0" prefWidth="100.0" styleClass="return" stylesheets="@BookDetails.css" text="Return">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

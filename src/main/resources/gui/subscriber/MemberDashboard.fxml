@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@MemberMainPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.subscriber.MemberMainPageController">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@MemberDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.subscriber.MemberDashboardController">
     
     <!-- TOP HEADER & HORIZONTAL NAVIGATION -->
     <top>

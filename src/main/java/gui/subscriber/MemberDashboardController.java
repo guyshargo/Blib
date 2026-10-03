@@ -2,7 +2,7 @@ package gui.subscriber;
 
 import client.SessionManager;
 import gui.auth.LogoutUtil;
-import gui.search.SearchPageController;
+import gui.catalog.SearchCatalogController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ import java.io.IOException;
  * Description:
  * Controller class for the member's main page
  */
-public class MemberMainPageController {
+public class MemberDashboardController {
     @FXML public Button extendBorrowPageButton;
     @FXML public Button searchBookButton;
     @FXML public Button viewPersonalInfoButton;
@@ -35,10 +35,10 @@ public class MemberMainPageController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/MemberMainPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/MemberDashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/subscriber/MemberMainPage.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/subscriber/MemberDashboard.css").toExternalForm());
         primaryStage.setTitle("Subscriber Dashboard");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -77,7 +77,7 @@ public class MemberMainPageController {
      */
     @FXML
     private void handleSearchBookButton(ActionEvent event) {
-        SearchPageController view = new SearchPageController();
+        SearchCatalogController view = new SearchCatalogController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

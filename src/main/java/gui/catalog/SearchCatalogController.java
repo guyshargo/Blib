@@ -1,11 +1,10 @@
-package gui.search;
+package gui.catalog;
 
 import client.SessionManager;
-import gui.auth.LoginController;
+import gui.auth.MainLoginController;
 import gui.auth.LogoutUtil;
-import gui.bookdetails.BookDetailsPageController;
-import gui.librarian.LibrarianMainPageController;
-import gui.subscriber.MemberMainPageController;
+import gui.librarian.LibrarianDashboardController;
+import gui.subscriber.MemberDashboardController;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -36,7 +35,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 
-public class SearchPageController {
+public class SearchCatalogController {
     @FXML private TextField SearchBookByName;
     @FXML private TextField SearchBookBySub;
     @FXML private TextField SearchBookByText;
@@ -137,7 +136,7 @@ public class SearchPageController {
             Pane root = loader.load();
 
             // Pass the selected subscriber to the update frame controller
-            BookDetailsPageController controller = loader.getController();
+            BookDetailsController controller = loader.getController();
             controller.loadBooks(selectedBook);
 
             // Set up the new stage
@@ -251,11 +250,11 @@ public class SearchPageController {
     @FXML
     private void handleReturnAction(ActionEvent event) throws Exception {
         if(SessionManager.currentLibrarian!=null){
-            LibrarianMainPageController view = new LibrarianMainPageController();
+            LibrarianDashboardController view = new LibrarianDashboardController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         }
         else if(SessionManager.currentSubscriber!=null){
-            MemberMainPageController view = new MemberMainPageController();
+            MemberDashboardController view = new MemberDashboardController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         }
     }
@@ -284,7 +283,7 @@ public class SearchPageController {
      */
     @FXML
     void getLoginButton(ActionEvent event) throws Exception {
-        LoginController view = new LoginController();
+        MainLoginController view = new MainLoginController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }

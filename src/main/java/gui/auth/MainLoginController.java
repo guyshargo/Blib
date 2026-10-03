@@ -1,6 +1,6 @@
 package gui.auth;
 
-import gui.search.SearchPageController;
+import gui.catalog.SearchCatalogController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * Description:
  * Controller class for the login window
  */
-public class LoginController {
+public class MainLoginController {
 
     @FXML private Button btnLibrarian;
     @FXML private Button btnMember;
@@ -92,7 +92,7 @@ public class LoginController {
      * @throws Exception (when loading the scene)
      */
     public void getGuestBtn(ActionEvent event) throws Exception {
-        SearchPageController view = new SearchPageController();
+        SearchCatalogController view = new SearchCatalogController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }

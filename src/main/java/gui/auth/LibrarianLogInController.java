@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import gui.subscriber.MemberMainPageController;
+import gui.subscriber.MemberDashboardController;
 import model.Librarian;
 
 import javafx.event.ActionEvent;
@@ -61,7 +61,7 @@ public class LibrarianLoginController {
      * @throws Exception (when loading the scene)
      */
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LoginController view = new LoginController();
+        MainLoginController view = new MainLoginController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
@@ -135,7 +135,7 @@ public class LibrarianLoginController {
                     .build();
             client.send(statusRequest, HttpResponse.BodyHandlers.ofString());
 
-            MemberMainPageController view = new MemberMainPageController();
+            MemberDashboardController view = new MemberDashboardController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
 
         } catch (Exception e) {

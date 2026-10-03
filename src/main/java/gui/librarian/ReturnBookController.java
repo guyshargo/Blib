@@ -37,7 +37,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
  * Description:
  * Controller class for the librarian to return a member's borrowed book
  */
-public class ReturnBookPageController {
+public class ReturnBookController {
     @FXML private TextField memberNameTxt;
     @FXML private Label extendLabel1;
     @FXML private Label extendLabel11;
@@ -224,7 +224,7 @@ public class ReturnBookPageController {
 
 
     public void handleReturnAction(ActionEvent event) throws Exception {
-        LibrarianMainPageController view = new LibrarianMainPageController();
+        LibrarianDashboardController view = new LibrarianDashboardController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

@@ -2,7 +2,7 @@ package gui.librarian;
 
 import client.SessionManager;
 import gui.auth.LogoutUtil;
-import gui.search.SearchPageController;
+import gui.catalog.SearchCatalogController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,7 @@ import javafx.scene.control.Button;
  * Description:
  * Controller class for the librarian main page
  */
-public class LibrarianMainPageController {
+public class LibrarianDashboardController {
 
     @FXML
     private Button searchBookButton;
@@ -95,7 +95,7 @@ public class LibrarianMainPageController {
      */
     @FXML
     private void handleSearchBookButton(ActionEvent event) {
-        SearchPageController view = new SearchPageController();
+        SearchCatalogController view = new SearchCatalogController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
@@ -108,7 +108,7 @@ public class LibrarianMainPageController {
     @FXML
     private void RegisterMemberButton(ActionEvent event) {
         try {
-            MemberRegistrationPageController view = new MemberRegistrationPageController();
+            RegisterMemberController view = new RegisterMemberController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +141,7 @@ public class LibrarianMainPageController {
     private void handleBorrowPageButton(ActionEvent event) {
 
         try {
-            BorrowBookPageController view = new BorrowBookPageController();
+            BorrowBookController view = new BorrowBookController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,7 +172,7 @@ public class LibrarianMainPageController {
     @FXML
     private void handleReturnPageButton(ActionEvent event) {
         try {
-            ReturnBookPageController view = new ReturnBookPageController();
+            ReturnBookController view = new ReturnBookController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,7 +188,7 @@ public class LibrarianMainPageController {
     @FXML
     private void handleReportPageButton(ActionEvent event) {
         try {
-            ReportsPageController view = new ReportsPageController();
+            ReportsController view = new ReportsController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         } catch (Exception e) {
             e.printStackTrace();
@@ -204,7 +204,7 @@ public class LibrarianMainPageController {
     @FXML
     private void handleInvoiceBtn(ActionEvent event) {
         try {
-            InvoicePageController view = new InvoicePageController();
+            InvoiceController view = new InvoiceController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         } catch (Exception e) {
             e.printStackTrace();

@@ -14,12 +14,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@MemberRegistrationPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.MemberRegistrationPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@RegisterMember.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.RegisterMemberController">
 
     <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <top>
-              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@MemberRegistrationPage.css" BorderPane.alignment="CENTER">
+              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@RegisterMember.css" BorderPane.alignment="CENTER">
                   <children>
                       <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                           <image>
@@ -49,7 +49,7 @@
                               </ImageView>
                           </graphic>
                       </Label>
-                      <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getLogoutButton" prefHeight="45.0" prefWidth="94.0" style="-fx-text-fill: white; -fx-font-weight: bold;" stylesheets="@MemberRegistrationPage.css" text="Logout">
+                      <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getLogoutButton" prefHeight="45.0" prefWidth="94.0" style="-fx-text-fill: white; -fx-font-weight: bold;" stylesheets="@RegisterMember.css" text="Logout">
                           <HBox.margin>
                               <Insets />
                           </HBox.margin>

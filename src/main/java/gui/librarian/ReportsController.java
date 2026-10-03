@@ -39,7 +39,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 
-public class ReportsPageController {
+public class ReportsController {
     @FXML private ComboBox<Month> monthComboBox;
     @FXML private ComboBox<String> yearComboBox;
     @FXML private ComboBox<String> reportTypeComboBox;
@@ -404,7 +404,7 @@ public class ReportsPageController {
     @FXML
     public void handleReturn(ActionEvent event) {
         try {
-            LibrarianMainPageController view = new LibrarianMainPageController();
+            LibrarianDashboardController view = new LibrarianDashboardController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         } catch (Exception e) {
             e.printStackTrace();

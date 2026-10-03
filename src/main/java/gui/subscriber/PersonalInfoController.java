@@ -212,7 +212,7 @@ public class PersonalInfoController {
 
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        MemberMainPageController view = new MemberMainPageController();
+        MemberDashboardController view = new MemberDashboardController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

@@ -30,7 +30,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 
-public class OrderPageController {
+public class OrderBookController {
     private final ObservableList<OrderedBook> orderedBooks = FXCollections.observableArrayList();
     private Book foundBook = null;
     private OrderedBook cancelOrder = null;
@@ -315,7 +315,7 @@ public class OrderPageController {
 
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        MemberMainPageController view = new MemberMainPageController();
+        MemberDashboardController view = new MemberDashboardController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

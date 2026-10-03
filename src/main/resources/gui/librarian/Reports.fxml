@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@ReportsPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.ReportsPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@Reports.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.ReportsPageController">
     <children>
         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
-                <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="894.0" styleClass="frame" stylesheets="@ReportsPage.css" BorderPane.alignment="CENTER">
+                <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="894.0" styleClass="frame" stylesheets="@Reports.css" BorderPane.alignment="CENTER">
                     <children>
                         <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                             <image>
@@ -60,7 +60,7 @@
                                 <ComboBox fx:id="monthComboBox" prefHeight="35.0" prefWidth="150.0" promptText="Select Month" />
                                 <ComboBox fx:id="yearComboBox" prefHeight="35.0" prefWidth="146.0" promptText="Select Year" />
                                 <ComboBox fx:id="reportTypeComboBox" prefHeight="35.0" prefWidth="220.0" promptText="Select Report Type" />
-                                <Button onAction="#handleGenerateReport" prefHeight="32.0" prefWidth="142.0" styleClass="menu-button" stylesheets="@ReportsPage.css" text="Generate Report" HBox.hgrow="ALWAYS" />
+                                <Button onAction="#handleGenerateReport" prefHeight="32.0" prefWidth="142.0" styleClass="menu-button" stylesheets="@Reports.css" text="Generate Report" HBox.hgrow="ALWAYS" />
                                 <StackPane.margin>
                                     <Insets left="10.0" right="10.0" top="10.0" />
                                 </StackPane.margin>

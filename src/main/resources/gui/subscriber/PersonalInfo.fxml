@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@PersonalInfoPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.subscriber.PersonalInfoController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@PersonalInfo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.subscriber.PersonalInfoController">
    <children>
       <BorderPane layoutX="205.0" layoutY="-15.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@PersonalInfoPage.css" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@PersonalInfo.css" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="62.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
@@ -39,7 +39,7 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="subscriberName" alignment="BASELINE_LEFT" prefHeight="60.0" prefWidth="240.0" stylesheets="@PersonalInfoPage.css" text="member name" HBox.hgrow="ALWAYS">
+                  <Label fx:id="subscriberName" alignment="BASELINE_LEFT" prefHeight="60.0" prefWidth="240.0" stylesheets="@PersonalInfo.css" text="member name" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -56,7 +56,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="35.0" prefWidth="75.0" styleClass="logout-button" stylesheets="@PersonalInfoPage.css" text="Logout" textAlignment="CENTER">
+                  <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="35.0" prefWidth="75.0" styleClass="logout-button" stylesheets="@PersonalInfo.css" text="Logout" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -65,7 +65,7 @@
             </HBox>
          </top>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@PersonalInfoPage.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@PersonalInfo.css" BorderPane.alignment="CENTER">
                <children>
                   <VBox prefHeight="86.0" prefWidth="800.0">
                      <children>
@@ -73,7 +73,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="63.0" prefWidth="377.0" spacing="6.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="23.0" prefWidth="162.0" styleClass="label-text" stylesheets="@PersonalInfoPage.css" text="Membership Number:">
+                                    <Label alignment="CENTER" prefHeight="23.0" prefWidth="162.0" styleClass="label-text" stylesheets="@PersonalInfo.css" text="Membership Number:">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -83,7 +83,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="446.0" spacing="10.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="30.0" prefWidth="159.0" styleClass="label-text" stylesheets="@PersonalInfoPage.css" text="Member freez status:">
+                                    <Label alignment="CENTER" prefHeight="30.0" prefWidth="159.0" styleClass="label-text" stylesheets="@PersonalInfo.css" text="Member freez status:">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
@@ -106,7 +106,7 @@
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="31.0" prefWidth="379.0">
                                        <children>
-                                          <Label prefHeight="23.0" prefWidth="130.0" styleClass="label-text" stylesheets="@PersonalInfoPage.css" text="Phone Number:">
+                                          <Label prefHeight="23.0" prefWidth="130.0" styleClass="label-text" stylesheets="@PersonalInfo.css" text="Phone Number:">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
@@ -121,7 +121,7 @@
                                           </TextField>
                                        </children>
                                     </HBox>
-                                    <Button fx:id="btnUpdatePhoneNumber" alignment="CENTER" contentDisplay="BOTTOM" onAction="#handleUpdatePhoneNumberBtn" prefHeight="30.0" prefWidth="184.0" styleClass="menu-button" stylesheets="@PersonalInfoPage.css" text="Update Phone Number">
+                                    <Button fx:id="btnUpdatePhoneNumber" alignment="CENTER" contentDisplay="BOTTOM" onAction="#handleUpdatePhoneNumberBtn" prefHeight="30.0" prefWidth="184.0" styleClass="menu-button" stylesheets="@PersonalInfo.css" text="Update Phone Number">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -138,7 +138,7 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="382.0" spacing="10.0">
                                        <children>
-                                          <Label prefHeight="23.0" prefWidth="122.0" styleClass="label-text" stylesheets="@PersonalInfoPage.css" text="Email Address:">
+                                          <Label prefHeight="23.0" prefWidth="122.0" styleClass="label-text" stylesheets="@PersonalInfo.css" text="Email Address:">
                                              <font>
                                                 <Font name="Assistant Bold" size="12.0" />
                                              </font>
@@ -150,7 +150,7 @@
                                           </TextField>
                                        </children>
                                     </HBox>
-                                    <Button fx:id="btnUpdateEmail" alignment="CENTER" contentDisplay="BOTTOM" onAction="#handleUpdateEmailBtn" prefHeight="30.0" prefWidth="150.0" styleClass="menu-button" stylesheets="@PersonalInfoPage.css" text="Update Email">
+                                    <Button fx:id="btnUpdateEmail" alignment="CENTER" contentDisplay="BOTTOM" onAction="#handleUpdateEmailBtn" prefHeight="30.0" prefWidth="150.0" styleClass="menu-button" stylesheets="@PersonalInfo.css" text="Update Email">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -167,14 +167,14 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox stylesheets="@PersonalInfoPage.css">
+                  <VBox stylesheets="@PersonalInfo.css">
                      <children>
-                        <Label styleClass="label-text" stylesheets="@PersonalInfoPage.css" text="Activities:">
+                        <Label styleClass="label-text" stylesheets="@PersonalInfo.css" text="Activities:">
                            <VBox.margin>
                               <Insets left="17.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="listViewActivities" prefHeight="274.0" prefWidth="779.0" styleClass="table-row-cell" stylesheets="@PersonalInfoPage.css">
+                        <ListView fx:id="listViewActivities" prefHeight="274.0" prefWidth="779.0" styleClass="table-row-cell" stylesheets="@PersonalInfo.css">
                            <VBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
@@ -185,9 +185,9 @@
             </VBox>
          </center>
          <bottom>
-            <HBox prefHeight="50.0" prefWidth="800.0" styleClass="frame" stylesheets="@PersonalInfoPage.css" BorderPane.alignment="CENTER">
+            <HBox prefHeight="50.0" prefWidth="800.0" styleClass="frame" stylesheets="@PersonalInfo.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnReturn" onAction="#getReturnBtn" prefHeight="26.0" prefWidth="73.0" styleClass="return" stylesheets="@PersonalInfoPage.css" text="Return">
+                  <Button fx:id="btnReturn" onAction="#getReturnBtn" prefHeight="26.0" prefWidth="73.0" styleClass="return" stylesheets="@PersonalInfo.css" text="Return">
                      <HBox.margin>
                         <Insets left="20.0" top="7.0" />
                      </HBox.margin>

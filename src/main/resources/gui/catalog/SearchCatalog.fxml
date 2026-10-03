@@ -15,10 +15,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@searchPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.search.SearchPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@SearchCatalog.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.search.SearchCatalogController">
    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
-         <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="685.0" styleClass="frame" stylesheets="@searchPage.css" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="685.0" styleClass="frame" stylesheets="@SearchCatalog.css" BorderPane.alignment="CENTER">
             <children>
                <ImageView fitHeight="59.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -46,9 +46,9 @@
          </HBox>
       </top>
       <bottom>
-         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="800.0" styleClass="frame" stylesheets="@searchPage.css" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="800.0" styleClass="frame" stylesheets="@SearchCatalog.css" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="returnButton" alignment="CENTER" onAction="#handleReturnAction" prefHeight="18.0" prefWidth="73.0" stylesheets="@searchPage.css" text="Return">
+                <Button fx:id="returnButton" alignment="CENTER" onAction="#handleReturnAction" prefHeight="18.0" prefWidth="73.0" stylesheets="@SearchCatalog.css" text="Return">
                   <HBox.margin>
                      <Insets left="7.0" />
                   </HBox.margin>
@@ -57,13 +57,13 @@
          </HBox>
       </bottom>
       <center>
-         <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@searchPage.css" BorderPane.alignment="CENTER">
+         <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@SearchCatalog.css" BorderPane.alignment="CENTER">
             <children>
                <VBox prefHeight="505.0" prefWidth="800.0">
                   <children>
                      <VBox alignment="CENTER" prefHeight="220.0" prefWidth="635.0" spacing="5.0" VBox.vgrow="ALWAYS">
                         <children>
-                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="800.0" stylesheets="@searchPage.css">
+                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="800.0" stylesheets="@SearchCatalog.css">
                               <children>
                                   <Text fx:id="resultText" styleClass="label-text" text="Book Name:" wrappingWidth="155.60002441406243" />
                                   <TextField fx:id="SearchBookByName" prefHeight="35.0" prefWidth="280.0" promptText="Enter Book Name " styleClass="text-field" />

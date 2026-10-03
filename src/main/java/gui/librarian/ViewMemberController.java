@@ -34,7 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 
-public class ViewMemberPageController {
+public class ViewMemberController {
     @FXML private TextField txtFullName;
     @FXML private TextField txtEmail;
     @FXML private TextField txtMembershipNumber;

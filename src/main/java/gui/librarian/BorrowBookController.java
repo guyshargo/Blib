@@ -33,7 +33,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 
-public class BorrowBookPageController {
+public class BorrowBookController {
     @FXML private TextField bookIdField;
     @FXML private TextField memberFullNameField;
     @FXML private TextField membershipNumberField;
@@ -128,7 +128,7 @@ public class BorrowBookPageController {
 
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LibrarianMainPageController view = new LibrarianMainPageController();
+        LibrarianDashboardController view = new LibrarianDashboardController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

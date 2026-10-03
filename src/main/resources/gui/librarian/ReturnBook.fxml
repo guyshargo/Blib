@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@ReturnPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.ReturnBookPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@ReturnBook.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.ReturnBookController">
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" stylesheets="@ReturnPage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" stylesheets="@ReturnBook.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <top>
-              <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="758.0" styleClass="frame" stylesheets="@ReturnPage.css" BorderPane.alignment="CENTER">
+              <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="758.0" styleClass="frame" stylesheets="@ReturnBook.css" BorderPane.alignment="CENTER">
                   <children>
                       <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                           <image>

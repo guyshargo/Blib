@@ -17,7 +17,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.BorrowBookPageController">
    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
        <top>
-           <HBox alignment="CENTER" prefHeight="62.0" prefWidth="680.0" styleClass="frame" stylesheets="@BorrowBookPage.css" BorderPane.alignment="CENTER_LEFT">
+           <HBox alignment="CENTER" prefHeight="62.0" prefWidth="680.0" styleClass="frame" stylesheets="@BorrowBook.css" BorderPane.alignment="CENTER_LEFT">
                <children>
                    <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                        <image>
@@ -47,7 +47,7 @@
                            </ImageView>
                        </graphic>
                    </Label>
-                   <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getLogoutButton" prefHeight="34.0" prefWidth="84.0" styleClass="logout-button" stylesheets="@BorrowBookPage.css" text="logout">
+                   <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getLogoutButton" prefHeight="34.0" prefWidth="84.0" styleClass="logout-button" stylesheets="@BorrowBook.css" text="logout">
                        <HBox.margin>
                            <Insets />
                        </HBox.margin>
@@ -56,7 +56,7 @@
            </HBox>
        </top>
       <center>
-         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@BorrowBookPage.css" BorderPane.alignment="CENTER">
+         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@BorrowBook.css" BorderPane.alignment="CENTER">
             <children>
             
                <Label alignment="CENTER" prefHeight="53.0" prefWidth="415.0" style="-fx-font-size: 23;" styleClass="text-title" text="Library Member Information">
@@ -64,7 +64,7 @@
                      <Insets top="15.0" />
                   </VBox.margin>
                </Label>
-               <VBox alignment="CENTER" prefHeight="162.0" prefWidth="800.0" spacing="30.0" styleClass="text-elem" stylesheets="@BorrowBookPage.css">
+               <VBox alignment="CENTER" prefHeight="162.0" prefWidth="800.0" spacing="30.0" styleClass="text-elem" stylesheets="@BorrowBook.css">
                   <children>
                      <HBox alignment="CENTER" spacing="20.0">
                         <children>
@@ -95,7 +95,7 @@
                      <Button fx:id="findMemberButton" onAction="#handleFindMember" prefHeight="44.0" prefWidth="200.0" styleClass="menu-button" text="Find Member" />
                   </children>
                </VBox>
-               <VBox alignment="CENTER" prefHeight="218.0" prefWidth="800.0" spacing="10.0" styleClass="text-elem" stylesheets="@BorrowBookPage.css">
+               <VBox alignment="CENTER" prefHeight="218.0" prefWidth="800.0" spacing="10.0" styleClass="text-elem" stylesheets="@BorrowBook.css">
                   <children>
                      <Line endX="100.0" startX="-697.752685546875" startY="0.5929178595542908" />
                   
@@ -156,7 +156,7 @@
          </VBox>
       </center>
       <bottom>
-         <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="800.0" styleClass="frame" stylesheets="@BorrowBookPage.css" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="800.0" styleClass="frame" stylesheets="@BorrowBook.css" BorderPane.alignment="CENTER">
             <children>
             
                 <Button fx:id="returnBtn" alignment="CENTER" mnemonicParsing="false" onAction="#getReturnBtn" prefHeight="34.0" prefWidth="99.0" styleClass="return" text="Return">

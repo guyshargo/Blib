@@ -29,7 +29,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 
-public class BorrowExtendPageController {
+public class ExtendBorrowController {
     private final ObservableList<BorrowedBook> borrowedBooks = FXCollections.observableArrayList();
 
     @FXML private TableView<BorrowedBook> borrowedTable;
@@ -268,7 +268,7 @@ public class BorrowExtendPageController {
 
     
     public void getReturnBtn(ActionEvent event) throws Exception {
-        MemberMainPageController view = new MemberMainPageController();
+        MemberDashboardController view = new MemberDashboardController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

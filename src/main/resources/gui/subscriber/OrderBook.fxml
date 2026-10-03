@@ -15,14 +15,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@OrderPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.subscriber.OrderPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@OrderBook.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.subscriber.OrderPageController">
    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
-         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@OrderPage.css" BorderPane.alignment="CENTER">
+         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@OrderBook.css" BorderPane.alignment="CENTER">
             <children>
-               <VBox alignment="CENTER" prefHeight="45.0" prefWidth="800.0" styleClass="root" stylesheets="@OrderPage.css">
+               <VBox alignment="CENTER" prefHeight="45.0" prefWidth="800.0" styleClass="root" stylesheets="@OrderBook.css">
                   <children>
-                     <Label styleClass="label-text" stylesheets="@OrderPage.css" text="My Orders">
+                     <Label styleClass="label-text" stylesheets="@OrderBook.css" text="My Orders">
                         <font>
                            <Font size="20.0" />
                         </font>
@@ -31,9 +31,9 @@
                </VBox>
                <VBox alignment="CENTER" prefHeight="224.0" prefWidth="800.0">
                   <children>
-                     <HBox alignment="CENTER" prefHeight="158.0" prefWidth="800.0" stylesheets="@OrderPage.css">
+                     <HBox alignment="CENTER" prefHeight="158.0" prefWidth="800.0" stylesheets="@OrderBook.css">
                         <children>
-                           <TableView fx:id="orderTable" prefHeight="142.0" prefWidth="610.0" styleClass="table-row-cell" stylesheets="@OrderPage.css">
+                           <TableView fx:id="orderTable" prefHeight="142.0" prefWidth="610.0" styleClass="table-row-cell" stylesheets="@OrderBook.css">
                               <columns>
                                  <TableColumn fx:id="bookIDColumn" text="BookID" />
                                  <TableColumn fx:id="bookNameColumn" text="Name" />
@@ -44,18 +44,18 @@
                               </columnResizePolicy>
                            </TableView>
                         </children></HBox>
-                     <HBox alignment="CENTER" prefHeight="50.0" prefWidth="800.0" spacing="10.0" styleClass="root" stylesheets="@OrderPage.css">
+                     <HBox alignment="CENTER" prefHeight="50.0" prefWidth="800.0" spacing="10.0" styleClass="root" stylesheets="@OrderBook.css">
                         <children>
-                           <Button mnemonicParsing="false" onAction="#cancelOrderedBook" prefHeight="30.0" prefWidth="153.0" styleClass="menu-button" stylesheets="@OrderPage.css" text="Cancel order" />
-                           <Button mnemonicParsing="false" onAction="#handleReorderClick" prefHeight="30.0" prefWidth="152.0" styleClass="menu-button" stylesheets="@OrderPage.css" text="Re-order book" />
+                           <Button mnemonicParsing="false" onAction="#cancelOrderedBook" prefHeight="30.0" prefWidth="153.0" styleClass="menu-button" stylesheets="@OrderBook.css" text="Cancel order" />
+                           <Button mnemonicParsing="false" onAction="#handleReorderClick" prefHeight="30.0" prefWidth="152.0" styleClass="menu-button" stylesheets="@OrderBook.css" text="Re-order book" />
                         </children>
                      </HBox>
                      <Line endX="100.0" startX="-693.431640625" startY="0.17157280445098877" />
                   </children>
                </VBox>
-               <VBox alignment="TOP_CENTER" prefHeight="228.0" prefWidth="800.0" styleClass="root" stylesheets="@OrderPage.css">
+               <VBox alignment="TOP_CENTER" prefHeight="228.0" prefWidth="800.0" styleClass="root" stylesheets="@OrderBook.css">
                   <children>
-                     <Label alignment="TOP_CENTER" prefHeight="35.0" prefWidth="442.0" styleClass="label-text" stylesheets="@OrderPage.css" text="Order a book now!">
+                     <Label alignment="TOP_CENTER" prefHeight="35.0" prefWidth="442.0" styleClass="label-text" stylesheets="@OrderBook.css" text="Order a book now!">
                         <font>
                            <Font size="30.0" />
                         </font>
@@ -86,14 +86,14 @@
                                        </HBox>
                                     </children>
                                  </VBox>
-                                 <Button mnemonicParsing="false" onAction="#searchOrderBook" prefHeight="30.0" prefWidth="147.0" styleClass="menu-button" stylesheets="@OrderPage.css" text="Search book" />
+                                 <Button mnemonicParsing="false" onAction="#searchOrderBook" prefHeight="30.0" prefWidth="147.0" styleClass="menu-button" stylesheets="@OrderBook.css" text="Search book" />
                               </children>
                            </HBox>
                            <VBox prefHeight="104.0" prefWidth="800.0">
                               <children>
                                  <VBox alignment="TOP_CENTER" prefHeight="98.0" prefWidth="800.0">
                                     <children>
-                                       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="800.0" stylesheets="@OrderPage.css">
+                                       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="800.0" stylesheets="@OrderBook.css">
                                           <children>
                                              <Label fx:id="foundLabel2" style="-fx-font-weight: bold;" styleClass="label-text" text="Found book:">
                                                 <font>
@@ -107,7 +107,7 @@
                                              </Label>
                                           </children>
                                        </HBox>
-                                       <Button fx:id="orderBtn" mnemonicParsing="false" onAction="#orderBook" prefHeight="31.0" prefWidth="136.0" styleClass="menu-button" stylesheets="@OrderPage.css" text="Order book">
+                                       <Button fx:id="orderBtn" mnemonicParsing="false" onAction="#orderBook" prefHeight="31.0" prefWidth="136.0" styleClass="menu-button" stylesheets="@OrderBook.css" text="Order book">
                                           <VBox.margin>
                                              <Insets top="15.0" />
                                           </VBox.margin></Button>
@@ -122,7 +122,7 @@
          </VBox>
       </center>
       <top>
-         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@OrderPage.css" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@OrderBook.css" BorderPane.alignment="CENTER">
             <children>
                <ImageView fitHeight="62.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                   <image>
@@ -142,7 +142,7 @@
                      <Insets />
                   </HBox.margin>
                </Label>
-               <Label fx:id="subscriberName" alignment="BASELINE_LEFT" prefHeight="60.0" prefWidth="240.0" stylesheets="@OrderPage.css" text=" member name" HBox.hgrow="ALWAYS">
+               <Label fx:id="subscriberName" alignment="BASELINE_LEFT" prefHeight="60.0" prefWidth="240.0" stylesheets="@OrderBook.css" text=" member name" HBox.hgrow="ALWAYS">
                   <HBox.margin>
                      <Insets />
                   </HBox.margin>
@@ -159,7 +159,7 @@
                      </ImageView>
                   </graphic>
                </Label>
-               <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="35.0" prefWidth="75.0" styleClass="logout-button" stylesheets="@OrderPage.css" text="Logout" textAlignment="CENTER">
+               <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="35.0" prefWidth="75.0" styleClass="logout-button" stylesheets="@OrderBook.css" text="Logout" textAlignment="CENTER">
                   <HBox.margin>
                      <Insets />
                   </HBox.margin>
@@ -168,9 +168,9 @@
          </HBox>
       </top>
       <bottom>
-         <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="800.0" styleClass="frame" stylesheets="@OrderPage.css" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="800.0" styleClass="frame" stylesheets="@OrderBook.css" BorderPane.alignment="CENTER">
             <children>
-               <Button fx:id="returnBtn" alignment="CENTER" mnemonicParsing="false" onAction="#getReturnBtn" prefHeight="26.0" prefWidth="65.0" stylesheets="OrderPage.css" text="Return">
+               <Button fx:id="returnBtn" alignment="CENTER" mnemonicParsing="false" onAction="#getReturnBtn" prefHeight="26.0" prefWidth="65.0" stylesheets="OrderBook.css" text="Return">
                   <HBox.margin>
                      <Insets left="8.0" />
                   </HBox.margin></Button>

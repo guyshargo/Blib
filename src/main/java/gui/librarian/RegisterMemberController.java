@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  * Description:
  * Controller class for the librarian to register a new member into the system
  */
-public class MemberRegistrationPageController {
+public class RegisterMemberController {
     @FXML
     private TextField idField;
 
@@ -167,7 +167,7 @@ public class MemberRegistrationPageController {
     @FXML
     public void handleReturn(ActionEvent event) {
         try {
-            LibrarianMainPageController view = new LibrarianMainPageController();
+            LibrarianDashboardController view = new LibrarianDashboardController();
             view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
         } catch (Exception e) {
             e.printStackTrace();

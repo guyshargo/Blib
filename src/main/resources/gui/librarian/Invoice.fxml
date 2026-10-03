@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@InvoicePage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.InvoicePageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@Invoice.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.InvoiceController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@InvoicePage.css" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@Invoice.css" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
@@ -49,7 +49,7 @@
                         </ImageView>
                      </graphic>
                   </Label>
-                  <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getLogoutButton" prefHeight="35.0" prefWidth="80.0" styleClass="logout-button" stylesheets="@InvoicePage.css" text="Logout">
+                  <Button fx:id="logoutButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#getLogoutButton" prefHeight="35.0" prefWidth="80.0" styleClass="logout-button" stylesheets="@Invoice.css" text="Logout">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -72,7 +72,7 @@
             </HBox>
          </bottom>
       </BorderPane>
-      <TableView fx:id="invoiceTable" layoutX="75.0" layoutY="75.0" prefHeight="184.0" prefWidth="669.0" stylesheets="@InvoicePage.css">
+      <TableView fx:id="invoiceTable" layoutX="75.0" layoutY="75.0" prefHeight="184.0" prefWidth="669.0" stylesheets="@InvoiceInvoicePage.css">
          <columns>
             <TableColumn fx:id="subjectColumn" text="Subject" />
             <TableColumn fx:id="usernameColumn" text="Username" />

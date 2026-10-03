@@ -101,7 +101,7 @@ public class ManageMemberController {
             Pane root = loader.load();
 
             // Pass the selected subscriber to the update frame controller
-            ViewMemberPageController controller = loader.getController();
+            ViewMemberController controller = loader.getController();
             controller.loadSubscriber(selectedSubscriber);
 
             // Set up the new stage
@@ -166,7 +166,7 @@ public class ManageMemberController {
     }
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LibrarianMainPageController view = new LibrarianMainPageController();
+        LibrarianDashboardController view = new LibrarianDashboardController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

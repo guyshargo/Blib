@@ -1,4 +1,4 @@
-package gui.bookdetails;
+package gui.catalog;
 
 import client.SessionManager;
 
@@ -10,10 +10,8 @@ import java.net.http.HttpRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import gui.auth.LoginController;
+import gui.auth.MainLoginController;
 import gui.auth.LogoutUtil;
-import gui.search.SearchPageController;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -31,7 +29,7 @@ import model.CopyOfBook;
  * Description:
  * Controller class for showing a book's details
  */
-public class BookDetailsPageController {
+public class BookDetailsController {
     @FXML private TextField bookName;
     @FXML private TextArea summaryTxt;
     @FXML private TextField BookStatus;
@@ -72,7 +70,7 @@ public class BookDetailsPageController {
      */
     @FXML
     void getReturnButton(ActionEvent event) {
-        SearchPageController view = new SearchPageController();
+        SearchCatalogController view = new SearchCatalogController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
@@ -148,7 +146,7 @@ public class BookDetailsPageController {
      */
     @FXML
     void getLoginButton(ActionEvent event) throws Exception {
-        LoginController view = new LoginController();
+        MainLoginController view = new MainLoginController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }

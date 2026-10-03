@@ -11,10 +11,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@LibrarianMainPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.LibrarianMainPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@LibrarianDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.librarian.LibrarianDashboardController">
    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
        <top>
-           <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@LibrarianMainPage.css" BorderPane.alignment="CENTER">
+           <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="800.0" styleClass="frame" stylesheets="@LibrarianDashboard.css" BorderPane.alignment="CENTER">
                <children>
                    <ImageView fitHeight="62.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                        <image>
@@ -60,7 +60,7 @@
                      </ImageView>
                   </graphic>
                </Button>
-               <Button fx:id="logoutButton1" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleLogOutButton" prefHeight="37.0" prefWidth="103.0" styleClass="logout-button" stylesheets="@LibrarianMainPage.css" text="Logout">
+               <Button fx:id="logoutButton1" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleLogOutButton" prefHeight="37.0" prefWidth="103.0" styleClass="logout-button" stylesheets="@LibrarianDashboard.css" text="Logout">
                   <HBox.margin>
                      <Insets left="15.0" />
                   </HBox.margin></Button>
@@ -89,8 +89,8 @@
                       </HBox>
                   
                       <!-- Borrow, Return, and Report Buttons (bottom row) -->
-                      <HBox alignment="CENTER" prefHeight="117.0" prefWidth="800.0" spacing="20.0" stylesheets="@LibrarianMainPage.css">
-                          <Button fx:id="borrowPageButton" onAction="#handleBorrowPageButton" prefHeight="44.0" prefWidth="148.0" styleClass="menu-button" stylesheets="@LibrarianMainPage.css" text="Borrow Page" />
+                      <HBox alignment="CENTER" prefHeight="117.0" prefWidth="800.0" spacing="20.0" stylesheets="@LibrarianDashboard.css">
+                          <Button fx:id="borrowPageButton" onAction="#handleBorrowPageButton" prefHeight="44.0" prefWidth="148.0" styleClass="menu-button" stylesheets="@LibrarianDashboard.css" text="Borrow Page" />
                           <Button fx:id="returnPageButton" onAction="#handleReturnPageButton" prefHeight="44.0" prefWidth="171.0" styleClass="menu-button" text="Return Book Page" />
                           <Button fx:id="reportPageButton" onAction="#handleReportPageButton" prefHeight="44.0" prefWidth="150.0" styleClass="menu-button" text="Report Page" />
                       </HBox>
@@ -109,7 +109,7 @@
          </VBox>
       </center>
       <bottom>
-         <HBox prefHeight="40.0" prefWidth="800.0" styleClass="frame" stylesheets="@LibrarianMainPage.css" BorderPane.alignment="CENTER" />
+         <HBox prefHeight="40.0" prefWidth="800.0" styleClass="frame" stylesheets="@LibrarianDashboard.css" BorderPane.alignment="CENTER" />
       </bottom>
    </BorderPane>
 

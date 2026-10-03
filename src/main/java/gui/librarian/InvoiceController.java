@@ -32,7 +32,7 @@ import java.util.List;
  * Description:
  * Controller class for the librarian's invoice messages
  */
-public class InvoicePageController {
+public class InvoiceController {
     // Changeable list to change the table of invoice messages
     private final ObservableList<InvoiceMessage> invoice = FXCollections.observableArrayList();
 
@@ -201,7 +201,7 @@ public class InvoicePageController {
 
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LibrarianMainPageController view = new LibrarianMainPageController();
+        LibrarianDashboardController view = new LibrarianDashboardController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
