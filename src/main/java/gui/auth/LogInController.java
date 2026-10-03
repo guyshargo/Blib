@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * Description:
  * Controller class for the login window
  */
-public class LogInController {
+public class LoginController {
 
     @FXML private Button btnLibrarian;
     @FXML private Button btnMember;
@@ -29,10 +29,10 @@ public class LogInController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login/MainLogInFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login/MainLogin.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/login/MainLogInFrame.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/login/MainLogin.css").toExternalForm());
         primaryStage.setTitle("Log In");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/images/book_logo.png")));
         primaryStage.setScene(scene);
@@ -50,13 +50,13 @@ public class LogInController {
      */
     public void getMemberBtn(ActionEvent event) throws Exception {
         // Load the FXML for the Member Login window
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login/MemberLogInFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/MemberLogin.fxml"));
         Parent root = loader.load();
 
         // Set up the scene and stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/login/MainLogInFrame.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/auth/MainLogin.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Member Login");
         stage.show();
@@ -72,13 +72,13 @@ public class LogInController {
      */
     public void getLibrarianBtn(ActionEvent event) throws Exception {
         // Load the FXML for the Librarian Login window
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login/LibrarianLogInFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/LibrarianLogin.fxml"));
         Parent root = loader.load();
 
         // Set up the scene and stage
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/login/MainLogInFrame.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/auth/MainLogin.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Librarian Login");
         stage.show();

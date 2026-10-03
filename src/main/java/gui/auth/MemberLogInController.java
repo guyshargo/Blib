@@ -40,10 +40,10 @@ public class MemberLogInController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login/MemberLogInFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/MemberLogin.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/login/MemberLogin.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/auth/MemberLogin.css").toExternalForm());
         primaryStage.setTitle("Type Member information");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -58,7 +58,7 @@ public class MemberLogInController {
      * @throws Exception (when loading the scene)
      */
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LogInController view = new LogInController();
+        LoginController view = new LoginController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

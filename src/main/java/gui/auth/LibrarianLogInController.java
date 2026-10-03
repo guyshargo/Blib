@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  * Description:
  * Controller class for the librarian login page
  */
-public class LibrarianLogInController {
+public class LibrarianLoginController {
     @FXML private TextField txtlibUsername;
     @FXML private PasswordField librarianPassword;
     @FXML private Button btnReturn;
@@ -43,10 +43,10 @@ public class LibrarianLogInController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login/LibrarianLogInFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/LibrarianLogin.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/login/LibrarianLogin.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/auth/LibrarianLogin.css").toExternalForm());
         primaryStage.setTitle("Type Librarian information");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -61,7 +61,7 @@ public class LibrarianLogInController {
      * @throws Exception (when loading the scene)
      */
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LogInController view = new LogInController();
+        LoginController view = new LoginController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 

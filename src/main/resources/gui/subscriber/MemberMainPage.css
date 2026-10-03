@@ -1,116 +1,134 @@
-/* Base Pane background */
+/* Base Backgrounds */
 .root {
-    -fx-background-color: #fff2d8;
+    -fx-background-color: #F8F6F0; /* Soft warm minimalist background for content */
 }
 
-/* Style for the subscriber name label */
-#subscriberName {
-    -fx-font-size: 17px;
+/* ---------------- TOP HEADER ---------------- */
+.header-bar {
+    -fx-background-color: rgb(218, 196, 165); /* Warm wood-tone from Source 1 */
+    -fx-padding: 15 30 15 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.brand-title {
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-font-size: 26px;
+    -fx-text-fill: #3E3028;
+}
+
+.user-profile-label {
     -fx-font-family: "Assistant SemiBold";
-    -fx-text-fill: black;         /* Dark blue text color */
-    -fx-alignment: left;     /* Align text to the left */
-}
-
-/* Top and bottom bar */
-.frame{
-    -fx-background-color: rgb(218, 196, 165);
-    -fx-font-size: 25px;
-    -fx-font-family: "Assistant";
-    -fx-font-weight: bold;
-    -fx-text-fill: black; /* Dark text for good readability */
-}
-
-.text-field{
-    -fx-background-radius:17;
-    -fx-font-family: "Assistantd";
-    -fx-font-size: 14;
-}
-
-/* Menu Button Styling */
-.menu-button {
-    -fx-background-color: #fec999;
-    -fx-background-radius: 100;
-    -fx-text-fill: black; /* Dark text */
-    -fx-font-size: 18px;
-    -fx-border-width: 2px; /* Border thickness */
-    -fx-font-family: "Assistant SemiBold";
-}
-
-/* Menu Button Hover Effect */
-.menu-button:hover {
-    -fx-background-color: rgba(253, 169, 92, 0.65);
-    -fx-text-fill: #333; /* Keep dark text */
-    -fx-cursor: hand;
-    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 3);
-}
-
-.menu-button .text {
-    -fx-text-fill: black; /* Consistent white text */
-    -fx-font-size: 20px; /* Font size */
-    -fx-font-family: "Assistant SemiBold"; /* Consistent font family */
-    -fx-cursor: hand; /* Change cursor to hand on hover */
-}
-
-
-.label-text{
-    -fx-font-family: "Assistant SemiBold";
-    -fx-font-size: 16;
-}
-
-
-
-.table-view{
-    -fx-background-color: #fff8f2;
-    -fx-font-family: "Assistant SemiBold";
-    -fx-font-size: 14;
-    -fx-background-radius: 5px;
-}
-
-.table-row-cell:odd {
-    -fx-background-color: #fdf6f0;
-}
-
-.table-row-cell:even {
-    -fx-background-color: #fee2cd;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: #f4e2e1;
-}
-
-
-/*return button*/
-#btnReturn{
-    -fx-background-color: rgba(228, 227, 226, 0.6); /* 30% opacity */
-    -fx-text-fill: black;
-    -fx-background-radius: 100;
     -fx-font-size: 16px;
-    -fx-font-family: "Assistant SemiBold";
-    -fx-pref-width: 90px;
-    -fx-pref-height: 35px;
-}
-#btnReturn:hover{
-    -fx-background-color: #696969;  /* Dark grey when pressed */
-    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 3);
-    -fx-cursor: hand;
+    -fx-text-fill: #3E3028;
 }
 
-
-/* Logout Button Styling */
 .logout-button {
     -fx-background-color: rgb(96, 188, 205);
-    -fx-text-fill: white; /* White text */
-    -fx-font-size: 15px;
-    -fx-font-family: "Assistant";
-    -fx-font-weight: bold;
-    -fx-background-radius: 100px;
-    -fx-pref-width: 80;
-    -fx-pref-height: 35;
-}
-
-/* Logout Button Hover Effect */
-.logout-button:hover {
-    -fx-background-color: rgba(73, 62, 62, 0.5);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-background-radius: 20;
+    -fx-padding: 6 15;
     -fx-cursor: hand;
 }
 
+.logout-button:hover {
+    -fx-background-color: #493E3E;
+}
+
+/* Search Bar (Moved to header) */
+.search-bar-container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20;
+    -fx-padding: 4 10;
+}
+
+.search-bar {
+    -fx-background-color: transparent;
+    -fx-font-family: "Assistant";
+    -fx-font-size: 14px;
+    -fx-text-fill: #3E3028;
+    -fx-prompt-text-fill: #A0968F;
+}
+
+.search-bar:focused {
+    -fx-background-color: transparent;
+}
+
+/* ---------------- HORIZONTAL NAV BAR ---------------- */
+.nav-bar {
+    -fx-background-color: #F0EAE1; /* Lighter beige strip below header */
+    -fx-padding: 0 20;
+    -fx-spacing: 30;
+    -fx-border-color: #E1D7C6 transparent #E1D7C6 transparent;
+    -fx-border-width: 1 0 1 0;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #5A4A42;
+    -fx-font-family: "Assistant SemiBold";
+    -fx-font-size: 16px;
+    -fx-padding: 12 20;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 0 3 0;
+}
+
+.nav-button:hover {
+    -fx-text-fill: #3E3028;
+    -fx-border-color: transparent transparent #A0968F transparent;
+}
+
+.nav-button-active {
+    -fx-text-fill: #000000;
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-border-color: transparent transparent rgb(96, 188, 205) transparent; /* Blue underline indicator */
+}
+
+/* ---------------- DIGITAL SHELVES ---------------- */
+.content-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.content-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.shelf-container {
+    -fx-padding: 30 50 50 50;
+    -fx-spacing: 45;
+}
+
+.shelf-title {
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-font-size: 22px;
+    -fx-text-fill: #B83A24; /* Rust/Red accent from Source 1 */
+    -fx-padding: 0 0 10 0;
+}
+
+.shelf-row {
+    -fx-spacing: 35;
+    -fx-padding: 0 0 10 20;
+    -fx-border-color: transparent transparent #CBA471 transparent; /* Warm wood shelf line */
+    -fx-border-width: 0 0 10 0;
+    -fx-border-radius: 3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);
+}
+
+.book-card-placeholder {
+    -fx-background-color: #D3C4B1; 
+    -fx-min-width: 120;
+    -fx-min-height: 175;
+    -fx-background-radius: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 3, 5);
+    -fx-cursor: hand;
+}
+
+.book-card-placeholder:hover {
+    -fx-translate-y: -8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 5, 8);
+}

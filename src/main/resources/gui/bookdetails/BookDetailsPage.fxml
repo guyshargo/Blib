@@ -23,7 +23,7 @@
                <children>
                   <ImageView fitHeight="68.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../HeaderImage/book_logo.png" />
+                        <Image url="@../images/book_logo.png" />
                      </image>
                   </ImageView>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header-label" text="Book Details" textAlignment="CENTER" wrappingWidth="354.00001525878906" HBox.hgrow="ALWAYS">
@@ -35,7 +35,7 @@
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../HeaderImage/user_circle.png" />
+                              <Image url="@../images/user_circle.png" />
                            </image>
                         </ImageView>
                      </graphic>

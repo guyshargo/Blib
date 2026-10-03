@@ -22,7 +22,7 @@
             <children>
                <ImageView fitHeight="59.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                     <Image url="@../HeaderImage/book_logo.png" />
+                     <Image url="@../images/book_logo.png" />
                   </image>
                   <HBox.margin>
                      <Insets left="10.0" />
@@ -37,7 +37,7 @@
                   <graphic>
                      <ImageView fitHeight="36.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@../HeaderImage/user_circle.png" />
+                           <Image url="@../images/user_circle.png" />
                         </image>
                      </ImageView>
                   </graphic>

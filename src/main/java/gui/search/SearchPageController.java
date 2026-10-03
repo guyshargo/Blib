@@ -1,7 +1,7 @@
 package gui.search;
 
 import client.SessionManager;
-import gui.auth.LogInController;
+import gui.auth.LoginController;
 import gui.auth.LogoutUtil;
 import gui.bookdetails.BookDetailsPageController;
 import gui.librarian.LibrarianMainPageController;
@@ -284,7 +284,7 @@ public class SearchPageController {
      */
     @FXML
     void getLoginButton(ActionEvent event) throws Exception {
-        LogInController view = new LogInController();
+        LoginController view = new LoginController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }

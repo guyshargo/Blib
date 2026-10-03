@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import gui.auth.LogInController;
+import gui.auth.LoginController;
 import gui.auth.LogoutUtil;
 import gui.search.SearchPageController;
 
@@ -148,7 +148,7 @@ public class BookDetailsPageController {
      */
     @FXML
     void getLoginButton(ActionEvent event) throws Exception {
-        LogInController view = new LogInController();
+        LoginController view = new LoginController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }
