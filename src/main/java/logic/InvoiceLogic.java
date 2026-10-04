@@ -23,7 +23,7 @@ public class InvoiceLogic {
 
     public synchronized List<InvoiceMessage> importMessages() {
         List<InvoiceMessage> list = new ArrayList<>();
-        String query = "SELECT * FROM invoice_db";
+        String query = "SELECT * FROM invoices";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query);
@@ -31,17 +31,17 @@ public class InvoiceLogic {
              
             while (rs.next()) {
                 Subject subject = this.getSubject(rs.getString("subject"));
-                IsRead isRead = this.getIsRead(rs.getString("isRead"));
+                IsRead is_read = this.getIsRead(rs.getString("is_read"));
                 
                 InvoiceMessage message = new InvoiceMessage(
-                        rs.getInt("messageID"),
-                        rs.getInt("membershipNumber"),
+                        rs.getInt("message_id"),
+                        rs.getInt("member_id"),
                         rs.getString("username"),
-                        rs.getString("name"),
+                        rs.getString("member_name"),
                         subject,
                         rs.getString("content"),
-                        rs.getDate("messageDate"),
-                        isRead
+                        rs.getDate("message_date"),
+                        is_read
                 );
                 list.add(message);
             }
@@ -52,8 +52,8 @@ public class InvoiceLogic {
     }
 
 
-    public synchronized boolean sendMessage(int membershipNumber, String username, String name, Subject subject, String content) {
-        String query = "INSERT INTO invoice_db (membershipNumber, username, name, subject, content, messageDate, isRead) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public synchronized boolean sendMessage(int member_id, String username, String member_name, Subject subject, String content) {
+        String query = "INSERT INTO invoices (member_id, username, member_name, subject, content, message_date, is_read) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         Date tempDate = new Date();
         java.sql.Date currentDate = new java.sql.Date(tempDate.getTime());
@@ -61,9 +61,9 @@ public class InvoiceLogic {
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
-            ps.setInt(1, membershipNumber);
+            ps.setInt(1, member_id);
             ps.setString(2, username);
-            ps.setString(3, name);
+            ps.setString(3, member_name);
             ps.setString(4, subject.toString());
             ps.setString(5, content);
             ps.setDate(6, currentDate);
@@ -78,14 +78,14 @@ public class InvoiceLogic {
     }
 
 
-    public synchronized void readMessage(int messageID) {
-        String query = "UPDATE invoice_db SET isRead = ? WHERE messageID = ?";
+    public synchronized void readMessage(int message_id) {
+        String query = "UPDATE invoices SET is_read = ? WHERE message_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
             ps.setString(1, "Read");
-            ps.setInt(2, messageID);
+            ps.setInt(2, message_id);
             ps.executeUpdate();
             
         } catch (SQLException e) {
@@ -101,8 +101,8 @@ public class InvoiceLogic {
         }
     }
 
-    private synchronized IsRead getIsRead(String isRead) {
-        if ("Read".equals(isRead)) {
+    private synchronized IsRead getIsRead(String is_read) {
+        if ("Read".equals(is_read)) {
             return IsRead.READ;
         } else {
             return IsRead.NOT_READ;

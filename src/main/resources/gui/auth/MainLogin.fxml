@@ -16,20 +16,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@MainLogInFrame.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.auth.LogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@MainLogin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.auth.MainLoginController">
    <children>
-      <Pane stylesheets="@MainLogInFrame.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane stylesheets="@MainLogin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <effect>
             <Bloom threshold="0.56" />
          </effect>
       </Pane>
-      <BorderPane layoutX="-48.0" layoutY="43.0" styleClass="transparent-overlay" stylesheets="@MainLogInFrame.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="-48.0" layoutY="43.0" styleClass="transparent-overlay" stylesheets="@MainLogin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
-            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="495.0" styleClass="right-bar" stylesheets="@MainLogInFrame.css" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="495.0" styleClass="right-bar" stylesheets="@MainLogin.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="81.0" prefWidth="474.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="58.0" prefWidth="417.0" styleClass="label-blib" stylesheets="@MainLogInFrame.css" text="Welcome back!" textFill="#15083b">
+                        <Label alignment="CENTER" prefHeight="58.0" prefWidth="417.0" styleClass="label-blib" stylesheets="@MainLogin.css" text="Welcome back!" textFill="#15083b">
                            <font>
                               <Font name="Assistant ExtraBold" size="51.0" />
                            </font>
@@ -47,7 +47,7 @@
                         <ColorAdjust hue="0.07" />
                      </effect>
                   </ImageView>
-                  <Button fx:id="btnMember" mnemonicParsing="false" onAction="#getMemberBtn" prefHeight="55.0" prefWidth="315.0" style="-fx-background-radius: 100;" styleClass="all-button" stylesheets="@MainLogInFrame.css" text="Log in as a Member">
+                  <Button fx:id="btnMember" mnemonicParsing="false" onAction="#getMemberBtn" prefHeight="55.0" prefWidth="315.0" style="-fx-background-radius: 100;" styleClass="all-button" stylesheets="@MainLogin.css" text="Log in as a Member">
                      <VBox.margin>
                         <Insets left="30.0" right="30.0" />
                      </VBox.margin>
@@ -55,7 +55,7 @@
                         <Font name="Assistant ExtraBold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnLibrarian" mnemonicParsing="false" onAction="#getLibrarianBtn" prefHeight="55.0" prefWidth="315.0" stylesheets="@MainLogInFrame.css" text="Log in as a Librarian">
+                  <Button fx:id="btnLibrarian" mnemonicParsing="false" onAction="#getLibrarianBtn" prefHeight="55.0" prefWidth="315.0" stylesheets="@MainLogin.css" text="Log in as a Librarian">
                      <VBox.margin>
                         <Insets left="30.0" right="30.0" top="30.0" />
                      </VBox.margin>
@@ -78,9 +78,9 @@
                         <DropShadow />
                      </effect>
                   </ImageView>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="310.0" styleClass="label-blib" stylesheets="@MainLogInFrame.css" text="Braude Library" VBox.vgrow="ALWAYS" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="310.0" styleClass="label-blib" stylesheets="@MainLogin.css" text="Braude Library" VBox.vgrow="ALWAYS" />
                   <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="149.0" prefWidth="305.0" styleClass="leftBar-text" text="Not a member yet?" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="guestBtn" mnemonicParsing="false" onAction="#getGuestBtn" prefHeight="50.0" prefWidth="219.0" style="-fx-background-radius: 100;" styleClass="all-button" stylesheets="@MainLogInFrame.css" text="Continue as a Guest">
+                  <Button fx:id="guestBtn" mnemonicParsing="false" onAction="#getGuestBtn" prefHeight="50.0" prefWidth="219.0" style="-fx-background-radius: 100;" styleClass="all-button" stylesheets="@MainLogin.css" text="Continue as a Guest">
                      <font>
                         <Font name="Assistant ExtraBold" size="12.0" />
                      </font>

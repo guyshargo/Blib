@@ -27,7 +27,7 @@ public class ReportLogic {
 
     
     public synchronized void saveMemberStatusChange(MemberStatusChange memberStatusChange) {
-        String insertQuery = "INSERT INTO member_status_changes (MemberID, MemberName, MemberStatus, ChangeStatusDate) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO member_status_changes (member_id, member_name, status, change_date) VALUES (?, ?, ?, ?)";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(insertQuery)) {
@@ -49,7 +49,7 @@ public class ReportLogic {
     }
 
     private synchronized List<BorrowHistory> fetchBorrowHistory() throws SQLException {
-        String query = "SELECT * FROM borrowhistory";
+        String query = "SELECT * FROM borrow_histories";
         List<BorrowHistory> borrowHistories = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -57,14 +57,14 @@ public class ReportLogic {
              ResultSet rs = ps.executeQuery()) {
              
             while (rs.next()) {
-                int memberId = rs.getInt("MemberID");
-                String bookName = rs.getString("BookName");
-                String memberName = rs.getString("memberName");
-                LocalDate borrowDate = rs.getDate("BorrowDate").toLocalDate().plusDays(1);
-                LocalDate originalReturnDate = rs.getDate("OriginalReturnDate").toLocalDate().plusDays(1);
-                LocalDate actualReturnDate = rs.getDate("ActualReturnDate") != null ? rs.getDate("ActualReturnDate").toLocalDate().plusDays(1) : null;
-                int lateDays = rs.getInt("LateDays");
-                int copyofBookId = rs.getInt("CopyOfBookID");
+                int memberId = rs.getInt("member_id");
+                String bookName = rs.getString("book_title");
+                String memberName = rs.getString("member_name");
+                LocalDate borrowDate = rs.getDate("borrow_date").toLocalDate().plusDays(1);
+                LocalDate originalReturnDate = rs.getDate("original_return_date").toLocalDate().plusDays(1);
+                LocalDate actualReturnDate = rs.getDate("actual_return_date") != null ? rs.getDate("actual_return_date").toLocalDate().plusDays(1) : null;
+                int lateDays = rs.getInt("late_days");
+                int copyofBookId = rs.getInt("copy_id");
                 
                 BorrowHistory borrowHistory = new BorrowHistory(memberId, memberName, bookName, borrowDate, originalReturnDate, actualReturnDate, copyofBookId);
                 borrowHistory.setLateDays(lateDays);
@@ -85,10 +85,10 @@ public class ReportLogic {
              ResultSet rs = ps.executeQuery()) {
              
             while (rs.next()) {
-                int memberId = rs.getInt("MemberID");
-                String memberName = rs.getString("MemberName");
-                FreezeStatus status = FreezeStatus.fromDbValue(rs.getString("MemberStatus"));
-                LocalDate changeStatusDate = rs.getDate("ChangeStatusDate") != null ? rs.getDate("ChangeStatusDate").toLocalDate().plusDays(1) : null;
+                int memberId = rs.getInt("member_id");
+                String memberName = rs.getString("member_name");
+                FreezeStatus status = FreezeStatus.fromDbValue(rs.getString("status"));
+                LocalDate changeStatusDate = rs.getDate("change_date") != null ? rs.getDate("change_date").toLocalDate().plusDays(1) : null;
                 
                 statusChanges.add(new MemberStatusChange(memberId, memberName, status, changeStatusDate));
             }
@@ -99,7 +99,7 @@ public class ReportLogic {
     }
 
     public synchronized void saveStatusTracking(StatusTracking statusTracking) {
-        String insertQuery = "INSERT INTO status_tracking (Date, FrozenMembers, NotFrozenMembers) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO status_tracking (tracking_date, frozen_members, not_frozen_members) VALUES (?, ?, ?)";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(insertQuery)) {
@@ -115,7 +115,7 @@ public class ReportLogic {
     }
 
     public synchronized void updateStatusTracking(StatusTracking statusTracking) {
-        String updateQuery = "UPDATE status_tracking SET FrozenMembers = FrozenMembers + ?, NotFrozenMembers = NotFrozenMembers + ? WHERE Date = ?";
+        String updateQuery = "UPDATE status_tracking SET frozen_members = frozen_members + ?, not_frozen_members = not_frozen_members + ? WHERE tracking_date = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(updateQuery)) {
@@ -131,7 +131,7 @@ public class ReportLogic {
     }
 
     public synchronized List<StatusTracking> fetchAllStatusTrackingOrderedByDate() {
-        String selectQuery = "SELECT Date, FrozenMembers, NotFrozenMembers FROM status_tracking ORDER BY Date ASC";
+        String selectQuery = "SELECT tracking_date, frozen_members, not_frozen_members FROM status_tracking ORDER BY tracking_date ASC";
         List<StatusTracking> statusTrackingList = new ArrayList<>();
         
         try (Connection conn = dbConnector.getConnection();
@@ -139,9 +139,9 @@ public class ReportLogic {
              ResultSet rs = ps.executeQuery()) {
              
             while (rs.next()) {
-                LocalDate date = rs.getDate("Date").toLocalDate().plusDays(1);
-                int frozenMembers = rs.getInt("FrozenMembers");
-                int notFrozenMembers = rs.getInt("NotFrozenMembers");
+                LocalDate date = rs.getDate("tracking_date").toLocalDate().plusDays(1);
+                int frozenMembers = rs.getInt("frozen_members");
+                int notFrozenMembers = rs.getInt("not_frozen_members");
                 statusTrackingList.add(new StatusTracking(date, frozenMembers, notFrozenMembers));
             }
         } catch (SQLException e) {
@@ -151,7 +151,7 @@ public class ReportLogic {
     }
 
     public synchronized void saveBorrowTracking(BorrowTracking borrowTracking) {
-        String insertQuery = "INSERT INTO borrow_tracking (Date, borrowCount, lateCount) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO borrow_tracking (tracking_date, borrow_count, late_count) VALUES (?, ?, ?)";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(insertQuery)) {
@@ -167,7 +167,7 @@ public class ReportLogic {
     }
 
     public synchronized List<BorrowTracking> fetchAllBorrowTrackingOrderedByDate() {
-        String selectQuery = "SELECT Date, borrowCount, lateCount FROM borrow_tracking ORDER BY Date ASC";
+        String selectQuery = "SELECT tracking_date, borrow_count, late_count FROM borrow_tracking ORDER BY tracking_date ASC";
         List<BorrowTracking> borrowTrackingList = new ArrayList<>();
         
         try (Connection conn = dbConnector.getConnection();
@@ -175,9 +175,9 @@ public class ReportLogic {
              ResultSet rs = ps.executeQuery()) {
              
             while (rs.next()) {
-                LocalDate date = rs.getDate("Date").toLocalDate().plusDays(1);
-                int borrowCount = rs.getInt("borrowCount");
-                int lateCount = rs.getInt("lateCount");
+                LocalDate date = rs.getDate("tracking_date").toLocalDate().plusDays(1);
+                int borrowCount = rs.getInt("borrow_count");
+                int lateCount = rs.getInt("late_count");
                 borrowTrackingList.add(new BorrowTracking(date, borrowCount, lateCount));
             }
         } catch (SQLException e) {
@@ -187,7 +187,7 @@ public class ReportLogic {
     }
 
     public synchronized void updateBorrowTracking(BorrowTracking borrowTracking) {
-        String updateQuery = "UPDATE borrow_tracking SET borrowCount = borrowCount + ?, lateCount = lateCount + ? WHERE Date = ?";
+        String updateQuery = "UPDATE borrow_tracking SET borrow_count = borrow_count + ?, late_count = late_count + ? WHERE borrow_count = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(updateQuery)) {
@@ -203,7 +203,7 @@ public class ReportLogic {
     }
 
     public synchronized void saveBorrowHistory(BorrowHistory borrowHistory) {
-        String insertQuery = "INSERT INTO borrowhistory (MemberID, memberName, BookName, BorrowDate, OriginalReturnDate, ActualReturnDate, LateDays, CopyOfBookID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO borrow_histories (member_id, member_name, book_title, borrow_date, original_return_date, actual_return_date, late_days, copy_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(insertQuery)) {
@@ -263,7 +263,7 @@ public class ReportLogic {
     }
 
     public synchronized Report fetchReportByDate(String reportType, LocalDate reportDate) {
-        String query = "SELECT ReportDate, ReportType, ReportData FROM reports_db WHERE ReportDate = ? AND ReportType = ?";
+        String query = "SELECT report_date, report_type, report_data FROM reports WHERE report_date = ? AND report_type = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -273,9 +273,9 @@ public class ReportLogic {
             
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    LocalDate retrievedReportDate = rs.getDate("ReportDate").toLocalDate().plusDays(1);
-                    String retrievedReportType = rs.getString("ReportType");
-                    String reportData = rs.getString("ReportData");
+                    LocalDate retrievedReportDate = rs.getDate("report_date").toLocalDate().plusDays(1);
+                    String retrievedReportType = rs.getString("report_type");
+                    String reportData = rs.getString("report_data");
                     return new Report(retrievedReportDate, ReportType.fromValue(retrievedReportType), reportData);
                 }
             }
@@ -286,7 +286,7 @@ public class ReportLogic {
     }
 
     public synchronized void saveReportToDatabase(Report report) {
-        String query = "INSERT INTO reports_db (ReportDate, ReportType, ReportData) VALUES (?, ?, ?)";
+        String query = "INSERT INTO reports (report_date, report_type, report_data) VALUES (?, ?, ?)";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -302,7 +302,7 @@ public class ReportLogic {
     }
 
     public synchronized List<Integer> getAvailableReportYears() throws SQLException {
-        String query = "SELECT DISTINCT YEAR(ReportDate) AS reportYear FROM reports_db";
+        String query = "SELECT DISTINCT YEAR(report_date) AS reportYear FROM reports";
         List<Integer> years = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -319,7 +319,7 @@ public class ReportLogic {
     }
 
     public synchronized List<Integer> getAvailableReportMonths() throws SQLException {
-        String query = "SELECT DISTINCT MONTH(ReportDate) AS reportMonth FROM reports_db";
+        String query = "SELECT DISTINCT MONTH(report_date) AS reportMonth FROM reports";
         List<Integer> months = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -336,7 +336,7 @@ public class ReportLogic {
     }
 
     public synchronized void updateActualReturnDate(int memberId, int copyOfBookId, LocalDate borrowDate, LocalDate actualReturnDate) {
-        String updateQuery = "UPDATE borrowhistory SET ActualReturnDate = ? WHERE MemberID = ? AND CopyOfBookID = ? AND BorrowDate = ?";
+        String updateQuery = "UPDATE borrow_histories SET actual_return_date = ? WHERE member_id = ? AND copy_id = ? AND borrow_date = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(updateQuery)) {
@@ -353,7 +353,7 @@ public class ReportLogic {
     }
 
     public synchronized void updateOriginalReturnDate(int memberId, int copyOfBookId, LocalDate borrowDate, LocalDate originalReturnDate) {
-        String updateQuery = "UPDATE borrowhistory SET OriginalReturnDate = ? WHERE MemberID = ? AND CopyOfBookID = ? AND BorrowDate = ?";
+        String updateQuery = "UPDATE borrow_histories SET original_return_date = ? WHERE member_id = ? AND copy_id = ? AND borrow_date = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(updateQuery)) {
@@ -384,7 +384,7 @@ public class ReportLogic {
         reportLogic.saveReportToDatabase(borrowTracking);
 
         reportLogic.clearTableData("member_status_changes");
-        reportLogic.clearTableData("borrowhistory");
+        reportLogic.clearTableData("borrow_histories");
         reportLogic.clearTableData("status_tracking");
         reportLogic.clearTableData("borrow_tracking");
 

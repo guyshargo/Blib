@@ -16,7 +16,7 @@ public class ActivityLogic {
     public ActivityLogic() { dbConnector = MysqlConnection.getInstance(); }
 
     public synchronized boolean addActivity(Activity activity) {
-        String query = "INSERT INTO activity_db (membershipNumber, activityName, activityDetails, activityDate) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO activities (member_id, activity_name, activity_details, activity_date) VALUES (?, ?, ?, ?)";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -37,7 +37,7 @@ public class ActivityLogic {
     }
 
     public synchronized List<Activity> fetchAllActivitiesForASubscriber(int subscriberId) {
-        String query = "SELECT * FROM activity_db WHERE membershipNumber = ? ORDER BY activityDate ASC";
+        String query = "SELECT * FROM activities WHERE member_id = ? ORDER BY activity_date ASC";
         List<Activity> activityList = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -47,14 +47,14 @@ public class ActivityLogic {
             
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    ActivityType activityType = this.generateActivityType(rs.getString("activityName"));
+                    ActivityType activityType = this.generateActivityType(rs.getString("activity_name"));
 
                     // Map the database row to an Activity object
                     Activity currActivity = new Activity(
-                            rs.getInt("membershipNumber"),
+                            rs.getInt("member_id"),
                             activityType,
-                            rs.getString("activityDetails"),
-                            rs.getTimestamp("activityDate").toLocalDateTime()
+                            rs.getString("activity_details"),
+                            rs.getTimestamp("activity_date").toLocalDateTime()
                     );
                     activityList.add(currActivity);
                 }

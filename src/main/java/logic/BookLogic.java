@@ -18,7 +18,7 @@ public class BookLogic {
     public BookLogic() { dbConnector = MysqlConnection.getInstance(); }
 
     public synchronized CopyOfBook findCopyOfBook(int copyOfBookID) {
-        String queryAvailableCopy = "SELECT * FROM copy_of_book WHERE CopyOfBookId = ?";
+        String queryAvailableCopy = "SELECT * FROM book_copies WHERE copy_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(queryAvailableCopy)) {
@@ -27,16 +27,16 @@ public class BookLogic {
             
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
-                    int copyOfBookId = resultSet.getInt("CopyOfBookId");
-                    String copOfBookName = resultSet.getString("bookName");
-                    String shelfLocation = resultSet.getString("ShelfLocation");
-                    String barcode = resultSet.getString("Barcode");
+                    int copyOfBookId = resultSet.getInt("copy_id");
+                    String copOfBookName = resultSet.getString("title");
+                    String shelfLocation = resultSet.getString("shelf_location");
+                    String barcode = resultSet.getString("barcode");
                     
-                    String borrowStatusString = resultSet.getString("borrowStatus");
-                    BorrowStatus borrowStatus = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
-                    int bookId = resultSet.getInt("BookId");
+                    String borrowStatusString = resultSet.getString("borrow_status");
+                    BorrowStatus borrow_status = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
+                    int bookId = resultSet.getInt("book_id");
                     
-                    return new CopyOfBook(copyOfBookId, copOfBookName, borrowStatus, shelfLocation, barcode, bookId);
+                    return new CopyOfBook(copyOfBookId, copOfBookName, borrow_status, shelfLocation, barcode, bookId);
                 }
             }
         } catch (SQLException e) {
@@ -46,7 +46,7 @@ public class BookLogic {
     }
 
     public synchronized CopyOfBook getAvailableCopyOfBookByBarcode(String barcode) {
-        String queryAvailableCopy = "SELECT * FROM copy_of_book WHERE Barcode = ? AND borrowStatus = 'NotBorrowed' LIMIT 1";
+        String queryAvailableCopy = "SELECT * FROM book_copies WHERE barcode = ? AND borrow_status = 'NotBorrowed' LIMIT 1";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(queryAvailableCopy)) {
@@ -55,16 +55,16 @@ public class BookLogic {
             
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
-                    int copyOfBookId = resultSet.getInt("CopyOfBookId");
-                    String copyOfBookName = resultSet.getString("bookName");
-                    String shelfLocation = resultSet.getString("ShelfLocation");
-                    String barcodeResult = resultSet.getString("Barcode");
+                    int copyOfBookId = resultSet.getInt("copy_id");
+                    String copyOfBookName = resultSet.getString("title");
+                    String shelfLocation = resultSet.getString("shelf_location");
+                    String barcodeResult = resultSet.getString("barcode");
 
-                    String borrowStatusString = resultSet.getString("borrowStatus");
-                    BorrowStatus borrowStatus = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
-                    int bookId = resultSet.getInt("BookId");
+                    String borrowStatusString = resultSet.getString("borrow_status");
+                    BorrowStatus borrow_status = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
+                    int bookId = resultSet.getInt("book_id");
                     
-                    return new CopyOfBook(copyOfBookId, copyOfBookName, borrowStatus, shelfLocation, barcodeResult, bookId);
+                    return new CopyOfBook(copyOfBookId, copyOfBookName, borrow_status, shelfLocation, barcodeResult, bookId);
                 }
             }
         } catch (SQLException e) {
@@ -73,26 +73,26 @@ public class BookLogic {
         return null;
     }
 
-    public synchronized CopyOfBook getAvailableCopyOfBook(int bookID) {
-        String queryAvailableCopy = "SELECT * FROM copy_of_book WHERE BookId = ? AND borrowStatus = 'NotBorrowed' LIMIT 1";
+    public synchronized CopyOfBook getAvailableCopyOfBook(int book_id) {
+        String queryAvailableCopy = "SELECT * FROM book_copies WHERE book_id = ? AND borrow_status = 'NotBorrowed' LIMIT 1";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(queryAvailableCopy)) {
              
-            ps.setInt(1, bookID);
+            ps.setInt(1, book_id);
             
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
-                    int copyOfBookId = resultSet.getInt("CopyOfBookId");
-                    String copOfBookName = resultSet.getString("bookName");
-                    String shelfLocation = resultSet.getString("ShelfLocation");
-                    String barcode = resultSet.getString("Barcode");
+                    int copyOfBookId = resultSet.getInt("copy_id");
+                    String copOfBookName = resultSet.getString("title");
+                    String shelfLocation = resultSet.getString("shelf_location");
+                    String barcode = resultSet.getString("barcode");
 
-                    String borrowStatusString = resultSet.getString("borrowStatus");
-                    BorrowStatus borrowStatus = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
-                    int bookId = resultSet.getInt("BookId");
+                    String borrowStatusString = resultSet.getString("borrow_status");
+                    BorrowStatus borrow_status = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
+                    int bookId = resultSet.getInt("book_id");
                     
-                    return new CopyOfBook(copyOfBookId, copOfBookName, borrowStatus, shelfLocation, barcode, bookId);
+                    return new CopyOfBook(copyOfBookId, copOfBookName, borrow_status, shelfLocation, barcode, bookId);
                 }
             }
         } catch (SQLException e) {
@@ -106,7 +106,7 @@ public class BookLogic {
             return false;
         }
         
-        String query = "UPDATE book_db SET NumberOfBorrowedCopies = NumberOfBorrowedCopies + 1 WHERE bookID = ?";
+        String query = "UPDATE books SET number_of_borrowed_copies = number_of_borrowed_copies + 1 WHERE book_id = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -122,7 +122,7 @@ public class BookLogic {
 
 
     public synchronized boolean decreaseBorrowedCopies(int bookid) {
-        String query = "UPDATE book_db SET NumberOfBorrowedCopies = NumberOfBorrowedCopies - 1 WHERE bookID = ?";
+        String query = "UPDATE books SET number_of_borrowed_copies = number_of_borrowed_copies - 1 WHERE book_id = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -137,7 +137,7 @@ public class BookLogic {
     }
 
     public synchronized void decreaseOrdersNumber(Book book) {
-        String query = "UPDATE book_db SET numberOforders = numberOforders - 1 WHERE bookID = ?";
+        String query = "UPDATE books SET number_of_orders = number_of_orders - 1 WHERE book_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -155,8 +155,8 @@ public class BookLogic {
         }
     }
 
-    public synchronized boolean changeBookOrderStatus(int bookID, int numberOfOrders, boolean increase) {
-        String query = "UPDATE book_db SET isOrdered = ?, numberOforders = ? WHERE bookID = ?";
+    public synchronized boolean changeBookOrderStatus(int book_id, int numberOfOrders, boolean increase) {
+        String query = "UPDATE books SET is_ordered = ?, number_of_orders = ? WHERE book_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -173,7 +173,7 @@ public class BookLogic {
                     ps.setString(1, "yes");
                 }
             }
-            ps.setInt(3, bookID);
+            ps.setInt(3, book_id);
             ps.executeUpdate(); 
             return true;
             
@@ -190,7 +190,7 @@ public class BookLogic {
             return false; // Book doesn't exist
         }
 
-        String query = "UPDATE book_db SET NumberOfCopies = NumberOfCopies + 1 WHERE bookID = ?";
+        String query = "UPDATE books SET number_of_copies = number_of_copies + 1 WHERE book_id = ?";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
@@ -210,7 +210,7 @@ public class BookLogic {
             return false; // Book doesn't exist
         }
         
-        String query = "UPDATE book_db SET NumberOfCopies = NumberOfCopies - 1 WHERE bookID = ?";
+        String query = "UPDATE books SET number_of_copies = number_of_copies - 1 WHERE book_id = ?";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
@@ -224,7 +224,7 @@ public class BookLogic {
     }
 
     public synchronized boolean changeBookCopyBorrowStatus(CopyOfBook copyOfBook) {
-        String query = "UPDATE copy_of_book SET borrowStatus = ? WHERE CopyOfBookId = ?";
+        String query = "UPDATE book_copies SET borrow_status = ? WHERE copy_id = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -239,28 +239,28 @@ public class BookLogic {
         }
     }
 
-    public synchronized Book fetchBook(int bookID) {
-        String query = "SELECT * FROM book_db WHERE bookID = ?";
+    public synchronized Book fetchBook(int book_id) {
+        String query = "SELECT * FROM books WHERE book_id = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
              
-            ps.setInt(1, bookID);
+            ps.setInt(1, book_id);
             
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
-                    String bookName = resultSet.getString("BookName");
-                    String bookSubject = resultSet.getString("BookSubject");
-                    int numberOfCopies = resultSet.getInt("NumberOfCopies");
-                    int borrowedCopies = resultSet.getInt("NumberOfBorrowedCopies");
-                    String keywords = resultSet.getString("Keywords");
+                    String title = resultSet.getString("title");
+                    String subject = resultSet.getString("subject");
+                    int numberOfCopies = resultSet.getInt("number_of_copies");
+                    int borrowedCopies = resultSet.getInt("number_of_borrowed_copies");
+                    String keywords = resultSet.getString("keywords");
                     if (keywords == null) {
                         keywords = ""; 
                     }
-                    int numberOfOrders = resultSet.getInt("NumberOfOrders");
-                    IsOrdered isOrdered = IsOrdered.valueOf(resultSet.getString("IsOrdered").toUpperCase());
+                    int numberOfOrders = resultSet.getInt("number_of_orders");
+                    IsOrdered is_ordered = IsOrdered.valueOf(resultSet.getString("is_ordered").toUpperCase());
 
-                    return new Book(bookName, bookSubject, numberOfCopies, borrowedCopies, keywords, isOrdered, bookID, numberOfOrders);
+                    return new Book(title, subject, numberOfCopies, borrowedCopies, keywords, is_ordered, book_id, numberOfOrders);
                 }
             }
         } catch (SQLException e) {
@@ -269,17 +269,17 @@ public class BookLogic {
         return null;
     }    
 
-    public synchronized List<Book> searchBooks(String bookName, String bookSubject, String freeText) {
+    public synchronized List<Book> searchBooks(String title, String subject, String freeText) {
         List<Book> searchResults = new ArrayList<>();
-        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM book_db WHERE 1=1");
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM books WHERE 1=1");
 
         // add search criteria dynamically
-        boolean hasName = bookName != null && !bookName.trim().isEmpty() && !"is empty".equals(bookName);
-        boolean hasSubject = bookSubject != null && !bookSubject.trim().isEmpty() && !"is empty".equals(bookSubject);
+        boolean hasName = title != null && !title.trim().isEmpty() && !"is empty".equals(title);
+        boolean hasSubject = subject != null && !subject.trim().isEmpty() && !"is empty".equals(subject);
         boolean hasFreeText = freeText != null && !freeText.trim().isEmpty() && !"is empty".equals(freeText);
 
-        if (hasName) queryBuilder.append(" AND bookName LIKE ?");
-        if (hasSubject) queryBuilder.append(" AND bookSubject LIKE ?");
+        if (hasName) queryBuilder.append(" AND title LIKE ?");
+        if (hasSubject) queryBuilder.append(" AND subject LIKE ?");
         
         String[] keywords = null;
         if (hasFreeText) {
@@ -296,8 +296,8 @@ public class BookLogic {
              PreparedStatement ps = connection.prepareStatement(queryBuilder.toString())) {
              
             int paramIndex = 1;
-            if (hasName) ps.setString(paramIndex++, "%" + bookName.trim().toLowerCase() + "%");
-            if (hasSubject) ps.setString(paramIndex++, "%" + bookSubject.trim().toLowerCase() + "%");
+            if (hasName) ps.setString(paramIndex++, "%" + title.trim().toLowerCase() + "%");
+            if (hasSubject) ps.setString(paramIndex++, "%" + subject.trim().toLowerCase() + "%");
             if (hasFreeText && keywords != null) {
                 for (String keyword : keywords) {
                     ps.setString(paramIndex++, "%" + keyword.trim().toLowerCase() + "%");
@@ -309,16 +309,16 @@ public class BookLogic {
                     String bookSummary = rs.getString("BookSummary");
                     if (bookSummary == null) bookSummary = "";
                     
-                    IsOrdered isOrderedEnum = IsOrdered.valueOf(rs.getString("isOrdered").toUpperCase());
+                    IsOrdered isOrderedEnum = IsOrdered.valueOf(rs.getString("is_ordered").toUpperCase());
                     Book book = new Book(
-                            rs.getString("bookName"),
-                            rs.getString("bookSubject"),
-                            rs.getInt("NumberOfCopies"),
-                            rs.getInt("NumberOfBorrowedCopies"),
+                            rs.getString("title"),
+                            rs.getString("subject"),
+                            rs.getInt("number_of_copies"),
+                            rs.getInt("number_of_borrowed_copies"),
                             rs.getString("keywords"),
                             isOrderedEnum,
-                            rs.getInt("bookID"),
-                            rs.getInt("numberOforders")
+                            rs.getInt("book_id"),
+                            rs.getInt("number_of_orders")
                     );
                     book.setBookSummary(bookSummary);
                     searchResults.add(book);

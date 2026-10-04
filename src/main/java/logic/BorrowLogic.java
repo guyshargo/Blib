@@ -19,29 +19,29 @@ public class BorrowLogic {
     // Singleton database connector
     public BorrowLogic() { dbConnector = MysqlConnection.getInstance(); }
 
-    public synchronized BorrowedBook getCloserReturnDateBook(int bookID) {
-        String query = "SELECT * FROM borrowed_book WHERE BookId = ? ORDER BY returnDate ASC LIMIT 1";
+    public synchronized BorrowedBook getCloserReturnDateBook(int book_id) {
+        String query = "SELECT * FROM borrowed_books WHERE book_id = ? ORDER BY return_date ASC LIMIT 1";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
-            ps.setInt(1, bookID);
+            ps.setInt(1, book_id);
             
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
-                    java.sql.Date extensionDateSql = resultSet.getDate("extensionDate");
-                    LocalDate extensionDate = (extensionDateSql != null) ? extensionDateSql.toLocalDate().plusDays(1) : null;
+                    java.sql.Date extensionDateSql = resultSet.getDate("extension_date");
+                    LocalDate extension_date = (extensionDateSql != null) ? extensionDateSql.toLocalDate().plusDays(1) : null;
                     
-                    int membershipNumber = resultSet.getInt("membershipNumber");
-                    String bookName = resultSet.getString("NameOfBook");
-                    int copyOfBookId = resultSet.getInt("CopyOfBookId");
-                    String librarianName = resultSet.getString("librarianName");
-                    int librarianId = resultSet.getInt("librarianId");
-                    LocalDate borrowDate = resultSet.getDate("borrowDate").toLocalDate().plusDays(1);
-                    LocalDate returnDate = resultSet.getDate("returnDate").toLocalDate().plusDays(1);
-                    int bookId = resultSet.getInt("BookId");
+                    int member_id = resultSet.getInt("member_id");
+                    String bookName = resultSet.getString("book_title");
+                    int copyOfBookId = resultSet.getInt("copy_id");
+                    String librarian_name = resultSet.getString("librarian_name");
+                    int librarian_id = resultSet.getInt("librarian_id");
+                    LocalDate borrow_date = resultSet.getDate("borrow_date").toLocalDate().plusDays(1);
+                    LocalDate return_date = resultSet.getDate("return_date").toLocalDate().plusDays(1);
+                    int book_Id = resultSet.getInt("book_id");
 
-                    return new BorrowedBook(membershipNumber, bookName, copyOfBookId, librarianName, librarianId, borrowDate, returnDate, extensionDate, bookId);
+                    return new BorrowedBook(member_id, bookName, copyOfBookId, librarian_name, librarian_id, borrow_date, return_date, extension_date, book_Id);
                 }
             }
         } catch (SQLException e) {
@@ -52,14 +52,14 @@ public class BorrowLogic {
 
     
 
-    public synchronized boolean checkIfAMemberCanBorrowTheBook(int membershipNumber, CopyOfBook cpbook, Book book) {
-        String orderQuery = "SELECT * FROM ordered_book WHERE bookId = ? AND membershipNumber = ? AND arrivalStatus = 'Arrived'";
+    public synchronized boolean checkIfAMemberCanBorrowTheBook(int member_id, CopyOfBook cpbook, Book book) {
+        String orderQuery = "SELECT * FROM orders WHERE book_id = ? AND member_id = ? AND arrival_status = 'Arrived'";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(orderQuery)) {
              
             ps.setInt(1, cpbook.getBookId());
-            ps.setInt(2, membershipNumber);
+            ps.setInt(2, member_id);
             
             try (ResultSet ordersResult = ps.executeQuery()) {
                 boolean memberOrderedBook = ordersResult.next();
@@ -83,7 +83,7 @@ public class BorrowLogic {
 
     
 
-    public synchronized BorrowedBook borrowBook(int memberId, int copyOfBookId, int librarianId, String librarianName) {
+    public synchronized BorrowedBook borrowBook(int memberId, int copyOfBookId, int librarian_id, String librarian_name) {
         BookLogic bookLogic = new BookLogic();
         OrderLogic orderLogic = new OrderLogic();
 
@@ -104,8 +104,8 @@ public class BorrowLogic {
                 availableCopy.getCopyOfBookName(),
                 availableCopy.getCopyOfBookId(),
                 LocalDate.now(),
-                librarianName,
-                librarianId,
+                librarian_name,
+                librarian_id,
                 availableCopy.getBookId()
         );
         addNewBorrowedBook(borrowedBook);
@@ -121,15 +121,15 @@ public class BorrowLogic {
 
     
 
-    public synchronized boolean setReturnDate(int membershipNum, int CopyOfBookId, LocalDate newReturnDate) {
-        String query = "UPDATE borrowed_book SET returnDate = ? WHERE membershipNumber = ? AND CopyOfBookId = ?";
+    public synchronized boolean setReturnDate(int membershipNum, int copy_id, LocalDate newReturnDate) {
+        String query = "UPDATE borrowed_books SET return_date = ? WHERE member_id = ? AND copy_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
             ps.setDate(1, java.sql.Date.valueOf(newReturnDate));
             ps.setInt(2, membershipNum);
-            ps.setInt(3, CopyOfBookId);
+            ps.setInt(3, copy_id);
 
             return ps.executeUpdate() > 0;
             
@@ -139,16 +139,16 @@ public class BorrowLogic {
         }
     }
 
-    public synchronized boolean setLibrarianForReturnDate(int memberNumber, int copyOfBookId, String librarianName,
-                                                          int librarianID, LocalDate extensionDate) {
-        String query = "UPDATE borrowed_book SET librarianName = ?, librarianID = ?, extensionDate = ? WHERE membershipNumber = ? AND CopyOfBookId = ?";
+    public synchronized boolean setLibrarianForReturnDate(int memberNumber, int copyOfBookId, String librarian_name,
+                                                          int librarian_id, LocalDate extension_date) {
+        String query = "UPDATE borrowed_books SET librarian_name = ?, librarian_id = ?, extension_date = ? WHERE member_id = ? AND copy_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
-            ps.setString(1, librarianName);
-            ps.setInt(2, librarianID);
-            ps.setDate(3, java.sql.Date.valueOf(extensionDate));
+            ps.setString(1, librarian_name);
+            ps.setInt(2, librarian_id);
+            ps.setDate(3, java.sql.Date.valueOf(extension_date));
             ps.setInt(4, memberNumber);
             ps.setInt(5, copyOfBookId);
 
@@ -161,7 +161,7 @@ public class BorrowLogic {
     }
 
     public synchronized List<BorrowedBook> importAllBorrowedBooks() {
-        String query = "SELECT * FROM borrowed_book";
+        String query = "SELECT * FROM borrowed_books";
         List<BorrowedBook> borrowList = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -169,19 +169,19 @@ public class BorrowLogic {
              ResultSet rs = ps.executeQuery()) {
              
             while (rs.next()) {
-                java.sql.Date extensionDateSql = rs.getDate("extensionDate");
-                LocalDate extensionDate = (extensionDateSql != null) ? extensionDateSql.toLocalDate().plusDays(1) : null;
+                java.sql.Date extensionDateSql = rs.getDate("extension_date");
+                LocalDate extension_date = (extensionDateSql != null) ? extensionDateSql.toLocalDate().plusDays(1) : null;
                 
                 borrowList.add(new BorrowedBook(
-                        rs.getInt("membershipNumber"),
-                        rs.getString("NameOfBook"),
-                        rs.getInt("CopyOfBookId"),
-                        rs.getString("librarianName"),
-                        rs.getInt("librarianID"),
-                        rs.getDate("borrowDate").toLocalDate().plusDays(1),
-                        rs.getDate("returnDate").toLocalDate().plusDays(1),
-                        extensionDate,
-                        rs.getInt("bookID")
+                        rs.getInt("member_id"),
+                        rs.getString("book_title"),
+                        rs.getInt("copy_id"),
+                        rs.getString("librarian_name"),
+                        rs.getInt("librarian_id"),
+                        rs.getDate("borrow_date").toLocalDate().plusDays(1),
+                        rs.getDate("return_date").toLocalDate().plusDays(1),
+                        extension_date,
+                        rs.getInt("book_id")
                 ));
             }
         } catch (SQLException e) {
@@ -193,7 +193,7 @@ public class BorrowLogic {
     
 
     public synchronized boolean deleteBorrowedBook(int bookid) {
-        String query = "DELETE FROM borrowed_book WHERE CopyOfBookId = ?";
+        String query = "DELETE FROM borrowed_books WHERE copy_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -209,7 +209,7 @@ public class BorrowLogic {
     }
 
     public synchronized boolean addNewBorrowedBook(BorrowedBook borrowedBook) {
-        String query = "INSERT INTO borrowed_book (membershipNumber, NameOfBook, borrowDate, returnDate, librarianName, librarianID, CopyOfBookId, extensionDate, bookID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO borrowed_books (member_id, book_title, borrow_date, return_date, librarian_name, librarian_id, copy_id, extension_date, book_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -239,10 +239,10 @@ public class BorrowLogic {
 
     
 
-    public synchronized BorrowedBook fetchBorrowedBook(int membershipNumber, int CopyOfBookId) {
-        List<BorrowedBook> borrowedBooks = this.importBorrowedBooks(membershipNumber);
+    public synchronized BorrowedBook fetchBorrowedBook(int member_id, int copy_id) {
+        List<BorrowedBook> borrowedBooks = this.importBorrowedBooks(member_id);
         for (BorrowedBook borrow : borrowedBooks) {
-            if (borrow.getMembershipNumber() == membershipNumber && borrow.getCopyOfBookId() == CopyOfBookId) {
+            if (borrow.getMembershipNumber() == member_id && borrow.getCopyOfBookId() == copy_id) {
                 return borrow;
             }
         }
@@ -250,30 +250,30 @@ public class BorrowLogic {
     }
 
 
-    public synchronized List<BorrowedBook> importBorrowedBooks(int membershipNumber) {
-        String query = "SELECT * FROM borrowed_book WHERE membershipNumber=?";
+    public synchronized List<BorrowedBook> importBorrowedBooks(int member_id) {
+        String query = "SELECT * FROM borrowed_books WHERE member_id=?";
         List<BorrowedBook> borrowList = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
-            ps.setInt(1, membershipNumber);
+            ps.setInt(1, member_id);
             
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    java.sql.Date extensionDateSql = rs.getDate("extensionDate");
-                    LocalDate extensionDate = (extensionDateSql != null) ? extensionDateSql.toLocalDate().plusDays(1) : null;
+                    java.sql.Date extensionDateSql = rs.getDate("extension_date");
+                    LocalDate extension_date = (extensionDateSql != null) ? extensionDateSql.toLocalDate().plusDays(1) : null;
                     
                     borrowList.add(new BorrowedBook(
-                            rs.getInt("membershipNumber"),
-                            rs.getString("NameOfBook"),
-                            rs.getInt("CopyOfBookId"),
-                            rs.getString("librarianName"),
-                            rs.getInt("librarianID"),
-                            rs.getDate("borrowDate").toLocalDate().plusDays(1),
-                            rs.getDate("returnDate").toLocalDate().plusDays(1),
-                            extensionDate,
-                            rs.getInt("bookID")
+                            rs.getInt("member_id"),
+                            rs.getString("book_title"),
+                            rs.getInt("copy_id"),
+                            rs.getString("librarian_name"),
+                            rs.getInt("librarian_id"),
+                            rs.getDate("borrow_date").toLocalDate().plusDays(1),
+                            rs.getDate("return_date").toLocalDate().plusDays(1),
+                            extension_date,
+                            rs.getInt("book_id")
                     ));
                 }
             }

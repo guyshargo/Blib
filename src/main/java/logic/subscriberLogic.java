@@ -22,7 +22,7 @@ public class SubscriberLogic {
     
 
     public synchronized boolean setFreezeStatus(int id, String freezeStatus, LocalDate freezeDate) {
-        String query = "UPDATE member_db SET memberFreezeStatus = ?, memberFreezeDate = ? WHERE membershipNumber = ?";
+        String query = "UPDATE members SET freeze_status = ?, freeze_date = ? WHERE member_id = ?";
         
         Subscriber subscriber = this.fetchSubscriberById(id);
         if (subscriber != null && subscriber.getFreezeStatus().getDbValue().equals(freezeStatus)) {
@@ -49,7 +49,7 @@ public class SubscriberLogic {
 
 
     public synchronized boolean updateSubscriberContact(int id, String phoneNumber, String email) {
-        String query = "UPDATE member_db SET memberPhoneNumber = ?, emailAddress = ? WHERE membershipNumber = ?";
+        String query = "UPDATE members SET phone_number = ?, email_address = ? WHERE member_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -67,7 +67,7 @@ public class SubscriberLogic {
 
 
     public synchronized Subscriber fetchMemberByUsername(String username) {
-        String query = "SELECT * FROM member_db WHERE userName = ?";
+        String query = "SELECT * FROM members WHERE username = ?";
         Subscriber subscriber = null;
         
         try (Connection connection = dbConnector.getConnection();
@@ -77,16 +77,16 @@ public class SubscriberLogic {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     subscriber = new Subscriber(
-                            rs.getInt("membershipNumber"),
-                            rs.getString("MemberFullName"),
-                            rs.getString("userName"),
+                            rs.getInt("member_id"),
+                            rs.getString("full_name"),
+                            rs.getString("username"),
                             rs.getString("password"),
-                            FreezeStatus.fromDbValue(rs.getString("memberFreezeStatus")),
-                            rs.getString("emailAddress"),
-                            rs.getString("memberPhoneNumber"),
-                            rs.getString("readerCardBarcode")
+                            FreezeStatus.fromDbValue(rs.getString("freeze_status")),
+                            rs.getString("email_address"),
+                            rs.getString("phone_number"),
+                            rs.getString("reader_card_barcode")
                     );
-                    subscriber.setLoginStatus(rs.getBoolean("LoggedInStatus"));
+                    subscriber.setLoginStatus(rs.getBoolean("is_logged_in"));
                 }
             }
         } catch (SQLException e) {
@@ -97,7 +97,7 @@ public class SubscriberLogic {
 
     
     public synchronized boolean ChangeLogInStatus(int memberID, boolean status) {
-        String query = "UPDATE member_db SET LoggedInStatus = ? WHERE membershipNumber = ?";
+        String query = "UPDATE members SET is_logged_in = ? WHERE member_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -114,7 +114,7 @@ public class SubscriberLogic {
 
 
     public synchronized Subscriber fetchSubscriberById(int subscriberId) {
-        String query = "SELECT * FROM member_db WHERE membershipNumber = ?";
+        String query = "SELECT * FROM members WHERE member_id = ?";
         Subscriber subscriber = null;
         
         try (Connection connection = dbConnector.getConnection();
@@ -124,14 +124,14 @@ public class SubscriberLogic {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     subscriber = new Subscriber(
-                            rs.getInt("membershipNumber"),
-                            rs.getString("MemberFullName"),
-                            rs.getString("userName"),
+                            rs.getInt("member_id"),
+                            rs.getString("full_name"),
+                            rs.getString("username"),
                             rs.getString("password"),
-                            FreezeStatus.fromDbValue(rs.getString("memberFreezeStatus")),
-                            rs.getString("emailAddress"),
-                            rs.getString("memberPhoneNumber"),
-                            rs.getString("readerCardBarcode")
+                            FreezeStatus.fromDbValue(rs.getString("freeze_status")),
+                            rs.getString("email_address"),
+                            rs.getString("phone_number"),
+                            rs.getString("reader_card_barcode")
                     );
                 }
             }
@@ -160,7 +160,7 @@ public class SubscriberLogic {
 
     
     public synchronized boolean isUsernameTaken(String username) {
-        String query = "SELECT * FROM member_db WHERE userName = ?";
+        String query = "SELECT * FROM members WHERE username = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -177,7 +177,7 @@ public class SubscriberLogic {
 
     
     public synchronized boolean isEmailTaken(String email) {
-        String query = "SELECT * FROM member_db WHERE emailAddress = ?";
+        String query = "SELECT * FROM members WHERE email_address = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -194,7 +194,7 @@ public class SubscriberLogic {
 
     
     public synchronized boolean isIDTaken(int memberid) {
-        String query = "SELECT * FROM member_db WHERE membershipNumber = ?";
+        String query = "SELECT * FROM members WHERE member_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -211,7 +211,7 @@ public class SubscriberLogic {
 
     
     public synchronized List<Subscriber> fetchAllSubscribers() {
-        String query = "SELECT * FROM member_db";
+        String query = "SELECT * FROM members";
         List<Subscriber> subscribers = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -220,17 +220,17 @@ public class SubscriberLogic {
              
             while (rs.next()) {
                 Subscriber sub = new Subscriber(
-                        rs.getInt("membershipNumber"),
-                        rs.getString("MemberFullName"),
-                        rs.getString("userName"),
+                        rs.getInt("member_id"),
+                        rs.getString("full_name"),
+                        rs.getString("username"),
                         rs.getString("password"),
-                        FreezeStatus.fromDbValue(rs.getString("memberFreezeStatus")),
-                        rs.getString("emailAddress"),
-                        rs.getString("memberPhoneNumber"),
-                        rs.getString("readerCardBarcode"));
+                        FreezeStatus.fromDbValue(rs.getString("freeze_status")),
+                        rs.getString("email_address"),
+                        rs.getString("phone_number"),
+                        rs.getString("reader_card_barcode"));
                         
                 // Fetch and set the freeze status date if not null
-                LocalDate freezeStatusDate = rs.getDate("memberFreezeDate") == null ? null : rs.getDate("memberFreezeDate").toLocalDate();
+                LocalDate freezeStatusDate = rs.getDate("freeze_date") == null ? null : rs.getDate("freeze_date").toLocalDate();
                 sub.setFreezeStatusDate(freezeStatusDate);
                 subscribers.add(sub);
             }
@@ -242,7 +242,7 @@ public class SubscriberLogic {
 
     
     public synchronized void logOutStatusToAllSubscribers() {
-        String query = "UPDATE member_db SET LoggedInStatus = ? WHERE LoggedInStatus = ?";
+        String query = "UPDATE members SET is_logged_in = ? WHERE is_logged_in = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -257,7 +257,7 @@ public class SubscriberLogic {
 
     
     public synchronized List<Subscriber> fetchFrozenSubscribersOlderThanAMonth() {
-        String query = "SELECT * FROM member_db WHERE memberFreezeStatus = ? AND memberFreezeDate = ?";
+        String query = "SELECT * FROM members WHERE freeze_status = ? AND freeze_date = ?";
         List<Subscriber> subscribersToUnfreeze = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -290,7 +290,7 @@ public class SubscriberLogic {
 
     
     public synchronized Subscriber fetchSubscriberScanBarcode(String barcode) {
-        String query = "SELECT * FROM member_db WHERE readerCardBarcode = ?";
+        String query = "SELECT * FROM members WHERE reader_card_barcode = ?";
         Subscriber subscriber = null;
         
         try (Connection connection = dbConnector.getConnection();
@@ -300,14 +300,14 @@ public class SubscriberLogic {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     subscriber = new Subscriber(
-                            rs.getInt("membershipNumber"),
-                            rs.getString("MemberFullName"),
-                            rs.getString("userName"),
+                            rs.getInt("member_id"),
+                            rs.getString("full_name"),
+                            rs.getString("username"),
                             rs.getString("password"),
-                            FreezeStatus.fromDbValue(rs.getString("memberFreezeStatus")),
-                            rs.getString("emailAddress"),
-                            rs.getString("memberPhoneNumber"),
-                            rs.getString("readerCardBarcode")
+                            FreezeStatus.fromDbValue(rs.getString("freeze_status")),
+                            rs.getString("email_address"),
+                            rs.getString("phone_number"),
+                            rs.getString("reader_card_barcode")
                     );
                 }
             }
@@ -325,7 +325,7 @@ public class SubscriberLogic {
         }
 
         String barcode = customHashBarcode(membershipNumber, fullName);
-        String query = "INSERT INTO member_db (membershipNumber, MemberFullName, userName, password, memberFreezeStatus, emailAddress, memberPhoneNumber,readerCardBarcode) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+        String query = "INSERT INTO members (member_id, full_name, username, password, freeze_status, email_address, phone_number, reader_card_barcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
