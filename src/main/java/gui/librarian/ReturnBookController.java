@@ -55,7 +55,7 @@ public class ReturnBookController {
 
     @FXML
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/returnbook/ReturnBookPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/ReturnBook.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
 
@@ -200,7 +200,7 @@ public class ReturnBookController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
 
         alert.showAndWait();
@@ -217,7 +217,7 @@ public class ReturnBookController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/success.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }
@@ -242,8 +242,8 @@ public class ReturnBookController {
     private void addActivity(BorrowedBook book, String activityDetails) {
         try {
             Map<String, Object> reqMap = new HashMap<>();
-            reqMap.put("membershipNumber", book.getMembershipNumber());
-            reqMap.put("activityType", activityDetails.split(",")[0]);
+            reqMap.put("member_id", book.getMembershipNumber());
+            reqMap.put("activity_type", activityDetails.split(",")[0]);
             reqMap.put("description", activityDetails);
 
             ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());

@@ -1,16 +1,13 @@
 package gui.subscriber;
 
 import client.SessionManager;
-import gui.auth.LogoutUtil;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import model.Book;
 import model.OrderedBook;
 import model.Subscriber;
@@ -29,7 +26,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-
 public class OrderBookController {
     private final ObservableList<OrderedBook> orderedBooks = FXCollections.observableArrayList();
     private Book foundBook = null;
@@ -43,51 +39,30 @@ public class OrderBookController {
     @FXML private TableColumn<OrderedBook, Integer> bookIDColumn;
     @FXML private TableColumn<OrderedBook, String> bookNameColumn;
     @FXML private TableColumn<OrderedBook, String> arrivedStatusColumn;
-    @FXML private Button returnBtn;
     @FXML private Button orderBtn;
     @FXML private Label foundLabel;
     @FXML private Label foundLabel2;
-    @FXML private Label subscriberName;
-    @FXML private Button logoutButton;
-
 
     @FXML
     public void initialize() {
         this.sub = SessionManager.currentSubscriber;
-        if (sub != null) {
-            subscriberName.setText(sub.getFullName());
-        } else {
-            subscriberName.setText("Guest");
-        }
 
-        // Colum of copy of book ID -> initialized based on copyOfBookIDColumn
         bookIDColumn.setCellValueFactory(cellData ->
                 new SimpleIntegerProperty(cellData.getValue().getBookID()).asObject());
-
-        // Colum of book names -> initialized based on bookNameColumn
         bookNameColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getBookName()));
-
-        // Colum of has Arrived status -> initialized based on returnDateColumn
         arrivedStatusColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getArrivalStatus().toString()));
 
-        // Table of all ordered books
         orderTable.setItems(orderedBooks);
-
-        // Load the user ordered books
         loadOrderedBooks();
 
-        // Null the found label to later use
         foundLabel.setText("");
         foundLabel2.setText("");
         orderBtn.setDisable(true);
 
-        // When clicking on the table, make the copy of book ID be seen to extend
         orderTable.setOnMouseClicked(event -> handleOrderedBookClick());
-
     }
-
 
     void handleOrderedBookClick() {
         OrderedBook selectedOrderedBook = orderTable.getSelectionModel().getSelectedItem();
@@ -117,7 +92,6 @@ public class OrderBookController {
         }
     }
 
-
     private void loadOrderedBooks() {
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -136,16 +110,12 @@ public class OrderBookController {
         }
     }
 
-
     public void updateOrderedBookList(List<OrderedBook> subOrderedBooks) {
         orderedBooks.clear();
-        // Case the subscriber has ordered books
         if (subOrderedBooks != null)
             orderedBooks.addAll(subOrderedBooks);
-        // Add the borrowed books to the table
         orderTable.setItems(orderedBooks);
     }
-
 
     @FXML
     void handleReorderClick(ActionEvent event) throws Exception {
@@ -182,7 +152,6 @@ public class OrderBookController {
         }
     }
 
-
     public void orderBook(ActionEvent event) {
         if (foundBook == null) {
             showAlertError("Order request", "Error: must search a book to order");
@@ -201,10 +170,10 @@ public class OrderBookController {
 
         try {
             Map<String, Object> reqMap = new HashMap<>();
-            reqMap.put("bookName", foundBook.getBookName());
-            reqMap.put("bookId", foundBook.getBookID());
-            reqMap.put("memberId", sub.getMembershipNumber());
-            reqMap.put("memberName", sub.getFullName());
+            reqMap.put("title", foundBook.getBookName());
+            reqMap.put("book_id", foundBook.getBookID());
+            reqMap.put("member_id", sub.getMembershipNumber());
+            reqMap.put("full_name", sub.getFullName());
             reqMap.put("memberPhone", sub.getPhoneNumber());
             reqMap.put("memberEmail", sub.getEmailAddress());
 
@@ -244,7 +213,6 @@ public class OrderBookController {
             showAlertError("Error", "Network error occurred.");
         }
     }
-
     
     public void cancelOrderedBook(ActionEvent event) {
         if (cancelOrder == null) {
@@ -280,45 +248,28 @@ public class OrderBookController {
             e.printStackTrace();
         }
     }
-
     
     private void showAlertError(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText("Error!");
         alert.setContentText(content);
-
-        // Get the DialogPane of the alert
         DialogPane dialogPane = alert.getDialogPane();
-
-        // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }
-
 
     private void showAlertSuccess(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText("Success");
         alert.setContentText(message);
-
-        // Get the DialogPane of the alert
         DialogPane dialogPane = alert.getDialogPane();
-
-        // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/success.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }
-
-
-    public void getReturnBtn(ActionEvent event) throws Exception {
-        MemberDashboardController view = new MemberDashboardController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
-    }
-
 
     @FXML
     public void searchOrderBook(ActionEvent event) {
@@ -338,7 +289,6 @@ public class OrderBookController {
         } else
             initiateBookSearch(bookName, bookID);
     }
-
 
     private void initiateBookSearch(String bookName, String bookID) {
         try {
@@ -372,7 +322,6 @@ public class OrderBookController {
             e.printStackTrace();
         }
     }
-
     
     private void displaySearchResults(List<Book> books) {
         orderBtn.setDisable(false);
@@ -386,7 +335,6 @@ public class OrderBookController {
         foundLabel2.setText("Found book:");
         foundLabel.setText(foundBook.getBookName());
     }
-
 
     private void addActivity(Book book, boolean order) {
         try {
@@ -415,14 +363,5 @@ public class OrderBookController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    @FXML
-    private void handleLogoutButton(ActionEvent event) throws Exception {
-        LogoutUtil.handleLogoutButtonAction(event);
-        // Close the current stage (i.e., the current window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
     }
 }

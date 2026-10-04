@@ -193,7 +193,7 @@ public class InvoiceController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
 
         alert.showAndWait();
@@ -208,10 +208,10 @@ public class InvoiceController {
 
     @FXML
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/invoice/InvoicePage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/Invoice.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/invoice/InvoicePage.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/librarian/Invoice.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("My messages");
 

@@ -206,7 +206,7 @@ public class RegisterMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
 
         alert.showAndWait();
@@ -229,7 +229,7 @@ public class RegisterMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/success.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }
@@ -242,9 +242,9 @@ public class RegisterMemberController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/registration/MemberRegistrationPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/RegisterMember.fxml"));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/registration/MemberRegistrationPage.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/librarian/RegisterMember.css").toExternalForm());
         primaryStage.setTitle("Registration Management Tool");
         primaryStage.setScene(scene);
         primaryStage.show();

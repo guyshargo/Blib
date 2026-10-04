@@ -132,8 +132,14 @@ public class MemberLoginController {
                     .build();
             client.send(statusRequest, HttpResponse.BodyHandlers.ofString());
 
-            MemberDashboardController view = new MemberDashboardController();
-            view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/common/MainLayout.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Member Dashboard");
+            stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,7 +164,7 @@ public class MemberLoginController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }

@@ -109,7 +109,7 @@ public class BorrowBookController {
         barcodeDialog.setTitle("Scan Barcode");
         barcodeDialog.setHeaderText("Please enter the barcode to scan:");
         barcodeDialog.setContentText("Barcode:");
-        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/dialog.css").toExternalForm());
+        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
         barcodeDialog.getDialogPane().getStyleClass().add("custom-alert");
 
         // Get the user input for the barcode
@@ -167,7 +167,7 @@ public class BorrowBookController {
         barcodeDialog.setTitle("Scan ReaderCard Barcode");
         barcodeDialog.setHeaderText("Please enter the barcode to scan:");
         barcodeDialog.setContentText("Barcode:");
-        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/dialog.css").toExternalForm());
+        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
         barcodeDialog.getDialogPane().getStyleClass().add("custom-alert");
 
         Optional<String> result = barcodeDialog.showAndWait();
@@ -299,10 +299,10 @@ public class BorrowBookController {
             }
 
             Map<String, Object> reqMap = new HashMap<>();
-            reqMap.put("memberId", subscriber.getMembershipNumber());
-            reqMap.put("copyOfBookId", copyOfBook.getCopyOfBookId());
-            reqMap.put("librarianId", librarianID);
-            reqMap.put("librarianName", librarianName);
+            reqMap.put("member_id", subscriber.getMembershipNumber());
+            reqMap.put("copy_id", copyOfBook.getCopyOfBookId());
+            reqMap.put("librarian_id", librarianID);
+            reqMap.put("librarian_name", librarianName);
 
             HttpRequest borrowReq = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/borrows/"))
@@ -328,8 +328,8 @@ public class BorrowBookController {
     private void addActivity(BorrowedBook borrowedBook) {
         try {
             Map<String, Object> reqMap = new HashMap<>();
-            reqMap.put("membershipNumber", subscriber.getMembershipNumber());
-            reqMap.put("activityType", "borrow");
+            reqMap.put("member_id", subscriber.getMembershipNumber());
+            reqMap.put("activity_type", "borrow");
             reqMap.put("description", String.format("borrowed %s ", borrowedBook.getNameOfBook()));
 
             ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
@@ -366,7 +366,7 @@ public class BorrowBookController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
 
         alert.showAndWait();
@@ -389,7 +389,7 @@ public class BorrowBookController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/success.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }
@@ -417,9 +417,9 @@ public class BorrowBookController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/borrowbook/BorrowBookPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/BorrowBook.fxml"));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/borrowbook/BorrowBookPage.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/librarian/BorrowBook.css").toExternalForm());
         primaryStage.setTitle("Registration Management Tool");
         primaryStage.setScene(scene);
         primaryStage.show();

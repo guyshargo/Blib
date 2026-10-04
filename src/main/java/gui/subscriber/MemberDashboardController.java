@@ -1,6 +1,5 @@
 package gui.subscriber;
 
-import client.SessionManager;
 import gui.auth.LogoutUtil;
 import gui.catalog.SearchCatalogController;
 import javafx.event.ActionEvent;
@@ -39,34 +38,12 @@ public class MemberDashboardController {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/gui/subscriber/MemberDashboard.css").toExternalForm());
-        primaryStage.setTitle("Subscriber Dashboard");
+        primaryStage.setTitle("Member Dashboard");
         primaryStage.setScene(scene);
         primaryStage.show();
 
         // Register window close listener for logout
         LogoutUtil.addWindowCloseListener(primaryStage);
-    }
-
-    /**
-     * Description:
-     * Method to show greetings text with subscriber's full name
-     */
-    private void subscriberShowInfo() {
-        String subname;
-        if (SessionManager.currentSubscriber == null)
-            subname = "subscriber";
-        else
-            subname = SessionManager.currentSubscriber.getFullName();
-        subscriberName.setText("" + subname);
-    }
-
-    /**
-     * Description:
-     * Method for initializing the given window before it starts
-     */
-    @FXML
-    private void initialize() {
-        subscriberShowInfo();
     }
 
     /**
@@ -117,11 +94,11 @@ public class MemberDashboardController {
     @FXML
     private void handleExtendBorrowPageButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/borrowextend/BorrowExtendPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/ExtendBorrow.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene.getStylesheets().add(getClass().getResource("/gui/subscriber/borrowextend/BorrowExtendPage.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/gui/subscriber/ExtendBorrow.css").toExternalForm());
             currentStage.setScene(scene);
             currentStage.setTitle("My borrowed books");
 
@@ -141,11 +118,11 @@ public class MemberDashboardController {
     @FXML
     private void handleOrderPageButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/order/OrderPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/OrderBook.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene.getStylesheets().add(getClass().getResource("/gui/subscriber/order/OrderPage.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/gui/subscriber/OrderBook.css").toExternalForm());
             currentStage.setScene(scene);
             currentStage.setTitle("My Orders");
             LogoutUtil.addWindowCloseListener(currentStage); // Register window close listener for logout

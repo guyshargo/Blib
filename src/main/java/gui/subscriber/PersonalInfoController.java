@@ -2,16 +2,21 @@ package gui.subscriber;
 
 import client.SessionManager;
 import gui.auth.LogoutUtil;
+import model.Activity;
+import model.Subscriber;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Activity;
-import model.Subscriber;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleStringProperty;
+import java.time.format.DateTimeFormatter;
+
 
 import java.io.IOException;
 import java.net.URI;
@@ -39,15 +44,16 @@ public class PersonalInfoController {
     @FXML private TextField txtFreezeStatus;
     @FXML private Button btnUpdatePhoneNumber;
     @FXML private Button btnUpdateEmail;
-    @FXML private Button btnReturn;
-    @FXML private ListView<String> listViewActivities;
-    @FXML private Label subscriberName;
+    @FXML private TableView<Activity> tableActivities;
+    @FXML private TableColumn<Activity, String> colActivityDate;
+    @FXML private TableColumn<Activity, String> colActivityType;
+    @FXML private TableColumn<Activity, String> colActivityDesc;
 
     private Subscriber subscriber;
 
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/personalinfo/PersonalInfoPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/subscriber/PersonalInfo.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setTitle("Member Personal Information");
@@ -66,6 +72,25 @@ public class PersonalInfoController {
      */
     @FXML
     private void initialize() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        colActivityDate.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getActivityDateTime() != null) {
+                return new SimpleStringProperty(cellData.getValue().getActivityDateTime().format(formatter));
+            }
+            return new SimpleStringProperty("");
+        });
+
+        colActivityType.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getActivityType() != null ? cellData.getValue().getActivityType().toString() : "")
+        );
+
+        colActivityDesc.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getActivityDescription())
+        );
+
+        tableActivities.setPlaceholder(new Label("No activities found yet."));
+
         subscriberShowInfo();
     }
 
@@ -74,21 +99,18 @@ public class PersonalInfoController {
      * Method for showing all member's information into the text fields
      */
     private void subscriberShowInfo() {
-        if (SessionManager.currentSubscriber == null) {
-            subscriberName.setText("subscriber");
-        } else {
+        if (SessionManager.currentSubscriber != null) {
             this.subscriber = SessionManager.currentSubscriber;
-            subscriberName.setText(subscriber.getFullName());
             txtEmail.setText(subscriber.getEmailAddress());
             txtMembershipNumber.setText(String.valueOf(subscriber.getMembershipNumber()));
             txtPhoneNumber.setText(String.valueOf(subscriber.getPhoneNumber()));
             txtFreezeStatus.setText(String.valueOf(subscriber.getFreezeStatus()));
+            
             // Clear and load activities
-            listViewActivities.getItems().clear();
+            tableActivities.getItems().clear();
             LoadActivities();
         }
     }
-
 
     public void LoadActivities() {
         try {
@@ -98,25 +120,24 @@ public class PersonalInfoController {
                     .GET().build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            listViewActivities.getItems().clear();
             if (response.statusCode() == 200) {
                 ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
                 List<Activity> activities = mapper.readValue(response.body(), new TypeReference<List<Activity>>(){});
                 
                 if (activities != null && !activities.isEmpty()) {
-                    int activitiesCnt = 1;
-                    for (Activity activity : activities) {
-                        listViewActivities.getItems().add(activitiesCnt + ") " + activity.toString());
-                        activitiesCnt++;
-                    }
+                    ObservableList<Activity> activityData = FXCollections.observableArrayList(activities);
+                    tableActivities.setItems(activityData);
                 } else {
-                    listViewActivities.getItems().add("No activities found yet.");
+                    tableActivities.setItems(FXCollections.observableArrayList());
                 }
             } else {
-                listViewActivities.getItems().add("No activities found yet.");
+                tableActivities.setItems(FXCollections.observableArrayList());
             }
         } catch (Exception e) {
             e.printStackTrace();
+            javafx.application.Platform.runLater(() -> 
+                showAlertError("Data Error", "Could not load activities.\nDetails: " + e.getMessage())
+            );
         }
     }
 
@@ -209,13 +230,6 @@ public class PersonalInfoController {
             showAlertError("Error", "Network connection failed.");
         }
     }
-
-
-    public void getReturnBtn(ActionEvent event) throws Exception {
-        MemberDashboardController view = new MemberDashboardController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
-    }
-
     
     private void showAlertError(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -225,7 +239,7 @@ public class PersonalInfoController {
         // Get the DialogPane of the alert
         DialogPane dialogPane = alert.getDialogPane();
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }
@@ -241,19 +255,11 @@ public class PersonalInfoController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/success.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
 
         alert.showAndWait();
     }
 
-
-    @FXML
-    private void handleLogoutButton(ActionEvent event) throws Exception {
-        LogoutUtil.handleLogoutButtonAction(event);
-        // Close the current stage (i.e., the current window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
-    }
 }
 

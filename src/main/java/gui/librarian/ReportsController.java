@@ -195,9 +195,9 @@ public class ReportsController {
 
 
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/reports/ReportsPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/Reports.fxml"));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/reports/ReportsPage.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/librarian/Reports.css").toExternalForm());
         primaryStage.setTitle("Reports Management Tool");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -395,7 +395,7 @@ public class ReportsController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }

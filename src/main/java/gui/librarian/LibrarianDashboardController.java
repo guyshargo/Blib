@@ -66,10 +66,10 @@ public class LibrarianDashboardController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/LibrarianMainPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/LibrarianDashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/LibrarianMainPage.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/librarian/LibrarianDashboard.css").toExternalForm());
         primaryStage.setTitle("Librarian Dashboard");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/HeaderImage/book_logo.png")));
         primaryStage.setScene(scene);

@@ -199,7 +199,7 @@ public class ViewMemberController {
             dialog.setTitle("Change Return Date"); // Set the dialog title
             dialog.setHeaderText("Enter the new return date for the book: " + selectedBook.getNameOfBook()); // Set the header text
             dialog.setContentText("Date format: dd/MM/yyyy"); // Set the content text for the date format
-            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/dialog.css").toExternalForm());
+            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
             dialog.getDialogPane().getStyleClass().add("custom-alert");
 
             Optional<String> result = dialog.showAndWait(); // Show the dialog and wait for the user input
@@ -319,8 +319,8 @@ public class ViewMemberController {
     private void addActivity(String activityDetails) {
         try {
             Map<String, Object> reqMap = new HashMap<>();
-            reqMap.put("membershipNumber", subscriber.getMembershipNumber());
-            reqMap.put("activityType", activityDetails.split(",")[0]);
+            reqMap.put("member_id", subscriber.getMembershipNumber());
+            reqMap.put("activity_type", activityDetails.split(",")[0]);
             reqMap.put("description", activityDetails);
 
             ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
@@ -360,7 +360,7 @@ public class ViewMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
 
         alert.showAndWait();
@@ -382,7 +382,7 @@ public class ViewMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/success.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }
