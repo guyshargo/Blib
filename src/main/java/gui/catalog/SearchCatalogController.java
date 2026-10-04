@@ -163,8 +163,8 @@ public class SearchCatalogController {
         alert.setHeaderText("Error!");
         alert.setContentText(content);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
         alert.showAndWait();
     }
 }

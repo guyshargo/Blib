@@ -199,8 +199,8 @@ public class ViewMemberController {
             dialog.setTitle("Change Return Date"); // Set the dialog title
             dialog.setHeaderText("Enter the new return date for the book: " + selectedBook.getNameOfBook()); // Set the header text
             dialog.setContentText("Date format: dd/MM/yyyy"); // Set the content text for the date format
-            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
-            dialog.getDialogPane().getStyleClass().add("custom-alert");
+            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+            dialog.getDialogPane().getStyleClass().addAll("custom-alert", "alert-info");
 
             Optional<String> result = dialog.showAndWait(); // Show the dialog and wait for the user input
             if (!result.isPresent()) {
@@ -251,12 +251,12 @@ public class ViewMemberController {
             int libId = SessionManager.currentLibrarian != null ? SessionManager.currentLibrarian.getLibrarianID() : 101; 
 
             Map<String, Object> reqMap = new HashMap<>();
-            reqMap.put("memberId", subscriber.getMembershipNumber());
-            reqMap.put("copyOfBookId", selectedBook.getCopyOfBookId());
-            reqMap.put("newReturnDate", newReturnDate.toString());
-            reqMap.put("librarianName", libName);
-            reqMap.put("librarianId", libId);
-            reqMap.put("extensionDate", LocalDate.now().toString());
+            reqMap.put("member_id", subscriber.getMembershipNumber());
+            reqMap.put("copy_id", selectedBook.getCopyOfBookId());
+            reqMap.put("return_date", newReturnDate.toString());
+            reqMap.put("librarian_name", libName);
+            reqMap.put("librarian_id", libId);
+            reqMap.put("extension_date", LocalDate.now().toString());
 
             ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
             String jsonBody = mapper.writeValueAsString(reqMap);
@@ -360,8 +360,8 @@ public class ViewMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
 
         alert.showAndWait();
     }
@@ -382,8 +382,8 @@ public class ViewMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-success");
         alert.showAndWait();
     }
 }

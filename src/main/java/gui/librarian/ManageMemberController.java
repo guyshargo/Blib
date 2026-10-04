@@ -178,8 +178,8 @@ public class ManageMemberController {
         barcodeDialog.setTitle("Scan ReaderCard Barcode");
         barcodeDialog.setHeaderText("Please enter the barcode to scan:");
         barcodeDialog.setContentText("Barcode:");
-        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
-        barcodeDialog.getDialogPane().getStyleClass().add("custom-alert");
+        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        barcodeDialog.getDialogPane().getStyleClass().addAll("custom-alert", "alert-info");
 
         // Show the dialog and wait for the user input
         Optional<String> result = barcodeDialog.showAndWait();
@@ -231,8 +231,8 @@ public class ManageMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
 
         alert.showAndWait();
     }

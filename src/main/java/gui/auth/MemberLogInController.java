@@ -10,7 +10,6 @@ import java.net.http.HttpRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import gui.subscriber.MemberDashboardController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -160,12 +159,10 @@ public class MemberLoginController {
         alert.setHeaderText("Error!");
         alert.setContentText(content);
 
-        // Get the DialogPane of the alert
         DialogPane dialogPane = alert.getDialogPane();
 
-        // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
         alert.showAndWait();
     }
 }

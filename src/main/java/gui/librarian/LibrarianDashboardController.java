@@ -71,7 +71,7 @@ public class LibrarianDashboardController {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/gui/librarian/LibrarianDashboard.css").toExternalForm());
         primaryStage.setTitle("Librarian Dashboard");
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/HeaderImage/book_logo.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/images/book_logo.png")));
         primaryStage.setScene(scene);
         primaryStage.show();
         // Register window close listener for logout
