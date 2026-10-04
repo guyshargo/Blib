@@ -18,7 +18,7 @@ public class LibrarianLogic {
 
 
     public synchronized Librarian fetchLibrarianByUsername(String username) {
-        String query = "SELECT * FROM librarian_db WHERE userName = ? ";
+        String query = "SELECT * FROM librarians WHERE username = ? ";
         Librarian librarian = null;
 
         try (Connection connection = dbConnector.getConnection();
@@ -28,14 +28,14 @@ public class LibrarianLogic {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     librarian = new Librarian(
-                            rs.getString("fullName"),
-                            rs.getString("PhoneNumber"),
-                            rs.getInt("LlibrarianID"),
-                            rs.getString("emailAdress"),
-                            rs.getString("userName"),
+                            rs.getString("full_name"),
+                            rs.getString("phone_number"),
+                            rs.getInt("librarian_id"),
+                            rs.getString("email_address"),
+                            rs.getString("username"),
                             rs.getString("password")
                     );
-                    librarian.setLoginStatus(rs.getBoolean("LoggedInStatus"));
+                    librarian.setLoginStatus(rs.getBoolean("is_logged_in"));
                 }
             }
         } catch (SQLException e) {
@@ -49,7 +49,7 @@ public class LibrarianLogic {
      * Method for disconnecting all librarians
      */
     public synchronized void logOutStatusToAllLibrarian() {
-        String query = "UPDATE librarian_db SET LoggedInStatus = ? WHERE LoggedInStatus = ?";
+        String query = "UPDATE librarians SET is_logged_in = ? WHERE is_logged_in = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -65,7 +65,7 @@ public class LibrarianLogic {
 
 
     public synchronized boolean ChangeLogInStatus(int librarianId, boolean status) {
-        String query = "UPDATE librarian_db SET LoggedInStatus = ? WHERE LlibrarianID = ?";
+        String query = "UPDATE librarians SET is_logged_in = ? WHERE librarian_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -81,7 +81,7 @@ public class LibrarianLogic {
     }
 
     public synchronized Librarian fetchLibrarianByID(int librarianID) {
-        String query = "SELECT * FROM librarian_db WHERE LlibrarianID = ?";
+        String query = "SELECT * FROM librarians WHERE librarian_id = ?";
         Librarian librarian = null;
         
         try (Connection connection = dbConnector.getConnection();
@@ -91,11 +91,11 @@ public class LibrarianLogic {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     librarian = new Librarian(
-                            rs.getString("fullName"),
-                            rs.getString("PhoneNumber"),
-                            rs.getInt("LlibrarianID"),
-                            rs.getString("emailAdress"),
-                            rs.getString("userName"),
+                            rs.getString("full_name"),
+                            rs.getString("phone_number"),
+                            rs.getInt("librarian_id"),
+                            rs.getString("email_address"),
+                            rs.getString("username"),
                             rs.getString("password")
                     );
                 }

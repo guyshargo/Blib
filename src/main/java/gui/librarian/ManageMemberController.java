@@ -69,11 +69,11 @@ public class ManageMemberController {
 
 
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/managemember/ManageMember.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/ManageMember.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/managemember/ManageMember.css").toExternalForm());
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/HeaderImage/book_logo.png")));
+        scene.getStylesheets().add(getClass().getResource("/gui/librarian/ManageMember.css").toExternalForm());
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/images/book_logo.png")));
         primaryStage.setScene(scene);
         primaryStage.setTitle("Manage Member");
         LogoutUtil.addWindowCloseListener(primaryStage); // Register window close listener for logout
@@ -97,18 +97,18 @@ public class ManageMemberController {
             Stage currentStage = (Stage) subscriberTable.getScene().getWindow();
 
             // Load the SubscriberUpdateFrame
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/viewmember/ViewMemberPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/ViewMember.fxml"));
             Pane root = loader.load();
 
             // Pass the selected subscriber to the update frame controller
-            ViewMemberPageController controller = loader.getController();
+            ViewMemberController controller = loader.getController();
             controller.loadSubscriber(selectedSubscriber);
 
             // Set up the new stage
             Stage primaryStage = new Stage();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/gui/librarian/viewmember/ViewMemberPage.css").toExternalForm());
-            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/HeaderImage/book_logo.png")));
+            scene.getStylesheets().add(getClass().getResource("/gui/librarian/ViewMember.css").toExternalForm());
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/images/book_logo.png")));
             primaryStage.setTitle("View Member Page");
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -166,7 +166,7 @@ public class ManageMemberController {
     }
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LibrarianMainPageController view = new LibrarianMainPageController();
+        LibrarianDashboardController view = new LibrarianDashboardController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
@@ -178,7 +178,7 @@ public class ManageMemberController {
         barcodeDialog.setTitle("Scan ReaderCard Barcode");
         barcodeDialog.setHeaderText("Please enter the barcode to scan:");
         barcodeDialog.setContentText("Barcode:");
-        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/dialog.css").toExternalForm());
+        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
         barcodeDialog.getDialogPane().getStyleClass().add("custom-alert");
 
         // Show the dialog and wait for the user input
@@ -231,7 +231,7 @@ public class ManageMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
 
         alert.showAndWait();

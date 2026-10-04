@@ -1,0 +1,45 @@
+/* ---------------- DIGITAL SHELVES ---------------- */
+.content-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.content-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.shelf-container {
+    -fx-padding: 30 50 50 50;
+    -fx-spacing: 45;
+}
+
+.shelf-title {
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-font-size: 22px;
+    -fx-text-fill: #B83A24; 
+    -fx-padding: 0 0 10 0;
+}
+
+.shelf-row {
+    -fx-spacing: 35;
+    -fx-padding: 0 0 10 20;
+    -fx-border-color: transparent transparent #CBA471 transparent; 
+    -fx-border-width: 0 0 10 0;
+    -fx-border-radius: 3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);
+}
+
+.book-card-placeholder {
+    -fx-background-color: #D3C4B1; 
+    -fx-min-width: 120;
+    -fx-min-height: 175;
+    -fx-background-radius: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 3, 5);
+    -fx-cursor: hand;
+}
+
+.book-card-placeholder:hover {
+    -fx-translate-y: -8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 5, 8);
+}

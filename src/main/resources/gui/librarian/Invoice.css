@@ -1,21 +1,7 @@
-.label-text {
-    -fx-font-family: "Assistant SemiBold";
-    -fx-font-size: 20px;
-}
-
 .text-field {
     -fx-background-radius: 17;
     -fx-font-family: "Assistantd";
     -fx-font-size: 14;
-}
-
-.table-view .table-cell {
-    -fx-alignment: center;
-}
-
-.text-field:focused, .password-field:focused {
-    -fx-border-color: #4CAF50;
-    -fx-border-width: 2px;
 }
 
 /* Menu Button Styling */
@@ -42,26 +28,31 @@
     -fx-cursor: hand; 
 }
 
-.menu-button:pressed {
-    -fx-background-color: #388e3c;
+.label-text {
+    -fx-font-family: "Assistant SemiBold";
+    -fx-font-size: 20px;
 }
 
-/* Styling for the "Submit" button */
-#submitButton {
-    -fx-background-color: #6ab7f6; 
-    -fx-font-weight: bold;
+.ratio {
+    -fx-font-family: "Assistant";
+    -fx-font-size: 18px;
 }
 
-#submitButton:hover {
-    -fx-background-color: #4890cb; 
+.table-view {
+    -fx-background-color: #fff8f2;
+    -fx-font-family: "Assistant SemiBold";
+    -fx-font-size: 16;
+    -fx-background-radius: 5px;
 }
 
-/* Styling for the "Clear" button */
-#clearButton {
-    -fx-background-color: #ffba52;  
-    -fx-text-fill: white;
+.table-row-cell:odd {
+    -fx-background-color: #fdf6f0;
 }
 
-#clearButton:hover {
-    -fx-background-color: #ff8457;  
+.table-row-cell:even {
+    -fx-background-color: #fee2cd;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f4e2e1;
 }

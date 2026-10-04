@@ -35,6 +35,8 @@ public class Activity implements Serializable {
         this.activityDateTime = activityDateTime;
     }
 
+    public Activity(){};
+
     /**
      * Description:
      * Getter method for the activity's member id
@@ -63,6 +65,10 @@ public class Activity implements Serializable {
      */
     public ActivityType getActivityType() {
         return type;
+    }
+
+    public void setActivityType(enums.ActivityType activityType) {
+        this.type = activityType;
     }
 
     /**

@@ -1,0 +1,130 @@
+/* Base Backgrounds */
+.root {
+    -fx-background-color: #F8F6F0; 
+}
+
+/* ---------------- TOP HEADER ---------------- */
+.header-bar {
+    -fx-background-color: rgb(218, 196, 165); 
+    -fx-padding: 15 30 15 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.brand-title {
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-font-size: 26px;
+    -fx-text-fill: #3E3028;
+}
+
+/* History Arrow Buttons */
+.history-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #5A4A42;
+    -fx-font-size: 24px;
+    -fx-padding: 2 15 2 15;
+    -fx-background-radius: 15;
+    -fx-cursor: hand;
+}
+
+.history-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+}
+
+.history-button:disabled {
+    -fx-text-fill: #A0968F;
+    -fx-opacity: 0.4;
+    -fx-cursor: default;
+}
+
+.user-controls {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-background-radius: 20;
+    -fx-padding: 3 12 3 5;
+}
+
+/* Profile Button */
+.profile-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 3 8;
+    -fx-background-radius: 15;
+}
+
+.profile-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+}
+
+.user-profile-label {
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-font-size: 14px;
+    -fx-text-fill: #3E3028;
+    -fx-cursor: hand;
+}
+
+.logout-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #3E3028;
+    -fx-border-radius: 15;
+    -fx-border-width: 1.2;
+    -fx-text-fill: #3E3028;
+    -fx-font-size: 12px;
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-padding: 5 15;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #3E3028;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Search Bar */
+.search-bar-container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20;
+    -fx-padding: 4 10;
+}
+
+.search-bar {
+    -fx-background-color: transparent;
+    -fx-font-family: "Assistant";
+    -fx-font-size: 14px;
+    -fx-text-fill: #3E3028;
+    -fx-prompt-text-fill: #A0968F;
+}
+
+.search-bar:focused {
+    -fx-background-color: transparent;
+}
+
+/* ---------------- HORIZONTAL NAV BAR ---------------- */
+.nav-bar {
+    -fx-background-color: #F0EAE1; 
+    -fx-padding: 0 20;
+    -fx-spacing: 30;
+    -fx-border-color: #E1D7C6 transparent #E1D7C6 transparent;
+    -fx-border-width: 1 0 1 0;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #5A4A42;
+    -fx-font-family: "Assistant SemiBold";
+    -fx-font-size: 16px;
+    -fx-padding: 12 20;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 0 3 0;
+}
+
+.nav-button:hover {
+    -fx-text-fill: #3E3028;
+    -fx-border-color: transparent transparent #A0968F transparent;
+}
+
+.nav-button-active {
+    -fx-text-fill: #000000;
+    -fx-font-family: "Assistant ExtraBold";
+    -fx-border-color: transparent transparent rgb(96, 188, 205) transparent;
+}

@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import gui.subscriber.MemberMainPageController;
+import gui.subscriber.MemberDashboardController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +25,7 @@ import model.Subscriber;
  * Description:
  * Controller class for the member's login page
  */
-public class MemberLogInController {
+public class MemberLoginController {
     @FXML private TextField txtUsername;
     @FXML private PasswordField MemberPassword;
     @FXML private Button btnReturn;
@@ -40,10 +40,10 @@ public class MemberLogInController {
      * @throws Exception (when loading the scene)
      */
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login/MemberLogInFrame.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/MemberLogin.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/login/MemberLogin.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/gui/auth/MemberLogin.css").toExternalForm());
         primaryStage.setTitle("Type Member information");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -58,7 +58,7 @@ public class MemberLogInController {
      * @throws Exception (when loading the scene)
      */
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LogInController view = new LogInController();
+        MainLoginController view = new MainLoginController();
         view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
@@ -132,8 +132,14 @@ public class MemberLogInController {
                     .build();
             client.send(statusRequest, HttpResponse.BodyHandlers.ofString());
 
-            MemberMainPageController view = new MemberMainPageController();
-            view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/common/MainLayout.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Member Dashboard");
+            stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,7 +164,7 @@ public class MemberLogInController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/alert.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");
         alert.showAndWait();
     }

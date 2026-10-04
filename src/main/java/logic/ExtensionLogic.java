@@ -16,7 +16,7 @@ public class ExtensionLogic {
     public ExtensionLogic() { dbConnector = MysqlConnection.getInstance(); }
 
     public synchronized boolean existingOrders(BorrowedBook borrowedBook) {
-        String query = "SELECT * FROM ordered_book WHERE bookName = ?";
+        String query = "SELECT * FROM orders WHERE book_title = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="25.0" stylesheets="@BookDetails.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.catalog.BookDetailsController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="68.0" prefWidth="800.0" spacing="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Name:" wrappingWidth="216.33670043945312">
+               <font>
+                  <Font name="Assistant SemiBold" size="16.0" />
+               </font>
+            </Text>
+            <TextField fx:id="bookName" editable="false" prefHeight="45.0" prefWidth="330.0" styleClass="text-field" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="61.0" prefWidth="800.0" spacing="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Status:" wrappingWidth="219.33670043945312">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="BookStatus" editable="false" prefHeight="45.0" prefWidth="330.0" styleClass="text-field" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="56.0" prefWidth="800.0" spacing="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Shelf Location:" wrappingWidth="222.33670043945312">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="ShelfLocation" editable="false" prefHeight="45.0" prefWidth="330.0" styleClass="text-field" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="800.0" spacing="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Closest Return Date:" wrappingWidth="242.93667602539062">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="ReturnDate" editable="false" prefHeight="45.0" prefWidth="330.0" styleClass="text-field" />
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="800.0" spacing="20.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Summary:" wrappingWidth="242.93667602539062">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="summaryTxt" editable="false" prefHeight="150.0" prefWidth="330.0" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextArea>
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -14,7 +14,7 @@ public class ClientUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/login/MainLogInFrame.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/auth/MainLogin.fxml"));
         
         Scene scene = new Scene(root);
         primaryStage.setTitle("Blib Library System - Login");

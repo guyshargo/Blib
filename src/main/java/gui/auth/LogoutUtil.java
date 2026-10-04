@@ -1,8 +1,11 @@
 package gui.auth;
 
 import client.SessionManager;
-
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.net.URI;
@@ -43,7 +46,7 @@ public class LogoutUtil {
     stage.setOnCloseRequest(event -> {
         try {
             handleLogoutAction(); 
-            System.exit(0); // close the javaFX client application
+            System.exit(0); // Only closes the JavaFX application if the window 'X' is clicked
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,6 +54,19 @@ public class LogoutUtil {
 }
 
     public static void handleLogoutButtonAction(ActionEvent event) throws Exception {
-        handleLogoutAction();
+        try{
+            handleLogoutAction();
+
+            FXMLLoader loader = new FXMLLoader(LogoutUtil.class.getResource("/gui/auth/MainLogin.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Blib Library - Login");
+            stage.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
