@@ -3,7 +3,7 @@ package gui.librarian;
 import client.SessionManager;
 
 import enums.FreezeStatus;
-import gui.auth.LogoutUtil;
+import gui.common.MainLayoutController;
 import model.Activity;
 import model.BorrowedBook;
 import model.Subscriber;
@@ -13,9 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 import java.net.URI;
@@ -47,7 +45,6 @@ public class ViewMemberController {
     @FXML private TableColumn<BorrowedBook, String> colReturnDate;
     @FXML private TableColumn<BorrowedBook, String> colLibrarianName;
     @FXML private TableColumn<BorrowedBook, String> colExtentionDate;
-    @FXML private Button logoutButton;
     @FXML private Label librarianName;
 
     private ObservableList<BorrowedBook> borrowedBooks = FXCollections.observableArrayList();
@@ -55,9 +52,15 @@ public class ViewMemberController {
     private boolean isFirstLoad = true;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    // Static bridge to receive the subscriber before loadCenterView injects the FXML
+    public static Subscriber selectedSubscriberToView = null;
+
     @FXML
     public void initialize() {
         librarianName.setText(SessionManager.currentLibrarian.getFullName());
+        if (selectedSubscriberToView != null) {
+            loadSubscriber(selectedSubscriberToView);
+        }
     }
 
 
@@ -283,8 +286,7 @@ public class ViewMemberController {
 
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        ManageMemberController view = new ManageMemberController(); // Create an instance of the ManageMemberController
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow()); // Start the ManageMemberController view
+        MainLayoutController.getInstance().loadCenterView("/gui/librarian/ManageMember.fxml");
     }
 
 
@@ -339,16 +341,6 @@ public class ViewMemberController {
             e.printStackTrace();
         }
     }
-
-
-    @FXML
-    void getLogoutButton(ActionEvent event) throws Exception {
-        LogoutUtil.handleLogoutButtonAction(event);
-        // Close the current stage (i.e., the current window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
-    }
-
 
     private void showAlertError(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

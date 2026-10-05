@@ -1,6 +1,7 @@
 package gui.auth;
 
 import client.SessionManager;
+import model.Librarian;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -9,9 +10,6 @@ import java.net.http.HttpRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import gui.subscriber.MemberDashboardController;
-import model.Librarian;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -135,8 +133,13 @@ public class LibrarianLoginController {
                     .build();
             client.send(statusRequest, HttpResponse.BodyHandlers.ofString());
 
-            MemberDashboardController view = new MemberDashboardController();
-            view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/common/MainLayout.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Blib Library");
+            stage.centerOnScreen();
 
         } catch (Exception e) {
             e.printStackTrace();

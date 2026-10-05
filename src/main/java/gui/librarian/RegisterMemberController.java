@@ -11,50 +11,26 @@ import java.net.http.HttpRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import gui.auth.LogoutUtil;
+import gui.common.MainLayoutController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 /**
  * Description:
  * Controller class for the librarian to register a new member into the system
  */
 public class RegisterMemberController {
-    @FXML
-    private TextField idField;
-
-    @FXML
-    private TextField fullNameField;
-
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private TextField passwordtextField;
-
-    @FXML
-    private TextField phoneField;
-
-    @FXML
-    private TextField emailField;
-
-    @FXML
-    private Button submitButton;
-
-    @FXML
-    private Button clearButton;
-
-    @FXML
-    private Button btnReturn;
-
-    @FXML
-    private Label librarianName;
+    @FXML private TextField idField;
+    @FXML private TextField fullNameField;
+    @FXML private TextField usernameField;
+    @FXML private TextField passwordtextField;
+    @FXML private TextField phoneField;
+    @FXML private TextField emailField;
+    @FXML private Button submitButton;
+    @FXML private Button clearButton;
+    @FXML private Button btnReturn;
+    @FXML private Label librarianName;
 
     /**
      * Description:
@@ -166,27 +142,7 @@ public class RegisterMemberController {
      */
     @FXML
     public void handleReturn(ActionEvent event) {
-        try {
-            LibrarianDashboardController view = new LibrarianDashboardController();
-            view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Description:
-     * Method to logout from librarian's account
-     *
-     * @param event ActionEvent.class
-     * @throws Exception (when loading the scene)
-     */
-    @FXML
-    void getLogoutButton(ActionEvent event) throws Exception {
-        LogoutUtil.handleLogoutButtonAction(event);
-        // Close the current stage (i.e., the current window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
+        MainLayoutController.getInstance().loadCenterView("/gui/librarian/LibrarianDashboard.fxml");
     }
 
     /**
@@ -232,22 +188,5 @@ public class RegisterMemberController {
         dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
         dialogPane.getStyleClass().addAll("custom-alert", "alert-success");
         alert.showAndWait();
-    }
-
-    /**
-     * Description:
-     * Method for loading the given window
-     *
-     * @param primaryStage Stage.class
-     * @throws Exception (when loading the scene)
-     */
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/RegisterMember.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/RegisterMember.css").toExternalForm());
-        primaryStage.setTitle("Registration Management Tool");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        LogoutUtil.addWindowCloseListener(primaryStage); // Register window close listener for logout
     }
 }

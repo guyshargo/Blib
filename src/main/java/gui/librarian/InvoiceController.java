@@ -1,7 +1,7 @@
 package gui.librarian;
 
 import client.SessionManager;
-import gui.auth.LogoutUtil;
+import gui.common.MainLayoutController;
 import model.InvoiceMessage;
 import model.Librarian;
 
@@ -10,12 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -46,7 +41,6 @@ public class InvoiceController {
     @FXML private TableColumn<InvoiceMessage, String> usernameColumn;
     @FXML private TableColumn<InvoiceMessage, String> nameColumn;
     @FXML private TableColumn<InvoiceMessage, String> dateColumn;
-    @FXML private Button logoutButton;
     @FXML private Label librarianName;
 
     private Librarian librarian = null;
@@ -201,28 +195,7 @@ public class InvoiceController {
 
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LibrarianDashboardController view = new LibrarianDashboardController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+        MainLayoutController.getInstance().loadCenterView("/gui/librarian/LibrarianDashboard.fxml");
     }
 
-
-    @FXML
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/Invoice.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/Invoice.css").toExternalForm());
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("My messages");
-
-        // Register window close listener for logout
-        LogoutUtil.addWindowCloseListener(primaryStage);
-    }
-    @FXML
-    void getLogoutButton(ActionEvent event) throws Exception {
-        LogoutUtil.handleLogoutButtonAction(event);
-        // Close the current stage (i.e., the current window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
-    }
 }
