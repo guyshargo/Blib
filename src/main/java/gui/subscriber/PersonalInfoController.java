@@ -86,7 +86,7 @@ public class PersonalInfoController {
         );
 
         colActivityDesc.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getActivityDescription())
+            new SimpleStringProperty(String.valueOf(cellData.getValue().getEntityId()))
         );
 
         tableActivities.setPlaceholder(new Label("No activities found yet."));

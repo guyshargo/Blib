@@ -20,7 +20,7 @@ public class BorrowLogic {
     public BorrowLogic() { dbConnector = MysqlConnection.getInstance(); }
 
     public synchronized BorrowedBook getCloserReturnDateBook(int book_id) {
-        String query = "SELECT * FROM borrowed_books WHERE book_id = ? ORDER BY return_date ASC LIMIT 1";
+        String query = "SELECT bb.*, b.title FROM borrowed_books bb JOIN books b ON bb.book_id = b.book_id WHERE bb.book_id = ? ORDER BY bb.return_date ASC LIMIT 1";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
@@ -33,7 +33,7 @@ public class BorrowLogic {
                     LocalDate extension_date = (extensionDateSql != null) ? extensionDateSql.toLocalDate().plusDays(1) : null;
                     
                     int member_id = resultSet.getInt("member_id");
-                    String bookName = resultSet.getString("book_title");
+                    String bookName = resultSet.getString("title");
                     int copyOfBookId = resultSet.getInt("copy_id");
                     String librarian_name = resultSet.getString("librarian_name");
                     int librarian_id = resultSet.getInt("librarian_id");
@@ -161,7 +161,7 @@ public class BorrowLogic {
     }
 
     public synchronized List<BorrowedBook> importAllBorrowedBooks() {
-        String query = "SELECT * FROM borrowed_books";
+        String query = "SELECT borrowed_books.*, books.title FROM borrowed_books JOIN books ON borrowed_books.book_id = books.book_id";
         List<BorrowedBook> borrowList = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -174,7 +174,7 @@ public class BorrowLogic {
                 
                 borrowList.add(new BorrowedBook(
                         rs.getInt("member_id"),
-                        rs.getString("book_title"),
+                        rs.getString("title"),
                         rs.getInt("copy_id"),
                         rs.getString("librarian_name"),
                         rs.getInt("librarian_id"),
@@ -209,25 +209,24 @@ public class BorrowLogic {
     }
 
     public synchronized boolean addNewBorrowedBook(BorrowedBook borrowedBook) {
-        String query = "INSERT INTO borrowed_books (member_id, book_title, borrow_date, return_date, librarian_name, librarian_id, copy_id, extension_date, book_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO borrowed_books (member_id, borrow_date, return_date, librarian_name, librarian_id, copy_id, extension_date, book_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
              
             ps.setInt(1, borrowedBook.getMembershipNumber());
-            ps.setString(2, borrowedBook.getNameOfBook());
-            ps.setDate(3, java.sql.Date.valueOf(borrowedBook.getBorrowDate()));
-            ps.setDate(4, java.sql.Date.valueOf(borrowedBook.getReturnDate()));
-            ps.setString(5, borrowedBook.getLibrarianName());
-            ps.setInt(6, borrowedBook.getLibrarianId());
-            ps.setInt(7, borrowedBook.getCopyOfBookId());
+            ps.setDate(2, java.sql.Date.valueOf(borrowedBook.getBorrowDate()));
+            ps.setDate(3, java.sql.Date.valueOf(borrowedBook.getReturnDate()));
+            ps.setString(4, borrowedBook.getLibrarianName());
+            ps.setInt(5, borrowedBook.getLibrarianId());
+            ps.setInt(6, borrowedBook.getCopyOfBookId());
 
             if (borrowedBook.getExtensionDate() != null) {
-                ps.setDate(8, java.sql.Date.valueOf(borrowedBook.getExtensionDate()));
+                ps.setDate(7, java.sql.Date.valueOf(borrowedBook.getExtensionDate()));
             } else {
-                ps.setNull(8, java.sql.Types.DATE);
+                ps.setNull(7, java.sql.Types.DATE);
             }
-            ps.setInt(9, borrowedBook.getBookId());
+            ps.setInt(8, borrowedBook.getBookId());
 
             return ps.executeUpdate() > 0;
             
@@ -251,7 +250,7 @@ public class BorrowLogic {
 
 
     public synchronized List<BorrowedBook> importBorrowedBooks(int member_id) {
-        String query = "SELECT * FROM borrowed_books WHERE member_id=?";
+        String query = "SELECT bb.*, b.title FROM borrowed_books bb JOIN books b ON bb.book_id = b.book_id WHERE bb.member_id = ?";
         List<BorrowedBook> borrowList = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -266,7 +265,7 @@ public class BorrowLogic {
                     
                     borrowList.add(new BorrowedBook(
                             rs.getInt("member_id"),
-                            rs.getString("book_title"),
+                            rs.getString("title"),
                             rs.getInt("copy_id"),
                             rs.getString("librarian_name"),
                             rs.getInt("librarian_id"),

@@ -49,7 +49,7 @@ public class ReportLogic {
     }
 
     private synchronized List<BorrowHistory> fetchBorrowHistory() throws SQLException {
-        String query = "SELECT * FROM borrow_histories";
+        String query = "SELECT bh.*, b.title FROM borrow_histories bh JOIN book_copies bc ON bh.copy_id = bc.copy_id JOIN books b ON bc.book_id = b.book_id";
         List<BorrowHistory> borrowHistories = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -58,7 +58,7 @@ public class ReportLogic {
              
             while (rs.next()) {
                 int memberId = rs.getInt("member_id");
-                String bookName = rs.getString("book_title");
+                String bookName = rs.getString("title");
                 String memberName = rs.getString("member_name");
                 LocalDate borrowDate = rs.getDate("borrow_date").toLocalDate().plusDays(1);
                 LocalDate originalReturnDate = rs.getDate("original_return_date").toLocalDate().plusDays(1);
@@ -203,24 +203,23 @@ public class ReportLogic {
     }
 
     public synchronized void saveBorrowHistory(BorrowHistory borrowHistory) {
-        String insertQuery = "INSERT INTO borrow_histories (member_id, member_name, book_title, borrow_date, original_return_date, actual_return_date, late_days, copy_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO borrow_histories (member_id, member_name, borrow_date, original_return_date, actual_return_date, late_days, copy_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(insertQuery)) {
              
             ps.setInt(1, borrowHistory.getMemberId());
             ps.setString(2, borrowHistory.getMemberName());
-            ps.setString(3, borrowHistory.getBookName());
-            ps.setDate(4, Date.valueOf(borrowHistory.getBorrowDate()));
-            ps.setDate(5, Date.valueOf(borrowHistory.getOriginalReturnDate()));
+            ps.setDate(3, Date.valueOf(borrowHistory.getBorrowDate()));
+            ps.setDate(4, Date.valueOf(borrowHistory.getOriginalReturnDate()));
             
             if (borrowHistory.getActualReturnDate() != null) {
-                ps.setDate(6, Date.valueOf(borrowHistory.getActualReturnDate()));
+                ps.setDate(5, Date.valueOf(borrowHistory.getActualReturnDate()));
             } else {
-                ps.setNull(6, Types.DATE);
+                ps.setNull(5, Types.DATE);
             }
-            ps.setInt(7, borrowHistory.getLateDays());
-            ps.setInt(8, borrowHistory.getCopyOfBookId());
+            ps.setInt(6, borrowHistory.getLateDays());
+            ps.setInt(7, borrowHistory.getCopyOfBookId());
             ps.executeUpdate();
             
         } catch (SQLException e) {

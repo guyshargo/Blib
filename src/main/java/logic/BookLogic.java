@@ -18,7 +18,7 @@ public class BookLogic {
     public BookLogic() { dbConnector = MysqlConnection.getInstance(); }
 
     public synchronized CopyOfBook findCopyOfBook(int copyOfBookID) {
-        String queryAvailableCopy = "SELECT * FROM book_copies WHERE copy_id = ?";
+        String queryAvailableCopy = "SELECT bc.*, b.title FROM book_copies bc JOIN books b ON bc.book_id = b.book_id WHERE bc.copy_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(queryAvailableCopy)) {
@@ -46,7 +46,7 @@ public class BookLogic {
     }
 
     public synchronized CopyOfBook getAvailableCopyOfBookByBarcode(String barcode) {
-        String queryAvailableCopy = "SELECT * FROM book_copies WHERE barcode = ? AND borrow_status = 'NotBorrowed' LIMIT 1";
+        String queryAvailableCopy = "SELECT bc.*, b.title FROM book_copies bc JOIN books b ON bc.book_id = b.book_id WHERE bc.barcode = ? AND bc.borrow_status = 'NotBorrowed' LIMIT 1";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(queryAvailableCopy)) {
@@ -74,7 +74,7 @@ public class BookLogic {
     }
 
     public synchronized CopyOfBook getAvailableCopyOfBook(int book_id) {
-        String queryAvailableCopy = "SELECT * FROM book_copies WHERE book_id = ? AND borrow_status = 'NotBorrowed' LIMIT 1";
+        String queryAvailableCopy = "SELECT bc.*, b.title FROM book_copies bc JOIN books b ON bc.book_id = b.book_id WHERE bc.book_id = ? AND bc.borrow_status = 'NotBorrowed' LIMIT 1";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(queryAvailableCopy)) {

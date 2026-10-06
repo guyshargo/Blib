@@ -53,8 +53,8 @@ public class BorrowController {
 
             reportLogic.saveBorrowHistory(new BorrowHistory(
                 sub.getMembershipNumber(), 
-                sub.getFullName(), 
                 book.getNameOfBook(),
+                sub.getFullName(), 
                 book.getBorrowDate(), 
                 book.getReturnDate(),
                 request.getCopyOfBookId()

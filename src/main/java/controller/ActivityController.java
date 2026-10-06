@@ -32,7 +32,7 @@ public class ActivityController {
             Activity activity = new Activity(
                     request.getMembershipNumber(),
                     type,
-                    request.getDescription(),
+                    request.getEntityId(),
                     LocalDateTime.now()
             );
 

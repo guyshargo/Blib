@@ -18,46 +18,19 @@ public enum ActivityType {
     REGISTRATION("Registration", "registerMember"),
     LATE_BOOK_RETURN("Returned Book Late", "lateBookReturn");
 
-    /**
-     * Description:
-     * String attribute representing description of activity type
-     */
     private String value;
-
-    /**
-     * Description:
-     * String attribute representing the database value of the object
-     */
     private String DBvalue;
 
-    /**
-     * Description:
-     * Method for constructing the given enum class
-     *
-     * @param value   String.class
-     * @param DBvalue String.class
-     */
     ActivityType(String value, String DBvalue) {
         this.value = value;
         this.DBvalue = DBvalue;
     }
 
-    /**
-     * Description:
-     * Getter method for the enum's string value
-     *
-     * @return value String.class
-     */
+
     public String getValue() {
         return this.value;
     }
 
-    /**
-     * Description:
-     * Getter method for the enum's string DBvalue
-     *
-     * @return DBvalue String.class
-     */
     public String getDBValue() {
         return this.DBvalue;
     }

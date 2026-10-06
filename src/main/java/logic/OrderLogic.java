@@ -21,8 +21,8 @@ public class OrderLogic {
     public OrderLogic() { dbConnector = MysqlConnection.getInstance(); }
 
 
-    public synchronized boolean changeArrivalStatus(String book_title) {
-        OrderedBook found = importOrderedBooksByBookName(book_title);
+    public synchronized boolean changeArrivalStatus(int book_id) {
+        OrderedBook found = importOrderedBooksByBookId(book_id);
         
         if (found != null) {
             // trigger email notification
@@ -50,7 +50,7 @@ public class OrderLogic {
     }
 
     public synchronized List<OrderedBook> importOrderedBooks(int member_id) {
-        String query = "SELECT * FROM orders WHERE member_id=?";
+        String query = "SELECT o.*, b.title FROM orders o JOIN books b ON o.book_id = b.book_id WHERE o.member_id = ?";
         List<OrderedBook> orderList = new ArrayList<>();
         
         try (Connection con = dbConnector.getConnection();
@@ -75,7 +75,7 @@ public class OrderLogic {
                             rs.getString("member_phone"),
                             rs.getString("member_email"),
                             rs.getInt("book_id"),
-                            rs.getString("book_title"),
+                            rs.getString("title"),
                             order_date,
                             arrival_status,
                             localCurrentDate
@@ -88,13 +88,13 @@ public class OrderLogic {
         return orderList;
     }
 
-    public synchronized OrderedBook importOrderedBooksByBookName(String book_title) {
-        String query = "SELECT * FROM orders WHERE book_title = ? AND arrival_status = ? ORDER BY order_date ASC LIMIT 1";
+    public synchronized OrderedBook importOrderedBooksByBookId(int book_id) {
+        String query = "SELECT o.*, b.title FROM orders o JOIN books b ON o.book_id = b.book_id WHERE o.book_id = ? AND o.arrival_status = ? ORDER BY o.order_date ASC LIMIT 1";
         
         try (Connection con = dbConnector.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
              
-            ps.setString(1, book_title);
+            ps.setInt(1, book_id);
             ps.setString(2, "notArrived");
             
             try (ResultSet rs = ps.executeQuery()) {
@@ -110,7 +110,7 @@ public class OrderLogic {
                             rs.getString("member_phone"),
                             rs.getString("member_email"),
                             rs.getInt("book_id"),
-                            rs.getString("book_title"),
+                            rs.getString("title"),
                             order_date,
                             arrival_status,
                             arrival_date
@@ -158,7 +158,7 @@ public class OrderLogic {
     }
 
 
-    public synchronized String orderBook(String book_title, int bookID, int member_id, String member_name,
+    public synchronized String orderBook(int bookID, int member_id, String member_name,
                                          String member_phone, String member_email) {
         BookLogic bookLogic = new BookLogic();
         Book book = bookLogic.fetchBook(bookID);
@@ -170,19 +170,18 @@ public class OrderLogic {
         Date tempDate = new Date();
         java.sql.Date currentDate = new java.sql.Date(tempDate.getTime());
         
-        String query = "INSERT INTO orders (book_title, book_id, order_date, member_id, member_name, member_phone, member_email, arrival_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO orders (book_id, order_date, member_id, member_name, member_phone, member_email, arrival_status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
-            ps.setString(1, book_title);
-            ps.setInt(2, bookID);
-            ps.setDate(3, currentDate);
-            ps.setInt(4, member_id);
-            ps.setString(5, member_name);
-            ps.setString(6, member_phone);
-            ps.setString(7, member_email);
-            ps.setString(8, "notArrived");
+            ps.setInt(1, bookID);
+            ps.setDate(2, currentDate);
+            ps.setInt(3, member_id);
+            ps.setString(4, member_name);
+            ps.setString(5, member_phone);
+            ps.setString(6, member_email);
+            ps.setString(7, "notArrived");
             ps.executeUpdate(); 
             
             return "approve";
@@ -194,7 +193,7 @@ public class OrderLogic {
 
 
     public synchronized List<OrderedBook> importAllLateOrderedBooks(LocalDate givenDate) {
-        String query = "SELECT * FROM orders WHERE arrival_date = ?";
+        String query = "SELECT o.*, b.title FROM orders o JOIN books b ON o.book_id = b.book_id WHERE o.arrival_date = ?";
         List<OrderedBook> orderList = new ArrayList<>();
         
         try (Connection connection = dbConnector.getConnection();
@@ -214,7 +213,7 @@ public class OrderLogic {
                             rs.getString("member_phone"),
                             rs.getString("member_email"),
                             rs.getInt("book_id"),
-                            rs.getString("book_title"),
+                            rs.getString("title"),
                             rs.getDate("order_date").toLocalDate(),
                             ArrivalStatus.valueOf(rs.getString("arrival_status").toUpperCase()),
                             arrival_date

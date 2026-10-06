@@ -16,12 +16,12 @@ public class ExtensionLogic {
     public ExtensionLogic() { dbConnector = MysqlConnection.getInstance(); }
 
     public synchronized boolean existingOrders(BorrowedBook borrowedBook) {
-        String query = "SELECT * FROM orders WHERE book_title = ?";
+        String query = "SELECT * FROM orders WHERE book_id = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
              
-            ps.setString(1, borrowedBook.getNameOfBook());
+            ps.setInt(1, borrowedBook.getBookId());
             
             try (ResultSet resultSet = ps.executeQuery()) {
                 return resultSet.next();

@@ -32,6 +32,7 @@ public class ExtendBorrowController {
     @FXML private TableColumn<BorrowedBook, Integer> borrowedIDColumn;
     @FXML private TableColumn<BorrowedBook, String> bookNameColumn;
     @FXML private TableColumn<BorrowedBook, String> returnDateColumn;
+    @FXML private TableColumn<BorrowedBook, Void> actionColumn;
     @FXML private TextField bookNameTxt;
     @FXML private TextField copyOfBookIDTxt;
     @FXML private RadioButton overdueRadioBtn;
