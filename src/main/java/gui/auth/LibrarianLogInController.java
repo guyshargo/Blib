@@ -1,6 +1,7 @@
 package gui.auth;
 
 import client.SessionManager;
+import model.Librarian;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -9,9 +10,6 @@ import java.net.http.HttpRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import gui.subscriber.MemberDashboardController;
-import model.Librarian;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,16 +51,13 @@ public class LibrarianLoginController {
         LogoutUtil.addWindowCloseListener(primaryStage);
     }
 
-    /**
-     * Description:
-     * Method for returning to the login page
-     *
-     * @param event ActionEvent.class
-     * @throws Exception (when loading the scene)
-     */
-    public void getReturnBtn(ActionEvent event) throws Exception {
-        MainLoginController view = new MainLoginController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+
+    public void getReturnBtn(ActionEvent event) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/auth/MainLogin.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
@@ -135,8 +130,13 @@ public class LibrarianLoginController {
                     .build();
             client.send(statusRequest, HttpResponse.BodyHandlers.ofString());
 
-            MemberDashboardController view = new MemberDashboardController();
-            view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/common/MainLayout.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Blib Library");
+            stage.centerOnScreen();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,8 +161,8 @@ public class LibrarianLoginController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
         alert.showAndWait();
     }
 }

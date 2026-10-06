@@ -1,6 +1,7 @@
 package gui.auth;
 
-import gui.catalog.SearchCatalogController;
+import gui.common.MainLayoutController;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,23 +12,14 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-/**
- * Description:
- * Controller class for the login window
- */
+
 public class MainLoginController {
 
     @FXML private Button btnLibrarian;
     @FXML private Button btnMember;
     @FXML private Button guestBtn;
 
-    /**
-     * Description:
-     * Method for loading the given window
-     *
-     * @param primaryStage Stage.class
-     * @throws Exception (when loading the scene)
-     */
+
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/login/MainLogin.fxml"));
         Parent root = loader.load();
@@ -40,14 +32,7 @@ public class MainLoginController {
         LogoutUtil.addWindowCloseListener(primaryStage);
     }
 
-    /**
-     * Description:
-     * Method for showing the member login window
-     *
-     * @param event ActionEvent.class
-     * @return return_param
-     * @throws Exception (when loading the scene)
-     */
+
     public void getMemberBtn(ActionEvent event) throws Exception {
         // Load the FXML for the Member Login window
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/MemberLogin.fxml"));
@@ -62,14 +47,7 @@ public class MainLoginController {
         stage.show();
     }
 
-    /**
-     * Description:
-     * Method for showing the librarian login window
-     *
-     * @param event ActionEvent.class
-     * @return return_param
-     * @throws Exception (when loading the scene)
-     */
+
     public void getLibrarianBtn(ActionEvent event) throws Exception {
         // Load the FXML for the Librarian Login window
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/LibrarianLogin.fxml"));
@@ -84,15 +62,18 @@ public class MainLoginController {
         stage.show();
     }
 
-    /**
-     * Description:
-     * Method for returning to the search page
-     *
-     * @param event ActionEvent.class
-     * @throws Exception (when loading the scene)
-     */
+
     public void getGuestBtn(ActionEvent event) throws Exception {
-        SearchCatalogController view = new SearchCatalogController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/common/MainLayout.fxml"));
+        Parent root = loader.load();
+
+        MainLayoutController controller = loader.getController();
+        controller.loadCenterView("/gui/subscriber/MemberHome.fxml");;
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Guest - Browse Catalog");
+        stage.show();
     }
 }

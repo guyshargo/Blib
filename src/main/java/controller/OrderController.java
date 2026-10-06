@@ -30,7 +30,6 @@ public class OrderController {
     public ResponseEntity<String> orderBook(@RequestBody OrderRequest request){
         try{
             String orderMessage = orderLogic.orderBook(
-                request.getBookName(),
                 request.getBookId(),
                 request.getMemberId(),
                 request.getMemberName(),
@@ -45,11 +44,11 @@ public class OrderController {
 
     // cancel a book order
     @DeleteMapping("/{orderId}")
-    public ResponseEntity<String> cancelOrder(@PathVariable int orderId,@RequestParam String bookName , @RequestParam String arrivalStatus){
+    public ResponseEntity<String> cancelOrder(@PathVariable int orderId, @RequestParam int bookId, @RequestParam String arrivalStatus){
         boolean isCanceled = orderLogic.cancelOrder(orderId);
 
         if(isCanceled && "Arrived".equals(arrivalStatus)){
-            orderLogic.changeArrivalStatus(bookName);
+            orderLogic.changeArrivalStatus(bookId);
         }
 
         if(isCanceled){
@@ -73,10 +72,10 @@ public class OrderController {
     }
 
     //
-    @PutMapping("/book/{bookName}/arrival-status")
-    public ResponseEntity<String> changeArrivalStatus(@PathVariable String bookName) {
+    @PutMapping("/book/{bookId}/arrival-status")
+    public ResponseEntity<String> changeArrivalStatus(@PathVariable int bookId) {
         try {
-            boolean statusChanged = orderLogic.changeArrivalStatus(bookName);
+            boolean statusChanged = orderLogic.changeArrivalStatus(bookId);
             if (statusChanged) {
                 return ResponseEntity.ok("Success");
             }

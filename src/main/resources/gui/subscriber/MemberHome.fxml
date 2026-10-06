@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" styleClass="content-scroll" stylesheets="@MemberDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.subscriber.MemberDashboardController">
+<ScrollPane fitToWidth="true" styleClass="content-scroll" stylesheets="@MemberHome.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.subscriber.MemberHomeController">
     <content>
         <VBox styleClass="shelf-container">
             <children>

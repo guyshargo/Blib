@@ -6,110 +6,45 @@ import java.time.format.DateTimeFormatter;
 
 import enums.ActivityType;
 
-/**
- * Description:
- * Class for the activities that have been done in the system
- */
+
 public class Activity implements Serializable {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final long serialVersionUID = 1L; // Serial version UID for serialization
-    private int membershipNumber;               // Foreign Key to Member
-    private ActivityType type;                // Type of the activity
-    private String activityDescription;         // Detailed description of the activity
-    private LocalDateTime activityDateTime;     // When the activity occurred (DATETIME)
+    private static final long serialVersionUID = 1L;
+    private int membershipNumber;
+    private ActivityType type;
+    private int entityId;
+    private LocalDateTime activityDateTime;
 
-    /**
-     * Description:
-     * Method for constructing the given class
-     *
-     * @param membershipNumber    int
-     * @param type                ActivityType.class
-     * @param activityDescription String.class
-     * @param activityDateTime    LocalDate.class
-     */
-    public Activity(int membershipNumber, ActivityType type, String activityDescription,
+
+    public Activity(int membershipNumber, ActivityType type, int entityId,
                     LocalDateTime activityDateTime) {
         this.membershipNumber = membershipNumber;
         this.type = type;
-        this.activityDescription = activityDescription;
+        this.entityId = entityId;
         this.activityDateTime = activityDateTime;
     }
 
     public Activity(){};
 
-    /**
-     * Description:
-     * Getter method for the activity's member id
-     *
-     * @return membershipNumber int
-     */
-    public int getMembershipNumber() {
-        return membershipNumber;
-    }
+    public int getMembershipNumber() { return membershipNumber; }
+    public void setMembershipNumber(int membershipNumber) { this.membershipNumber = membershipNumber; }
 
-    /**
-     * Description:
-     * Setter method for the activity's member id
-     *
-     * @param membershipNumber int
-     */
-    public void setMembershipNumber(int membershipNumber) {
-        this.membershipNumber = membershipNumber;
-    }
+    public ActivityType getActivityType() { return type; }
+    public void setActivityType(enums.ActivityType activityType) { this.type = activityType; }
 
-    /**
-     * Description:
-     * Getter method for the activity's type
-     *
-     * @return activityName ActivityType.class
-     */
-    public ActivityType getActivityType() {
-        return type;
-    }
+    public int getEntityId() {return entityId; }
+    public void setEntityId(int entityId) { this.entityId = entityId; }
 
-    public void setActivityType(enums.ActivityType activityType) {
-        this.type = activityType;
-    }
+    public LocalDateTime getActivityDateTime() { return activityDateTime; }
+    public void setActivityDateTime(LocalDateTime activityDateTime) { this.activityDateTime = activityDateTime; }
 
-    /**
-     * Description:
-     * Getter method for the activity's description
-     *
-     * @return activityDescription String.class
-     */
-    public String getActivityDescription() {
-        return activityDescription;
-    }
-
-    /**
-     * Description:
-     * Getter method for the activity's date
-     *
-     * @return activityDateTime LocalDateTime.class
-     */
-    public LocalDateTime getActivityDateTime() {
-        return activityDateTime;
-    }
-
-    /**
-     * Description:
-     * Method for generating a string representing the given class object
-     *
-     * @return String.class
-     */
     @Override
     public String toString() {
-        return String.format("Name: %s, Description: %s, Date: %s"
-                , type.getValue(), activityDescription, activityDateTime.format(formatter));
+        return String.format("Name: %s, Target ID: %d, Date: %s",
+                type.getValue(), entityId, activityDateTime.format(formatter));
     }
 
-    /**
-     * Description:
-     * Method for checking if given object is equal to the current object calling
-     *
-     * @param obj Object.class
-     * @return boolean (true if the given object is equal, else return false)
-     */
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -122,16 +57,11 @@ public class Activity implements Serializable {
         return activityDateTime.equals(activity.activityDateTime);
     }
 
-    /**
-     * Description:
-     * Method for generating a unique hashcode to current object of class
-     *
-     * @return result int
-     */
+
     @Override
     public int hashCode() {
         int result = membershipNumber;
-        result = 31 * result + type.hashCode();
+        result = 31 * result + entityId;
         result = 31 * result + activityDateTime.hashCode();
         return result;
     }

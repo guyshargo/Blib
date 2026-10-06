@@ -3,7 +3,7 @@ package dto;
 public class ActivityRequest {
     private int membershipNumber;
     private String activityType;
-    private String description;
+    private int entityId;
 
     public int getMembershipNumber() { return membershipNumber; }
     public void setMembershipNumber(int membershipNumber) { this.membershipNumber = membershipNumber; }
@@ -11,6 +11,6 @@ public class ActivityRequest {
     public String getActivityType() { return activityType; }
     public void setActivityType(String activityType) { this.activityType = activityType; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public int getEntityId() { return entityId; }
+    public void setEntityId(int entityId) { this.entityId = entityId; }
 }

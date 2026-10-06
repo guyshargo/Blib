@@ -83,14 +83,7 @@
                 </HBox>
 
                 <!-- Horizontal Navigation Menu -->
-                <HBox alignment="CENTER" styleClass="nav-bar">
-                    <children>
-                        <Button fx:id="homeButton" mnemonicParsing="false" onAction="#loadHome" styleClass="nav-button, nav-button-active" text="Home" />
-                        <Button fx:id="searchButton" mnemonicParsing="false" onAction="#loadSearch" styleClass="nav-button" text="Browse Catalog" />
-                        <Button fx:id="borrowsButton" mnemonicParsing="false" onAction="#loadBorrows" styleClass="nav-button" text="My Borrows" />
-                        <Button fx:id="ordersButton" mnemonicParsing="false" onAction="#loadOrders" styleClass="nav-button" text="Order Requests" />
-                    </children>
-                </HBox>
+                <HBox fx:id="navBar" alignment="CENTER" styleClass="nav-bar" />
             </children>
         </VBox>
     </top>

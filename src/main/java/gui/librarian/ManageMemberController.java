@@ -1,21 +1,14 @@
 package gui.librarian;
 
 import client.SessionManager;
-import gui.auth.LogoutUtil;
+import gui.common.MainLayoutController;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import model.Subscriber;
 
 import java.net.URI;
@@ -36,7 +29,6 @@ public class ManageMemberController {
     @FXML private TableColumn<Subscriber, Integer> membershipNumberColumn;
     @FXML private TableColumn<Subscriber, String> nameColumn;
     @FXML private TextField membershipNumberSearchField;
-    @FXML private Button logoutButton;
     @FXML private Button returnBtn;
     @FXML private Button scanReaderCard;
     @FXML private Label librarianName;
@@ -68,18 +60,6 @@ public class ManageMemberController {
     }
 
 
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/ManageMember.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/ManageMember.css").toExternalForm());
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/images/book_logo.png")));
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Manage Member");
-        LogoutUtil.addWindowCloseListener(primaryStage); // Register window close listener for logout
-    }
-
-
     void handleSubscriberClick() {
         // Get the selected subscriber from the table
         Subscriber selectedSubscriber = subscriberTable.getSelectionModel().getSelectedItem();
@@ -92,31 +72,8 @@ public class ManageMemberController {
 
 
     private void loadSubscriber(Subscriber selectedSubscriber) {
-        try {
-            // Hide the current window
-            Stage currentStage = (Stage) subscriberTable.getScene().getWindow();
-
-            // Load the SubscriberUpdateFrame
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/ViewMember.fxml"));
-            Pane root = loader.load();
-
-            // Pass the selected subscriber to the update frame controller
-            ViewMemberController controller = loader.getController();
-            controller.loadSubscriber(selectedSubscriber);
-
-            // Set up the new stage
-            Stage primaryStage = new Stage();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/gui/librarian/ViewMember.css").toExternalForm());
-            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/images/book_logo.png")));
-            primaryStage.setTitle("View Member Page");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-            LogoutUtil.addWindowCloseListener(primaryStage); // Register window close listener for logout
-            currentStage.hide();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ViewMemberController.selectedSubscriberToView = selectedSubscriber;
+        MainLayoutController.getInstance().loadCenterView("/gui/librarian/ViewMember.fxml");
     }
 
 
@@ -166,8 +123,7 @@ public class ManageMemberController {
     }
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LibrarianDashboardController view = new LibrarianDashboardController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+        MainLayoutController.getInstance().loadCenterView("/gui/librarian/LibrarianDashboard.fxml");
     }
 
 
@@ -178,8 +134,8 @@ public class ManageMemberController {
         barcodeDialog.setTitle("Scan ReaderCard Barcode");
         barcodeDialog.setHeaderText("Please enter the barcode to scan:");
         barcodeDialog.setContentText("Barcode:");
-        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
-        barcodeDialog.getDialogPane().getStyleClass().add("custom-alert");
+        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        barcodeDialog.getDialogPane().getStyleClass().addAll("custom-alert", "alert-info");
 
         // Show the dialog and wait for the user input
         Optional<String> result = barcodeDialog.showAndWait();
@@ -231,17 +187,9 @@ public class ManageMemberController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
 
         alert.showAndWait();
-    }
-
-    @FXML
-    void getLogoutButton(ActionEvent event) throws Exception {
-        LogoutUtil.handleLogoutButtonAction(event);
-        // Close the current stage (i.e., the current window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
     }
 }

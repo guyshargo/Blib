@@ -32,6 +32,7 @@ public class ExtendBorrowController {
     @FXML private TableColumn<BorrowedBook, Integer> borrowedIDColumn;
     @FXML private TableColumn<BorrowedBook, String> bookNameColumn;
     @FXML private TableColumn<BorrowedBook, String> returnDateColumn;
+    @FXML private TableColumn<BorrowedBook, Void> actionColumn;
     @FXML private TextField bookNameTxt;
     @FXML private TextField copyOfBookIDTxt;
     @FXML private RadioButton overdueRadioBtn;
@@ -195,8 +196,8 @@ public class ExtendBorrowController {
         alert.setHeaderText("Error!");
         alert.setContentText(message);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
         alert.showAndWait();
     }
 
@@ -206,8 +207,8 @@ public class ExtendBorrowController {
         alert.setHeaderText("Success");
         alert.setContentText(message);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-success");
         alert.showAndWait();
     }
 

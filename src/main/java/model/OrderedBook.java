@@ -26,7 +26,7 @@ public class OrderedBook implements Serializable {
     // Enum if the ordered book arrived or not
     private ArrivalStatus arrivalStatus;
     // Book ID of the ordered book
-    private int BookId;
+    private int bookID;
     // Name of the book
     private String bookName;
     // Arrival date of the book
@@ -41,14 +41,14 @@ public class OrderedBook implements Serializable {
      * @param membershipNumber int
      * @param memberPhone      String.class
      * @param memberEmail      String.class
-     * @param BookId           int
+     * @param bookID           int
      * @param bookName         String.class
      * @param orderDate        LocalDate.class
      * @param arrivalStatus    ArrivalStatus.class
      * @param arrivalDate      LocalDate.class
      */
     public OrderedBook(int orderID, String memberName, int membershipNumber, String memberPhone, String memberEmail,
-                       int BookId, String bookName, LocalDate orderDate, ArrivalStatus arrivalStatus,
+                       int bookID, String bookName, LocalDate orderDate, ArrivalStatus arrivalStatus,
                        LocalDate arrivalDate) {
         this.orderID = orderID;
         this.memberName = memberName;
@@ -57,10 +57,12 @@ public class OrderedBook implements Serializable {
         this.membershipNumber = membershipNumber;
         this.orderDate = orderDate;
         this.arrivalStatus = arrivalStatus;
-        this.BookId = BookId;
+        this.bookID = bookID;
         this.bookName = bookName;
         this.arrivalDate = arrivalDate;
     }
+
+    public OrderedBook() {}
 
     /**
      * Description:
@@ -139,7 +141,11 @@ public class OrderedBook implements Serializable {
      * @return BookId int
      */
     public int getBookID() {
-        return this.BookId;
+        return this.bookID;
+    }
+    
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
     }
 
     /**

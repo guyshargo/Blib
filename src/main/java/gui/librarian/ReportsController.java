@@ -3,7 +3,7 @@ package gui.librarian;
 import client.SessionManager;
 import enums.FreezeStatus;
 import enums.ReportType;
-import gui.auth.LogoutUtil;
+import gui.common.MainLayoutController;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,13 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import model.BorrowHistory;
 import model.BorrowTracking;
 import model.MemberStatusChange;
@@ -60,11 +55,10 @@ public class ReportsController {
     @FXML private BarChart<String, Number> freezeStatusBarChart;
     @FXML private BarChart<String, Number> borrowDatesBarChart;
     @FXML private CategoryAxis daysAxis;
-    @FXML private Button resizeButton;  // Button to trigger resizing
+    @FXML private Button resizeButton;
     @FXML private Label librarianName;
 
     private ObservableList<MemberStatusChange> memberStatusData;
-
     private ObservableList<BorrowHistory> borrowHistoryData;
 
 
@@ -192,18 +186,6 @@ public class ReportsController {
             }
         });
     }
-
-
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/Reports.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/Reports.css").toExternalForm());
-        primaryStage.setTitle("Reports Management Tool");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        LogoutUtil.addWindowCloseListener(primaryStage); // Register window close listener for logout
-    }
-
 
     private ListCell<Month> createMonthCell() {
         return new ListCell<Month>() {
@@ -395,28 +377,13 @@ public class ReportsController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
         alert.showAndWait();
     }
-
     
     @FXML
     public void handleReturn(ActionEvent event) {
-        try {
-            LibrarianDashboardController view = new LibrarianDashboardController();
-            view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    void getLogoutButton(ActionEvent event) throws Exception {
-        LogoutUtil.handleLogoutButtonAction(event);
-        // Close the current stage (i.e., the current window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
+        MainLayoutController.getInstance().loadCenterView("/gui/librarian/LibrarianDashboard.fxml");
     }
 }

@@ -3,19 +3,14 @@ package gui.librarian;
 import client.SessionManager;
 import enums.ActivityType;
 import enums.FreezeStatus;
-import gui.auth.LogoutUtil;
+import gui.common.MainLayoutController;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import model.BorrowedBook;
 import model.Subscriber;
 
@@ -45,26 +40,11 @@ public class ReturnBookController {
     @FXML private Button searchBtn;
     @FXML private Button ReturnButton;
     @FXML private Label librarianName;
-    @FXML private Button LogoutBtn;
     @FXML private TableView<BorrowedBook> BorrowedBooksTable;
     @FXML private TableColumn<BorrowedBook, Integer> BookIdColumn;
     @FXML private TableColumn<BorrowedBook, String> BookNameColumn;
 
     private final ObservableList<BorrowedBook> borrowedBooks = FXCollections.observableArrayList();
-
-
-    @FXML
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/librarian/ReturnBook.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Return Borrowed Books");
-        primaryStage.show();
-        LogoutUtil.addWindowCloseListener(primaryStage); // Register window close listener for logout
-    }
-
 
     @FXML
     public void initialize() {
@@ -200,8 +180,8 @@ public class ReturnBookController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
 
         alert.showAndWait();
     }
@@ -217,27 +197,15 @@ public class ReturnBookController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-success");
         alert.showAndWait();
     }
 
 
     public void handleReturnAction(ActionEvent event) throws Exception {
-        LibrarianDashboardController view = new LibrarianDashboardController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+        MainLayoutController.getInstance().loadCenterView("/gui/librarian/LibrarianDashboard.fxml");
     }
-
-
-    public void handleLogoutAction(ActionEvent event) throws Exception {
-        // Handle logout logic
-        LogoutUtil.handleLogoutButtonAction(event);
-
-        // Close the current stage (i.e., the current window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
-    }
-
 
     private void addActivity(BorrowedBook book, String activityDetails) {
         try {

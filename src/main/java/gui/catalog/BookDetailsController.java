@@ -14,7 +14,10 @@ import gui.auth.MainLoginController;
 import gui.auth.LogoutUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -70,8 +73,20 @@ public class BookDetailsController {
      */
     @FXML
     void getReturnButton(ActionEvent event) {
-        SearchCatalogController view = new SearchCatalogController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/common/MainLayout.fxml"));
+            Parent root = loader.load();
+
+            gui.common.MainLayoutController controller = loader.getController();
+            controller.loadCenterView("/gui/subscriber/MemberHome.fxml");
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Blib Library");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void loadBooks(Book selectedBook) {

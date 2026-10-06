@@ -1,21 +1,16 @@
 package gui.librarian;
 
 import client.SessionManager;
-import gui.auth.LogoutUtil;
 import model.Book;
 import model.BorrowedBook;
 import model.CopyOfBook;
 import enums.FreezeStatus;
+import gui.common.MainLayoutController;
 import model.Subscriber;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -109,8 +104,8 @@ public class BorrowBookController {
         barcodeDialog.setTitle("Scan Barcode");
         barcodeDialog.setHeaderText("Please enter the barcode to scan:");
         barcodeDialog.setContentText("Barcode:");
-        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
-        barcodeDialog.getDialogPane().getStyleClass().add("custom-alert");
+        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        barcodeDialog.getDialogPane().getStyleClass().addAll("custom-alert", "alert-info");
 
         // Get the user input for the barcode
         Optional<String> result = barcodeDialog.showAndWait();
@@ -128,8 +123,7 @@ public class BorrowBookController {
 
 
     public void getReturnBtn(ActionEvent event) throws Exception {
-        LibrarianDashboardController view = new LibrarianDashboardController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+        MainLayoutController.getInstance().loadCenterView("/gui/librarian/LibrarianDashboard.fxml");
     }
 
     
@@ -167,8 +161,8 @@ public class BorrowBookController {
         barcodeDialog.setTitle("Scan ReaderCard Barcode");
         barcodeDialog.setHeaderText("Please enter the barcode to scan:");
         barcodeDialog.setContentText("Barcode:");
-        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/Dialog.css").toExternalForm());
-        barcodeDialog.getDialogPane().getStyleClass().add("custom-alert");
+        barcodeDialog.getDialogPane().getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        barcodeDialog.getDialogPane().getStyleClass().addAll("custom-alert","alert-info");
 
         Optional<String> result = barcodeDialog.showAndWait();
         if (!result.isPresent()) {
@@ -315,7 +309,8 @@ public class BorrowBookController {
             if (borrowRes.statusCode() == 200) {
                 BorrowedBook borrowedBook = mapper.readValue(borrowRes.body(), BorrowedBook.class);
                 showAlertSuccess("Borrow Successful", "Book Borrowed successfully.");
-                addActivity(borrowedBook);  
+                addActivity(borrowedBook);
+                MainLayoutController.getInstance().loadCenterView("/gui/librarian/BorrowBook.fxml");
             } else {
                 showAlertError("Borrow Unsuccessful", borrowRes.body());
             }
@@ -341,8 +336,6 @@ public class BorrowBookController {
             
             client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            Stage currentStage = (Stage) commitBorrowButton.getScene().getWindow();
-            start(currentStage);
         } catch (Exception e) {
             e.printStackTrace();
             showAlertError("Error", "Failed to refresh the page.");
@@ -366,8 +359,8 @@ public class BorrowBookController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-info");
 
         alert.showAndWait();
     }
@@ -389,42 +382,9 @@ public class BorrowBookController {
         DialogPane dialogPane = alert.getDialogPane();
 
         // Apply custom CSS file
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Success.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-success");
         alert.showAndWait();
     }
 
-    /**
-     * Description:
-     * Method to logout from librarian's account
-     *
-     * @param event ActionEvent.class
-     * @throws Exception (when loading the scene)
-     */
-    @FXML
-    void getLogoutButton(ActionEvent event) throws Exception {
-        LogoutUtil.handleLogoutButtonAction(event);
-        // Close the current stage
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();  // Closes the current window
-    }
-
-    /**
-     * Description:
-     * Method for loading the given window
-     *
-     * @param primaryStage Stage.class
-     * @throws Exception (when loading the scene)
-     */
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/librarian/BorrowBook.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/gui/librarian/BorrowBook.css").toExternalForm());
-        primaryStage.setTitle("Registration Management Tool");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        // Register window close listener for logout
-        LogoutUtil.addWindowCloseListener(primaryStage);
-    }
 }

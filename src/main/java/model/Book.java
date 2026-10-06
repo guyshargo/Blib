@@ -4,48 +4,22 @@ import java.io.Serializable;
 
 import enums.IsOrdered;
 
-/**
- * Description:
- * Class for the books in the system
- */
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
-    // Book's name
     private String bookName;
-    // Subject of the book
-    private String bookSubject;
-    // Number of copies of the book in the library
+    private String bookGenre;
     private int NumberOfCopies;
-    // Number of copies borrowed of the book in the library
     private int NumberOfBorrowedCopies;
-    // Highlited keywords for searching the book
     private String keywords;
-    // Is the book already ordered
     private IsOrdered isOrdered;
-    // Book primary key ID for the DB
     private int bookID;
-    // Number of orders for the book by members
     private int numberOforders;
-    //Summary of the book
     private String BookSummary;
 
-    /**
-     * Description:
-     * Method for constructing the given class
-     *
-     * @param BookName               String.class
-     * @param bookSubject            Subject.class
-     * @param NumberOfCopies         int
-     * @param NumberOfBorrowedCopies int
-     * @param keywords               String.class
-     * @param isOrdered              IsOrdered.class
-     * @param bookID                 int
-     * @param numberOforders         int
-     */
-    public Book(String BookName, String bookSubject, int NumberOfCopies, int NumberOfBorrowedCopies, String keywords,
+    public Book(String BookName, String bookGenre, int NumberOfCopies, int NumberOfBorrowedCopies, String keywords,
                 IsOrdered isOrdered, int bookID, int numberOforders) {
         this.bookName = BookName;
-        this.bookSubject = bookSubject;
+        this.bookGenre = bookGenre;
         this.NumberOfCopies = NumberOfCopies;
         this.NumberOfBorrowedCopies = NumberOfBorrowedCopies;
         this.keywords = keywords;
@@ -54,125 +28,33 @@ public class Book implements Serializable {
         this.numberOforders = numberOforders;
     }
 
-    /**
-     * Description:
-     * Getter method for the book's name
-     *
-     * @return bookName String.class
-     */
-    public String getBookName() {
-        return this.bookName;
-    }
+    public String getBookName() { return this.bookName; }
+    public void setBookName(String BookName) { this.bookName = BookName; }
+    
+    public String getBookGenre() { return this.bookGenre; }
+    public void setBookGenre(String bookGenre) { this.bookGenre = bookGenre; }
 
-    /**
-     * Description:
-     * Setter method for the book's name
-     *
-     * @param BookName String.class
-     */
-    public void setBookName(String BookName) {
-        this.bookName = BookName;
-    }
+    public int getNumberOfCopies() { return this.NumberOfCopies; }
+    public void setNumberOfCopies(int NumberOfCopies) { this.NumberOfCopies = NumberOfCopies; }
 
-    /**
-     * Description:
-     * Getter method for the book's subject
-     *
-     * @return bookSubject String.class
-     */
-    public String getBookSubject() {
-        return this.bookSubject;
-    }
+    public int getNumberOfBorrowedCopies() { return this.NumberOfBorrowedCopies; }
+    public void setNumberOfBorrowedCopies(int NumberOfBorrowedCopies) { this.NumberOfBorrowedCopies = NumberOfBorrowedCopies; }
 
-    /**
-     * Description:
-     * Getter method for the book's number of copies
-     *
-     * @return NumberOfCopies int
-     */
-    public int getNumberOfCopies() {
-        return this.NumberOfCopies;
-    }
+    public String getKeywords() { return this.keywords; }
+    public void setKeywords(String keywords) { this.keywords = keywords; }
 
-    /**
-     * Description:
-     * Getter method for the book's number of borrowed copies
-     *
-     * @return NumberOfBorrowedCopies int
-     */
-    public int getNumberOfBorrowedCopies() {
-        return this.NumberOfBorrowedCopies;
-    }
+    public IsOrdered getIsOrdered() { return this.isOrdered; }
+    public void setIsOrdered(IsOrdered isOrdered) { this.isOrdered = isOrdered; }
+    public boolean getIsOrderedBoolean() { return this.isOrdered.getValue(); }
+    
+    public int getBookID() { return this.bookID; }
+    public void setBookID(int bookID) { this.bookID = bookID; }
 
-    /**
-     * Description:
-     * Getter method for the book's keywords
-     *
-     * @return keywords String.class
-     */
-    public String getKeywords() {
-        return this.keywords;
-    }
+    public int getNumberOforders() { return this.numberOforders; }
+    public void setNumberOforders(int numberOforders) { this.numberOforders = numberOforders; }
 
-    /**
-     * Description:
-     * Getter method for the book's ordered status
-     *
-     * @return boolean (true if the book is ordered)
-     */
-    public boolean getIsOrderedBoolean() {
-        return this.isOrdered.getValue();
-    }
-
-    /**
-     * Description:
-     * Getter method for the book's id
-     *
-     * @return bookID int
-     */
-    public int getBookID() {
-        return this.bookID;
-    }
-
-    /**
-     * Description:
-     * Getter method for the book's number of orders
-     *
-     * @return numberOforders int
-     */
-    public int getNumberOforders() {
-        return this.numberOforders;
-    }
-
-    /**
-     * Description:
-     * Getter method for the book summary
-     *
-     * @return BookSummary String.class
-     */
-    public String getBookSummary() {
-        return this.BookSummary;
-    }
-
-    /**
-     * Description:
-     * Setter method for the book's Summary
-     *
-     * @param BookSummary String.class
-     */
-    public void setBookSummary(String BookSummary) {
-        this.BookSummary = BookSummary;
-    }
-
-    /**
-     * Description:
-     * Method for generating a string representing the given class object
-     *
-     * @return String.class
-     */
-    public String toString() {
-        return "(Book) " + this.bookName + " (subject: " + this.bookSubject + ", copies: " + this.NumberOfCopies + ", borrowed: "
-                + this.NumberOfBorrowedCopies + ", keywords: " + this.keywords + ", ordered?: " + this.isOrdered
-                + ", id: " + this.bookID + ", orders: " + this.numberOforders + ", Summary: " + this.BookSummary + ")\n";
-    }
+    public String getBookSummary() { return this.BookSummary; }
+    public void setBookSummary(String BookSummary) { this.BookSummary = BookSummary; }
+    
+    public String toString() { return "(Book) " + this.bookName + " (genre: " + this.bookGenre + ", copies: " + this.NumberOfCopies + ", borrowed: " + this.NumberOfBorrowedCopies + ", keywords: " + this.keywords + ", ordered?: " + this.isOrdered + ", id: " + this.bookID + ", orders: " + this.numberOforders + ", Summary: " + this.BookSummary + ")\n"; }
 }

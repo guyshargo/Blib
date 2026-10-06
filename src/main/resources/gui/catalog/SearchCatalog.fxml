@@ -21,8 +21,8 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="800.0">
                <children>
-                  <Text fx:id="resultText1" styleClass="label-text" text="Book Subject:" wrappingWidth="155.60002441406255" />
-                   <TextField fx:id="SearchBookBySub" prefHeight="35.0" prefWidth="280.0" promptText="Enter Book Subject" styleClass="text-field" />
+                  <Text fx:id="resultText1" styleClass="label-text" text="Book Genre:" wrappingWidth="155.60002441406255" />
+                   <TextField fx:id="SearchBookByGenre" prefHeight="35.0" prefWidth="280.0" promptText="Enter Book Genre" styleClass="text-field" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="800.0">
@@ -48,7 +48,7 @@
                   <TableView fx:id="searchBookTable" prefHeight="226.0" prefWidth="742.0" HBox.hgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="bookName" prefWidth="75.0" text="Book Name" />
-                        <TableColumn fx:id="bookSub" prefWidth="91.20001220703125" text="Book Subject" />
+                        <TableColumn fx:id="bookGenre" prefWidth="91.20001220703125" text="Book Genre" />
                         <TableColumn fx:id="keywords" prefWidth="75.0" text="Keywords" />
                         <TableColumn fx:id="BookSummary" prefWidth="75.0" text="Book Summary" />
                     </columns>

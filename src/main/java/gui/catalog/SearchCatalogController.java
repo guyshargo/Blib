@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -15,7 +14,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Book;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -30,13 +28,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 public class SearchCatalogController {
     @FXML private TextField SearchBookByName;
-    @FXML private TextField SearchBookBySub;
+    @FXML private TextField SearchBookByGenre;
     @FXML private TextField SearchBookByText;
     @FXML private Button searchButton;
     @FXML private Text resultText;
     @FXML private TableView<Book> searchBookTable;
     @FXML private TableColumn<Book, String> bookName;
-    @FXML private TableColumn<Book, String> bookSub;
+    @FXML private TableColumn<Book, String> bookGenre;
     @FXML private TableColumn<Book, String> keywords;
     @FXML private TableColumn<Book, String> BookSummary;
 
@@ -48,8 +46,8 @@ public class SearchCatalogController {
         bookName.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getBookName()));
 
-        bookSub.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getBookSubject()));
+        bookGenre.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getBookGenre()));
 
         keywords.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getKeywords()));
@@ -60,21 +58,6 @@ public class SearchCatalogController {
         // Set the table's items to the observable list
         searchBookTable.setItems(bookData);
         searchBookTable.setOnMouseClicked(event -> handleBookClick());
-    }
-
-    public void start(Stage window) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/catalog/SearchCatalog.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            window.setTitle("Search Book Page");
-            window.setScene(scene);
-            window.show();
-            LogoutUtil.addWindowCloseListener(window);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlertError("Loading Error", "Failed to load the search page.");
-        }
     }
 
     private void handleBookClick() {
@@ -109,25 +92,25 @@ public class SearchCatalogController {
     @FXML
     private void handleSearchAction(ActionEvent event) throws Exception {
         String bookName = SearchBookByName.getText().trim();
-        String bookSubject = SearchBookBySub.getText().trim();
+        String bookGenre = SearchBookByGenre.getText().trim();
         String freeText = SearchBookByText.getText().trim();
         if(bookName.isEmpty() || bookName==null) {
             bookName = "is empty";
         }
-        if(bookSubject.isEmpty() || bookSubject==null) {
-            bookSubject = "is empty";
+        if(bookGenre.isEmpty() || bookGenre==null) {
+            bookGenre = "is empty";
         }
         if(freeText.isEmpty() || freeText==null) {
             freeText = "is empty";
         }
-        initiateBookSearch(bookName, bookSubject, freeText);
+        initiateBookSearch(bookName, bookGenre, freeText);
     }
 
-    private void initiateBookSearch(String bookName, String bookSubject, String freeText) {
+    private void initiateBookSearch(String bookName, String bookGenre, String freeText) {
         try {
-            String url = String.format("http://localhost:8080/api/books/search?name=%s&subject=%s&freeText=%s", 
+            String url = String.format("http://localhost:8080/api/books/search?name=%s&genre=%s&freeText=%s", 
                     URLEncoder.encode(bookName, StandardCharsets.UTF_8),
-                    URLEncoder.encode(bookSubject, StandardCharsets.UTF_8),
+                    URLEncoder.encode(bookGenre, StandardCharsets.UTF_8),
                     URLEncoder.encode(freeText, StandardCharsets.UTF_8));
 
             HttpClient client = HttpClient.newHttpClient();
@@ -163,8 +146,8 @@ public class SearchCatalogController {
         alert.setHeaderText("Error!");
         alert.setContentText(content);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
+        dialogPane.getStylesheets().add(getClass().getResource("/gui/common/SharedAlerts.css").toExternalForm());
+        dialogPane.getStyleClass().addAll("custom-alert", "alert-error");
         alert.showAndWait();
     }
 }
