@@ -52,21 +52,12 @@ public class LibrarianLoginController {
     }
 
 
-    public void getReturnBtn(ActionEvent event) {
-       try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/MainLogin.fxml"));
-            Parent root = loader.load();
-            
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/gui/auth/MainLogin.css").toExternalForm());
-            
-            stage.setScene(scene);
-            stage.setTitle("Log In");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void getReturnBtn(ActionEvent event) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/auth/MainLogin.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**

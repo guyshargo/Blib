@@ -168,7 +168,5 @@ public class MainLayoutController {
     @FXML
     private void handleLogout(ActionEvent event) throws Exception {
         LogoutUtil.handleLogoutButtonAction(event);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
     }
 }

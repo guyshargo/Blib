@@ -89,6 +89,8 @@ public class BorrowedBook implements Serializable {
         this.copyOfBookId = copyOfBookId;
     }
 
+    public BorrowedBook(){};
+
     /**
      * Description:
      * Getter method for the borrowed book's borrow date

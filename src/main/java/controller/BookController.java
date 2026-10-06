@@ -29,9 +29,9 @@ public class BookController {
     @GetMapping("/search")
     public ResponseEntity<List<Book>> searchBooks(
         @RequestParam(defaultValue = "is empty") String name,
-        @RequestParam(defaultValue = "is empty") String subject,
+        @RequestParam(defaultValue = "is empty") String genre,
         @RequestParam(defaultValue = "is empty") String freeText){
-            List<Book> bookList = bookLogic.searchBooks(name, subject, freeText);
+            List<Book> bookList = bookLogic.searchBooks(name, genre, freeText);
             
             if(bookList != null){
                 return ResponseEntity.ok(bookList);

@@ -7,6 +7,7 @@ import java.util.List;
 import database.MysqlConnection;
 import enums.BorrowStatus;
 import enums.IsOrdered;
+
 import model.Book;
 import model.CopyOfBook;
 
@@ -250,7 +251,7 @@ public class BookLogic {
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
                     String title = resultSet.getString("title");
-                    String subject = resultSet.getString("subject");
+                    String genre = resultSet.getString("genre");
                     int numberOfCopies = resultSet.getInt("number_of_copies");
                     int borrowedCopies = resultSet.getInt("number_of_borrowed_copies");
                     String keywords = resultSet.getString("keywords");
@@ -260,7 +261,7 @@ public class BookLogic {
                     int numberOfOrders = resultSet.getInt("number_of_orders");
                     IsOrdered is_ordered = IsOrdered.valueOf(resultSet.getString("is_ordered").toUpperCase());
 
-                    return new Book(title, subject, numberOfCopies, borrowedCopies, keywords, is_ordered, book_id, numberOfOrders);
+                    return new Book(title, genre, numberOfCopies, borrowedCopies, keywords, is_ordered, book_id, numberOfOrders);
                 }
             }
         } catch (SQLException e) {
@@ -269,17 +270,17 @@ public class BookLogic {
         return null;
     }    
 
-    public synchronized List<Book> searchBooks(String title, String subject, String freeText) {
+    public synchronized List<Book> searchBooks(String title, String genre, String freeText) {
         List<Book> searchResults = new ArrayList<>();
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM books WHERE 1=1");
 
         // add search criteria dynamically
         boolean hasName = title != null && !title.trim().isEmpty() && !"is empty".equals(title);
-        boolean hasSubject = subject != null && !subject.trim().isEmpty() && !"is empty".equals(subject);
+        boolean hasGenre = genre != null && !genre.trim().isEmpty() && !"is empty".equals(genre);
         boolean hasFreeText = freeText != null && !freeText.trim().isEmpty() && !"is empty".equals(freeText);
 
         if (hasName) queryBuilder.append(" AND title LIKE ?");
-        if (hasSubject) queryBuilder.append(" AND subject LIKE ?");
+        if (hasGenre) queryBuilder.append(" AND genre LIKE ?");
         
         String[] keywords = null;
         if (hasFreeText) {
@@ -297,7 +298,7 @@ public class BookLogic {
              
             int paramIndex = 1;
             if (hasName) ps.setString(paramIndex++, "%" + title.trim().toLowerCase() + "%");
-            if (hasSubject) ps.setString(paramIndex++, "%" + subject.trim().toLowerCase() + "%");
+            if (hasGenre) ps.setString(paramIndex++, "%" + genre.trim().toLowerCase() + "%");
             if (hasFreeText && keywords != null) {
                 for (String keyword : keywords) {
                     ps.setString(paramIndex++, "%" + keyword.trim().toLowerCase() + "%");
@@ -312,7 +313,7 @@ public class BookLogic {
                     IsOrdered isOrderedEnum = IsOrdered.valueOf(rs.getString("is_ordered").toUpperCase());
                     Book book = new Book(
                             rs.getString("title"),
-                            rs.getString("subject"),
+                            rs.getString("genre"),
                             rs.getInt("number_of_copies"),
                             rs.getInt("number_of_borrowed_copies"),
                             rs.getString("keywords"),

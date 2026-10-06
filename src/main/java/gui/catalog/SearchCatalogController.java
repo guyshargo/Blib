@@ -28,13 +28,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 public class SearchCatalogController {
     @FXML private TextField SearchBookByName;
-    @FXML private TextField SearchBookBySub;
+    @FXML private TextField SearchBookByGenre;
     @FXML private TextField SearchBookByText;
     @FXML private Button searchButton;
     @FXML private Text resultText;
     @FXML private TableView<Book> searchBookTable;
     @FXML private TableColumn<Book, String> bookName;
-    @FXML private TableColumn<Book, String> bookSub;
+    @FXML private TableColumn<Book, String> bookGenre;
     @FXML private TableColumn<Book, String> keywords;
     @FXML private TableColumn<Book, String> BookSummary;
 
@@ -46,8 +46,8 @@ public class SearchCatalogController {
         bookName.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getBookName()));
 
-        bookSub.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getBookSubject()));
+        bookGenre.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getBookGenre()));
 
         keywords.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getKeywords()));
@@ -92,25 +92,25 @@ public class SearchCatalogController {
     @FXML
     private void handleSearchAction(ActionEvent event) throws Exception {
         String bookName = SearchBookByName.getText().trim();
-        String bookSubject = SearchBookBySub.getText().trim();
+        String bookGenre = SearchBookByGenre.getText().trim();
         String freeText = SearchBookByText.getText().trim();
         if(bookName.isEmpty() || bookName==null) {
             bookName = "is empty";
         }
-        if(bookSubject.isEmpty() || bookSubject==null) {
-            bookSubject = "is empty";
+        if(bookGenre.isEmpty() || bookGenre==null) {
+            bookGenre = "is empty";
         }
         if(freeText.isEmpty() || freeText==null) {
             freeText = "is empty";
         }
-        initiateBookSearch(bookName, bookSubject, freeText);
+        initiateBookSearch(bookName, bookGenre, freeText);
     }
 
-    private void initiateBookSearch(String bookName, String bookSubject, String freeText) {
+    private void initiateBookSearch(String bookName, String bookGenre, String freeText) {
         try {
-            String url = String.format("http://localhost:8080/api/books/search?name=%s&subject=%s&freeText=%s", 
+            String url = String.format("http://localhost:8080/api/books/search?name=%s&genre=%s&freeText=%s", 
                     URLEncoder.encode(bookName, StandardCharsets.UTF_8),
-                    URLEncoder.encode(bookSubject, StandardCharsets.UTF_8),
+                    URLEncoder.encode(bookGenre, StandardCharsets.UTF_8),
                     URLEncoder.encode(freeText, StandardCharsets.UTF_8));
 
             HttpClient client = HttpClient.newHttpClient();
