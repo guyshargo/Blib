@@ -40,11 +40,14 @@ public class MainLayoutController {
             subscriberName.setText(SessionManager.currentLibrarian.getFullName());
             setupLibrarianNavigation();
             loadCenterView("/gui/librarian/LibrarianDashboard.fxml", false);
-        } else if (SessionManager.currentSubscriber != null) {
-            subscriberName.setText(SessionManager.currentSubscriber.getFullName());
-            setupMemberNavigation();
-            loadCenterView("/gui/subscriber/MemberDashboard.fxml", false);
         }
+        if (SessionManager.currentSubscriber != null) {
+            subscriberName.setText(SessionManager.currentSubscriber.getFullName());
+        } else {
+            subscriberName.setText("Guest");
+        }
+        setupMemberNavigation();
+        loadCenterView("/gui/subscriber/MemberHome.fxml", false);
 
         // 'X' button logout listener
         javafx.application.Platform.runLater(() -> {
@@ -103,7 +106,7 @@ public class MainLayoutController {
     private void setupMemberNavigation() {
         navBar.getChildren().clear();
         navBar.getChildren().addAll(
-            createNavButton("Home", "/gui/subscriber/MemberDashboard.fxml"),
+            createNavButton("Home", "/gui/subscriber/MemberHome.fxml"),
             createNavButton("Browse Catalog", "/gui/catalog/SearchCatalog.fxml"),
             createNavButton("My Borrows", "/gui/subscriber/ExtendBorrow.fxml"),
             createNavButton("Order Requests", "/gui/subscriber/OrderBook.fxml")

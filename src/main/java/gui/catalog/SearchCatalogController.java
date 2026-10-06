@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -15,7 +14,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Book;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -60,21 +58,6 @@ public class SearchCatalogController {
         // Set the table's items to the observable list
         searchBookTable.setItems(bookData);
         searchBookTable.setOnMouseClicked(event -> handleBookClick());
-    }
-
-    public void start(Stage window) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/catalog/SearchCatalog.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            window.setTitle("Search Book Page");
-            window.setScene(scene);
-            window.show();
-            LogoutUtil.addWindowCloseListener(window);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlertError("Loading Error", "Failed to load the search page.");
-        }
     }
 
     private void handleBookClick() {

@@ -51,16 +51,22 @@ public class LibrarianLoginController {
         LogoutUtil.addWindowCloseListener(primaryStage);
     }
 
-    /**
-     * Description:
-     * Method for returning to the login page
-     *
-     * @param event ActionEvent.class
-     * @throws Exception (when loading the scene)
-     */
-    public void getReturnBtn(ActionEvent event) throws Exception {
-        MainLoginController view = new MainLoginController();
-        view.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+
+    public void getReturnBtn(ActionEvent event) {
+       try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/auth/MainLogin.fxml"));
+            Parent root = loader.load();
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/gui/auth/MainLogin.css").toExternalForm());
+            
+            stage.setScene(scene);
+            stage.setTitle("Log In");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

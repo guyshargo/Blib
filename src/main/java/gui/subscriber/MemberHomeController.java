@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
  * Description:
  * Controller class for the member's main page
  */
-public class MemberDashboardController {
+public class MemberHomeController {
     @FXML public Button extendBorrowPageButton;
     @FXML public Button searchBookButton;
     @FXML public Button viewPersonalInfoButton;
