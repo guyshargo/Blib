@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { reportService } from '../../services/reportService';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import './Librarian.css';
 
 const Reports: React.FC = () => {
     const [availableDates, setAvailableDates] = useState<{ years: number[], months: number[] }>({ years: [], months: [] });
@@ -35,7 +34,7 @@ const Reports: React.FC = () => {
             const reportTypeStr = selectedType === 'Borrow Report' ? 'borrow' : 'member_status';
             const report = await reportService.generateReport(reportTypeStr, parseInt(selectedMonth), selectedYear);
             
-            // Simple frontend CSV parser to mirror report.parseCSV[cite: 63]
+            // CSV parser
             const rows = report.data.trim().split('\n').slice(1); 
             const parsed = rows.map(row => row.split(','));
             
@@ -45,7 +44,6 @@ const Reports: React.FC = () => {
         }
     };
 
-    // Recharts expects array of objects
     const chartData = tableData.map(row => ({
         name: row[0] || 'Unknown', 
         value1: parseInt(row[1] || '0'), 
@@ -53,47 +51,49 @@ const Reports: React.FC = () => {
     }));
 
     return (
-        <div className="librarian-container">
-            <h2>System Reports</h2>
-            <div className="search-header">
-                <select className="combo-box" value={selectedMonth} onChange={e => setSelectedMonth(e.target.value)}>
+        <div className="flex flex-col p-[30px] font-sans min-h-screen gap-5">
+            <h2 className="text-2xl font-bold">System Reports</h2>
+            <div className="flex items-end gap-5 bg-white p-5 rounded-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
+                <select className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none min-w-[200px]" value={selectedMonth} onChange={e => setSelectedMonth(e.target.value)}>
                     <option value="">Select Month</option>
                     {availableDates.months.map(m => <option key={m} value={m}>{m}</option>)}
                 </select>
                 
-                <select className="combo-box" value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
+                <select className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none min-w-[200px]" value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
                     <option value="">Select Year</option>
                     {availableDates.years.map(y => <option key={y} value={y}>{y}</option>)}
                 </select>
 
-                <select className="combo-box" value={selectedType} onChange={e => setSelectedType(e.target.value)}>
+                <select className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none min-w-[200px]" value={selectedType} onChange={e => setSelectedType(e.target.value)}>
                     <option value="Borrow Report">Borrowed Books Report</option>
                     <option value="Status Report">Members Status Report</option>
                 </select>
 
-                <button className="menu-button" onClick={handleGenerate}>Generate Report</button>
+                <button className="bg-[#fec999] rounded-full text-black text-base font-semibold border-2 border-transparent px-[25px] py-2.5 cursor-pointer transition-all duration-200 hover:bg-[#fda95c]/65 hover:shadow-[inset_0_3px_8px_rgba(0,0,0,0.3)]" onClick={handleGenerate}>
+                    Generate Report
+                </button>
             </div>
 
             {tableData.length > 0 && (
-                <div className="charts-container">
-                    <table className="data-table">
+                <div className="flex flex-col gap-[30px] mt-5 bg-white p-5 rounded-[10px]">
+                    <table className="w-full bg-[#fff8f2] rounded-[5px] border-collapse font-semibold mt-2.5">
                         <thead>
                             <tr>
-                                <th>Column 1</th>
-                                <th>Column 2</th>
-                                <th>Column 3</th>
+                                <th className="bg-[#fec999] p-3 text-left">Column 1</th>
+                                <th className="bg-[#fec999] p-3 text-left">Column 2</th>
+                                <th className="bg-[#fec999] p-3 text-left">Column 3</th>
                             </tr>
                         </thead>
                         <tbody>
                             {tableData.map((row, idx) => (
-                                <tr key={idx}>
-                                    {row.map((cell: string, i: number) => <td key={i}>{cell}</td>)}
+                                <tr key={idx} className="odd:bg-[#fdf6f0] even:bg-[#fee2cd] hover:bg-[#f4e2e1] hover:cursor-pointer">
+                                    {row.map((cell: string, i: number) => <td key={i} className="p-3 border-b border-[#f6e6d8]">{cell}</td>)}
                                 </tr>
                             ))}
                         </tbody>
                     </table>
 
-                    <div style={{ height: '300px', width: '100%', marginTop: '30px' }}>
+                    <div className="h-[300px] w-full mt-[30px]">
                         <ResponsiveContainer>
                             <BarChart data={chartData}>
                                 <CartesianGrid strokeDasharray="3 3" />

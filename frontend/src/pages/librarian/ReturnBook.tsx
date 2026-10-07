@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { librarianService } from '../../services/librarianService';
 import { borrowService } from '../../services/borrowService';
 import type { BorrowedBook, Member } from '../../types';
-import './Librarian.css';
 
 const ReturnBook: React.FC = () => {
     const [memberIdInput, setMemberIdInput] = useState('');
@@ -53,7 +52,7 @@ const ReturnBook: React.FC = () => {
             await borrowService.addActivity({
                 membershipNumber: book.memberId,
                 activityType: activityDesc.split(',')[0],
-                description: activityDesc
+                entityId: book.copyOfBookId
             });
 
             alert("The book has been successfully returned.");
@@ -64,36 +63,36 @@ const ReturnBook: React.FC = () => {
     };
 
     return (
-        <div className="librarian-container">
-            <h2>Return Book</h2>
-            <div className="search-header">
-                <div className="input-group">
-                    <span className="label-text">Membership Number:</span>
+        <div className="flex flex-col p-[30px] font-sans min-h-screen gap-5">
+            <h2 className="text-2xl font-bold">Return Book</h2>
+            <div className="flex items-end gap-5 bg-white p-5 rounded-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
+                <div className="flex flex-col gap-1">
+                    <span className="text-base font-bold text-[#333]">Membership Number:</span>
                     <input 
-                        className="text-field" 
+                        className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none min-w-[200px]" 
                         value={memberIdInput} 
                         onChange={e => setMemberIdInput(e.target.value)} 
                     />
                 </div>
-                <button className="menu-button" onClick={handleSearch}>Find</button>
-                <div className="input-group" style={{ marginLeft: '20px' }}>
-                    <span className="label-text">Member name:</span>
-                    <input className="text-field" readOnly value={member?.fullName || ''} />
+                <button className="bg-[#fec999] rounded-full text-black text-base font-semibold border-2 border-transparent px-[25px] py-2.5 cursor-pointer transition-all duration-200 hover:bg-[#fda95c]/65 hover:shadow-[inset_0_3px_8px_rgba(0,0,0,0.3)]" onClick={handleSearch}>Find</button>
+                <div className="flex flex-col gap-1 ml-5">
+                    <span className="text-base font-bold text-[#333]">Member name:</span>
+                    <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none min-w-[200px] bg-[#f5f5f5] text-[#666] cursor-not-allowed" readOnly value={member?.fullName || ''} />
                 </div>
             </div>
 
-            <table className="data-table">
+            <table className="w-full bg-[#fff8f2] rounded-[5px] border-collapse font-semibold mt-2.5">
                 <thead>
                     <tr>
-                        <th>Copy of book ID</th>
-                        <th>Book Name</th>
+                        <th className="bg-[#fec999] p-3 text-left">Copy of book ID</th>
+                        <th className="bg-[#fec999] p-3 text-left">Book Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     {borrows.map(book => (
-                        <tr key={book.copyOfBookId} onClick={() => handleReturn(book)}>
-                            <td>{book.copyOfBookId}</td>
-                            <td>{book.title}</td>
+                        <tr key={book.copyOfBookId} onClick={() => handleReturn(book)} className="odd:bg-[#fdf6f0] even:bg-[#fee2cd] hover:bg-[#f4e2e1] hover:cursor-pointer">
+                            <td className="p-3 border-b border-[#f6e6d8]">{book.copyOfBookId}</td>
+                            <td className="p-3 border-b border-[#f6e6d8]">{book.title}</td>
                         </tr>
                     ))}
                 </tbody>

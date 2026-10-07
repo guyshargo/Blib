@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { borrowService } from '../../services/borrowService';
 import type { BorrowedBook, Member } from '../../types';
-import './Member.css';
 
 const ExtendBorrow: React.FC = () => {
     const [member, setMember] = useState<Member | null>(null);
@@ -57,7 +56,6 @@ const ExtendBorrow: React.FC = () => {
             return;
         }
 
-        // Exact local validations from ExtendBorrowController.java[cite: 49]
         const returnDate = new Date(selectedBook.returnDate);
         returnDate.setHours(0, 0, 0, 0);
         
@@ -86,9 +84,9 @@ const ExtendBorrow: React.FC = () => {
             await borrowService.extendBorrow(member.id, selectedBook.copyOfBookId);
             
             await borrowService.addActivity({
-                memberId: member.id,
+                membershipNumber: member.id,
                 activityType: "extendBorrow",
-                description: `Extending borrowed book ${selectedBook.title}`
+                entityId: selectedBook.bookId
             });
 
             alert("Extension Request: Approved");
@@ -98,27 +96,30 @@ const ExtendBorrow: React.FC = () => {
         }
     };
 
+    const inputClass = "rounded-[17px] text-sm px-[15px] py-2 border border-[#ccc] bg-[#f9f9f9]";
+    const btnClass = "bg-[#fec999] rounded-full text-black text-base font-semibold border-2 border-transparent px-5 py-2 cursor-pointer transition-all duration-200 hover:bg-[#fda95c]/65 hover:shadow-[inset_0_3px_8px_rgba(0,0,0,0.3)]";
+
     return (
-        <div className="member-container">
-            <h2 className="label-text" style={{ fontSize: '20px', alignSelf: 'center' }}>Search Borrowed Books</h2>
+        <div className="flex flex-col p-[30px] font-sans min-h-screen gap-[30px]">
+            <h2 className="text-[20px] font-bold text-[#333] self-center">Search Borrowed Books</h2>
             
-            <div className="info-row" style={{ justifyContent: 'center' }}>
-                <div className="info-group">
-                    <span className="label-text" style={{ fontSize: '20px' }}>Copy of book ID:</span>
+            <div className="flex gap-10 items-center justify-center">
+                <div className="flex items-center gap-2.5">
+                    <span className="text-[20px] font-bold text-[#333]">Copy of book ID:</span>
                     <input 
-                        className="text-field" 
+                        className={inputClass} 
                         value={selectedCopyId}
                         onChange={e => setSelectedCopyId(e.target.value)}
                     />
                 </div>
             </div>
 
-            <table className="data-table" style={{ marginTop: '20px' }}>
+            <table className="w-full bg-[#fff8f2] rounded-[5px] border-collapse border-2 border-[#fec999] font-semibold mt-5">
                 <thead>
                     <tr>
-                        <th>Borrowed book ID</th>
-                        <th>Name</th>
-                        <th>Return Date</th>
+                        <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">Borrowed book ID</th>
+                        <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">Name</th>
+                        <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">Return Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,41 +131,41 @@ const ExtendBorrow: React.FC = () => {
                             <tr 
                                 key={book.copyOfBookId} 
                                 onClick={() => setSelectedCopyId(book.copyOfBookId.toString())}
-                                className={isSelected ? 'selected' : ''}
+                                className={`cursor-pointer ${isSelected ? 'bg-[#fec999] text-black' : 'odd:bg-[#fdf6f0] even:bg-[#ffffff] hover:bg-[#f4e2e1]'}`}
                                 style={{ backgroundColor: isOverdue && !isSelected ? '#ffcccc' : undefined }}
                             >
-                                <td>{book.copyOfBookId}</td>
-                                <td>{book.title}</td>
-                                <td>{book.returnDate}</td>
+                                <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{book.copyOfBookId}</td>
+                                <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{book.title}</td>
+                                <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{book.returnDate}</td>
                             </tr>
                         );
                     })}
                 </tbody>
             </table>
 
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-                <button className="menu-button" onClick={handleExtend}>Extend book</button>
+            <div className="flex justify-center my-5">
+                <button className={btnClass} onClick={handleExtend}>Extend book</button>
             </div>
 
-            <div className="info-row" style={{ justifyContent: 'center' }}>
-                <div className="info-group">
-                    <span className="label-text" style={{ fontSize: '19px' }}>Book Name:</span>
+            <div className="flex gap-10 items-center justify-center">
+                <div className="flex items-center gap-2.5">
+                    <span className="text-[19px] font-bold text-[#333]">Book Name:</span>
                     <input 
-                        className="text-field" 
+                        className={inputClass} 
                         value={searchName}
                         onChange={e => setSearchName(e.target.value)}
                     />
                 </div>
                 
-                <div className="info-group" style={{ marginLeft: '20px' }}>
+                <div className="flex items-center gap-2.5 ml-5">
                     <input 
                         type="checkbox" 
                         id="overdue"
                         checked={isOverdueOnly}
                         onChange={e => setIsOverdueOnly(e.target.checked)}
-                        style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                        className="w-[18px] h-[18px] cursor-pointer"
                     />
-                    <label htmlFor="overdue" className="label-text" style={{ cursor: 'pointer' }}>Overdue</label>
+                    <label htmlFor="overdue" className="text-base font-bold text-[#333] cursor-pointer">Overdue</label>
                 </div>
             </div>
         </div>

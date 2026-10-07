@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { orderService } from '../../services/orderService';
 import type { OrderedBook, Book, Member } from '../../types';
-import './Member.css';
 
 const OrderBook: React.FC = () => {
     const [member, setMember] = useState<Member | null>(null);
@@ -34,7 +33,7 @@ const OrderBook: React.FC = () => {
         }
     };
 
-    // Triggered when clicking a row in the table[cite: 43]
+    // Triggered when clicking a row in the table
     const handleOrderClick = async (order: OrderedBook) => {
         setSelectedOrder(order);
         try {
@@ -86,18 +85,18 @@ const OrderBook: React.FC = () => {
                 title: foundBook.title,
                 bookId: foundBook.bookId,
                 memberId: member.id,
-                fullName: member.fullName,
-                phoneNum: member.phoneNum,
-                email: member.email
+                memberName: member.fullName,
+                memberPhone: member.phoneNum,
+                memberEmail: member.email
             };
 
             const status = await orderService.orderBook(payload);
             
             if (status === "approve") {
                 await orderService.addActivity({
-                    memberId: member.id,
+                    membershipNumber: member.id,
                     activityType: "order",
-                    description: `order ${foundBook.title}`
+                    entityId: foundBook.bookId
                 });
                 await orderService.updateOrderStatus(foundBook.bookId, foundBook.ordersNum, true);
                 
@@ -123,9 +122,9 @@ const OrderBook: React.FC = () => {
             await orderService.cancelOrder(selectedOrder.orderId, selectedOrder.title, selectedOrder.arrivalStatus);
             
             await orderService.addActivity({
-                memberId: member.id,
+                membershipNumber: member.id,
                 activityType: "cancelOrder",
-                description: `cancel order ${cancelBook.title}`
+                entityId: cancelBook.bookId
             });
             await orderService.updateOrderStatus(cancelBook.bookId, cancelBook.ordersNum, false);
             
@@ -147,16 +146,19 @@ const OrderBook: React.FC = () => {
         setCancelBook(null);
     };
 
+    const inputClass = "rounded-[17px] text-sm px-[15px] py-2 border border-[#ccc] bg-[#f9f9f9]";
+    const btnClass = "bg-[#fec999] rounded-full text-black text-base font-semibold border-2 border-transparent px-5 py-2 cursor-pointer transition-all duration-200 hover:bg-[#fda95c]/65 hover:shadow-[inset_0_3px_8px_rgba(0,0,0,0.3)]";
+
     return (
-        <div className="member-container">
-            <h2 className="label-text" style={{ fontSize: '20px', alignSelf: 'center' }}>My Orders</h2>
+        <div className="flex flex-col p-[30px] font-sans min-h-screen gap-[30px]">
+            <h2 className="text-[20px] font-bold text-[#333] self-center">My Orders</h2>
             
-            <table className="data-table">
+            <table className="w-full bg-[#fff8f2] rounded-[5px] border-collapse border-2 border-[#fec999] font-semibold">
                 <thead>
                     <tr>
-                        <th>BookID</th>
-                        <th>Name</th>
-                        <th>Arrived?</th>
+                        <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">BookID</th>
+                        <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">Name</th>
+                        <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">Arrived?</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -164,50 +166,48 @@ const OrderBook: React.FC = () => {
                         <tr 
                             key={order.orderId} 
                             onClick={() => handleOrderClick(order)}
-                            className={selectedOrder?.orderId === order.orderId ? 'selected' : ''}
+                            className={`cursor-pointer ${selectedOrder?.orderId === order.orderId ? 'bg-[#fec999] text-black' : 'odd:bg-[#fdf6f0] even:bg-[#ffffff] hover:bg-[#f4e2e1]'}`}
                         >
-                            <td>{order.bookId}</td>
-                            <td>{order.title}</td>
-                            <td>{order.arrivalStatus}</td>
+                            <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{order.bookId}</td>
+                            <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{order.title}</td>
+                            <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{order.arrivalStatus}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
-                <button className="menu-button" onClick={handleCancelOrder}>Cancel order</button>
-                <button className="menu-button" onClick={handleReorder}>Re-order book</button>
+            <div className="flex gap-[15px] justify-center">
+                <button className={btnClass} onClick={handleCancelOrder}>Cancel order</button>
+                <button className={btnClass} onClick={handleReorder}>Re-order book</button>
             </div>
 
-            <hr style={{ width: '100%', margin: '20px 0', borderTop: '1px solid #ccc' }} />
+            <hr className="w-full my-5 border-t border-[#ccc]" />
 
-            <h2 className="label-text" style={{ fontSize: '30px', alignSelf: 'center' }}>Order a book now!</h2>
+            <h2 className="text-[30px] font-bold text-[#333] self-center">Order a book now!</h2>
             
-            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', alignItems: 'center' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                    <div className="info-group">
-                        <span className="label-text" style={{ fontSize: '20px' }}>Book name:</span>
-                        <input className="text-field" value={searchName} onChange={e => setSearchName(e.target.value)} />
+            <div className="flex gap-5 justify-center items-center">
+                <div className="flex flex-col gap-[15px]">
+                    <div className="flex items-center gap-2.5">
+                        <span className="text-[20px] font-bold text-[#333]">Book name:</span>
+                        <input className={inputClass} value={searchName} onChange={e => setSearchName(e.target.value)} />
                     </div>
-                    <div className="info-group">
-                        <span className="label-text" style={{ fontSize: '20px' }}>Book ID:</span>
-                        <input className="text-field" value={searchId} onChange={e => setSearchId(e.target.value)} />
+                    <div className="flex items-center gap-2.5">
+                        <span className="text-[20px] font-bold text-[#333]">Book ID:</span>
+                        <input className={inputClass} value={searchId} onChange={e => setSearchId(e.target.value)} />
                     </div>
                 </div>
-                <button className="menu-button" onClick={handleSearchOrder}>Search book</button>
+                <button className={btnClass} onClick={handleSearchOrder}>Search book</button>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-                <div className="info-group">
-                    <span className="label-text" style={{ fontSize: '20px' }}>
+            <div className="flex flex-col items-center mt-5">
+                <div className="flex items-center gap-2.5">
+                    <span className="text-[20px] font-bold text-[#333]">
                         {foundBook ? "Found book:" : ""}
                     </span>
-                    <span style={{ fontSize: '20px' }}>{foundBook?.title}</span>
+                    <span className="text-[20px] text-[#333] font-semibold">{foundBook?.title}</span>
                 </div>
                 <button 
-                    id="orderBtn" 
-                    className="menu-button" 
-                    style={{ marginTop: '15px' }}
+                    className="bg-[#50cc50] rounded-full text-white text-base font-semibold border-2 border-transparent px-5 py-2 transition-all duration-200 hover:bg-[#43b043] hover:shadow-[inset_0_3px_8px_rgba(0,0,0,0.3)] disabled:bg-[#a0dba0] disabled:cursor-not-allowed mt-[15px]"
                     onClick={handleOrderBook}
                     disabled={!foundBook}
                 >

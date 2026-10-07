@@ -9,7 +9,7 @@ import LibrarianLogin from './pages/auth/LibrarianLogin';
 import SearchCatalog from './pages/catalog/SearchCatalog';
 import BookDetails from './pages/catalog/BookDetails';
 
-import MemberHome from './pages/member/MemberHome';
+import Home from './pages/catalog/Home';
 import PersonalInfo from './pages/member/PersonalInfo';
 import OrderBook from './pages/member/OrderBook';
 import ExtendBorrow from './pages/member/ExtendBorrow';
@@ -28,7 +28,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* Standalone Gateway Windows */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/login" element={<MainLogin />} />
         <Route path="/login/member" element={<MemberLogin />} />
         <Route path="/login/librarian" element={<LibrarianLogin />} />
@@ -38,7 +38,7 @@ function App() {
             <Route path="/catalog" element={<SearchCatalog />} />
             <Route path="/book-details" element={<BookDetails />} />
 
-            <Route path="/home" element={<MemberHome />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/personal-info" element={<PersonalInfo />} />
             <Route path="/orders" element={<OrderBook />} />
             <Route path="/my-borrows" element={<ExtendBorrow />} />

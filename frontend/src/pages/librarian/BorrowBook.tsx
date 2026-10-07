@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { librarianService } from '../../services/librarianService';
 import { borrowService } from '../../services/borrowService';
 import type { Member } from '../../types';
-import './Librarian.css';
 
 const BorrowBook: React.FC = () => {
     // Member State
@@ -101,18 +100,18 @@ const BorrowBook: React.FC = () => {
             const librarianUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
             
             const payload = {
-                member_id: member.id,
-                copy_id: copyOfBook.copyId,
-                librarian_id: librarianUser.id || 101,
-                librarian_name: librarianUser.fullName || "Librarian"
+                memberId: member.id,
+                copyOfBookId: copyOfBook.copyId,
+                librarianId: librarianUser.id || 101,
+                librarianName: librarianUser.fullName || "Librarian"
             };
 
-            const borrowedBook = await borrowService.commitBorrow(payload);
+            await borrowService.commitBorrow(payload);
             
             await borrowService.addActivity({
                 membershipNumber: member.id,
                 activityType: "borrow",
-                description: `borrowed ${borrowedBook.title}`
+                entityId: copyOfBook.copyId
             });
 
             alert("Book Borrowed successfully.");
@@ -125,54 +124,56 @@ const BorrowBook: React.FC = () => {
         }
     };
 
+    const baseBtn = "rounded-full text-base font-semibold border-2 border-transparent px-[25px] py-2.5 cursor-pointer transition-all duration-200 hover:shadow-[inset_0_3px_8px_rgba(0,0,0,0.3)] disabled:opacity-50 disabled:cursor-not-allowed";
+
     return (
-        <div className="librarian-container" style={{ alignItems: 'center' }}>
-            <h2 className="label-text" style={{ fontSize: '23px' }}>Library Member Information</h2>
+        <div className="flex flex-col items-center p-[30px] font-sans min-h-screen gap-5">
+            <h2 className="text-[23px] font-bold text-[#333]">Library Member Information</h2>
             
-            <div className="search-header" style={{ flexDirection: 'column', width: '600px', gap: '20px' }}>
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-end', width: '100%' }}>
-                    <div className="input-group" style={{ flex: 1 }}>
-                        <span className="label-text">Membership Number:</span>
-                        <input className="text-field" value={memberIdInput} onChange={e => setMemberIdInput(e.target.value)} />
+            <div className="flex flex-col w-[600px] gap-5 bg-white p-5 rounded-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
+                <div className="flex gap-5 items-end w-full">
+                    <div className="flex flex-col gap-1 flex-1">
+                        <span className="text-base font-bold text-[#333]">Membership Number:</span>
+                        <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none" value={memberIdInput} onChange={e => setMemberIdInput(e.target.value)} />
                     </div>
-                    <button className="menu-button" style={{ backgroundColor: '#edc915' }} onClick={handleScanMemberCard}>Scan Reader Card</button>
+                    <button className={`${baseBtn} bg-[#edc915] text-black hover:bg-[#d4b412]`} onClick={handleScanMemberCard}>Scan Reader Card</button>
                 </div>
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-end', width: '100%' }}>
-                    <div className="input-group" style={{ flex: 1 }}>
-                        <span className="label-text">Full Name:</span>
-                        <input className="text-field" readOnly value={member?.fullName || ''} />
+                <div className="flex gap-5 items-end w-full">
+                    <div className="flex flex-col gap-1 flex-1">
+                        <span className="text-base font-bold text-[#333]">Full Name:</span>
+                        <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none bg-[#f5f5f5] text-[#666] cursor-not-allowed" readOnly value={member?.fullName || ''} />
                     </div>
-                    <button className="menu-button" onClick={handleFindMember}>Find Member</button>
-                </div>
-            </div>
-
-            <hr style={{ width: '100%', borderTop: '1px solid #ccc', margin: '20px 0' }} />
-
-            <h2 className="label-text" style={{ fontSize: '23px' }}>Book Information</h2>
-
-            <div className="search-header" style={{ flexDirection: 'column', width: '600px', gap: '20px' }}>
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-end', width: '100%' }}>
-                    <div className="input-group" style={{ flex: 1 }}>
-                        <span className="label-text">Book ID:</span>
-                        <input className="text-field" value={bookIdInput} onChange={e => setBookIdInput(e.target.value)} disabled={!member} />
-                    </div>
-                    <button className="menu-button" style={{ backgroundColor: '#edc915' }} onClick={handleScanBook} disabled={!member}>Scan Book</button>
-                </div>
-                <div style={{ display: 'flex', gap: '20px', width: '100%' }}>
-                    <div className="input-group" style={{ flex: 2 }}>
-                        <span className="label-text">Book Name:</span>
-                        <input className="text-field" readOnly value={bookName} />
-                    </div>
-                    <div className="input-group" style={{ flex: 1 }}>
-                        <span className="label-text">Copies:</span>
-                        <input className="text-field" readOnly value={availableCopies} />
-                    </div>
+                    <button className={`${baseBtn} bg-[#fec999] text-black hover:bg-[#fda95c]/65`} onClick={handleFindMember}>Find Member</button>
                 </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '40px', marginTop: '30px' }}>
-                <button className="menu-button" onClick={handleFindBook} disabled={!member || !bookIdInput}>Find Book</button>
-                <button className="menu-button" style={{ backgroundColor: '#5caa58', color: 'white' }} onClick={handleCommitBorrow} disabled={!member || !copyOfBook}>
+            <hr className="w-full border-t border-[#ccc] my-5" />
+
+            <h2 className="text-[23px] font-bold text-[#333]">Book Information</h2>
+
+            <div className="flex flex-col w-[600px] gap-5 bg-white p-5 rounded-[10px] shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
+                <div className="flex gap-5 items-end w-full">
+                    <div className="flex flex-col gap-1 flex-1">
+                        <span className="text-base font-bold text-[#333]">Book ID:</span>
+                        <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none disabled:bg-[#f5f5f5] disabled:cursor-not-allowed" value={bookIdInput} onChange={e => setBookIdInput(e.target.value)} disabled={!member} />
+                    </div>
+                    <button className={`${baseBtn} bg-[#edc915] text-black hover:bg-[#d4b412]`} onClick={handleScanBook} disabled={!member}>Scan Book</button>
+                </div>
+                <div className="flex gap-5 w-full">
+                    <div className="flex flex-col gap-1 flex-[2]">
+                        <span className="text-base font-bold text-[#333]">Book Name:</span>
+                        <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none bg-[#f5f5f5] text-[#666] cursor-not-allowed" readOnly value={bookName} />
+                    </div>
+                    <div className="flex flex-col gap-1 flex-1">
+                        <span className="text-base font-bold text-[#333]">Copies:</span>
+                        <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none bg-[#f5f5f5] text-[#666] cursor-not-allowed" readOnly value={availableCopies} />
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex gap-10 mt-[30px]">
+                <button className={`${baseBtn} bg-[#fec999] text-black hover:bg-[#fda95c]/65`} onClick={handleFindBook} disabled={!member || !bookIdInput}>Find Book</button>
+                <button className={`${baseBtn} bg-[#5caa58] text-white hover:bg-[#4d8f4a]`} onClick={handleCommitBorrow} disabled={!member || !copyOfBook}>
                     Commit Borrow
                 </button>
             </div>

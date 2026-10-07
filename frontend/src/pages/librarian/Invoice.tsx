@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { invoiceService } from '../../services/invoiceService';
 import type { InvoiceMessage } from '../../types';
-import './Librarian.css';
 
 const Invoice: React.FC = () => {
     const [invoices, setInvoices] = useState<InvoiceMessage[]>([]);
@@ -39,16 +38,16 @@ const Invoice: React.FC = () => {
         : invoices;
 
     return (
-        <div className="librarian-container">
-            <h2 className="label-text" style={{ fontSize: '23px', alignSelf: 'center' }}>Invoice Messages</h2>
+        <div className="flex flex-col p-[30px] font-sans min-h-screen gap-5">
+            <h2 className="text-[23px] font-bold text-[#333] self-center">Invoice Messages</h2>
             
-            <table className="data-table" style={{ marginTop: '0' }}>
+            <table className="w-full bg-[#fff8f2] rounded-[5px] border-collapse font-semibold">
                 <thead>
                     <tr>
-                        <th>Subject</th>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Date</th>
+                        <th className="bg-[#fec999] p-3 text-left">Subject</th>
+                        <th className="bg-[#fec999] p-3 text-left">Username</th>
+                        <th className="bg-[#fec999] p-3 text-left">Name</th>
+                        <th className="bg-[#fec999] p-3 text-left">Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,52 +55,50 @@ const Invoice: React.FC = () => {
                         <tr 
                             key={inv.msgId} 
                             onClick={() => handleInvoiceClick(inv)}
-                            // Matches the -fx-background-color: #ADD8E6 for unread messages
-                            style={{ backgroundColor: !inv.isRead ? '#ADD8E6' : undefined }}
+                            className={!inv.isRead ? 'bg-[#ADD8E6] hover:bg-[#9bc2ce] cursor-pointer' : 'odd:bg-[#fdf6f0] even:bg-[#fee2cd] hover:bg-[#f4e2e1] cursor-pointer'}
                         >
-                            <td>{inv.subject}</td>
-                            <td>{inv.userName}</td>
-                            <td>{inv.fullName || inv.userName}</td>
-                            <td>{new Date(inv.date).toLocaleDateString()}</td>
+                            <td className="p-3 border-b border-[#f6e6d8]">{inv.subject}</td>
+                            <td className="p-3 border-b border-[#f6e6d8]">{inv.userName}</td>
+                            <td className="p-3 border-b border-[#f6e6d8]">{inv.fullName || inv.userName}</td>
+                            <td className="p-3 border-b border-[#f6e6d8]">{new Date(inv.date).toLocaleDateString()}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
-                <span className="label-text">Show:</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="flex items-center justify-center gap-5 mt-5">
+                <span className="text-base font-bold text-[#333]">Show:</span>
+                <div className="flex items-center gap-2">
                     <input 
                         type="checkbox" 
                         id="unreadFilter"
                         checked={showUnreadOnly} 
                         onChange={e => setShowUnreadOnly(e.target.checked)} 
-                        style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                        className="w-[18px] h-[18px] cursor-pointer"
                     />
-                    <label htmlFor="unreadFilter" className="label-text" style={{ cursor: 'pointer' }}>Unread Messages</label>
+                    <label htmlFor="unreadFilter" className="text-base font-bold text-[#333] cursor-pointer">Unread Messages</label>
                 </div>
             </div>
 
-            <div className="search-header" style={{ gap: '15px', backgroundColor: 'transparent', boxShadow: 'none' }}>
-                <div className="input-group">
-                    <span className="label-text">From:</span>
-                    <input className="text-field" readOnly value={selectedInvoice?.fullName || ''} />
+            <div className="flex items-end gap-[15px] bg-transparent">
+                <div className="flex flex-col gap-1">
+                    <span className="text-base font-bold text-[#333]">From:</span>
+                    <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none min-w-[200px] bg-[#f5f5f5] text-[#666] cursor-not-allowed" readOnly value={selectedInvoice?.fullName || ''} />
                 </div>
-                <div className="input-group">
-                    <span className="label-text">Subject:</span>
-                    <input className="text-field" readOnly value={selectedInvoice?.subject || ''} />
+                <div className="flex flex-col gap-1">
+                    <span className="text-base font-bold text-[#333]">Subject:</span>
+                    <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none min-w-[200px] bg-[#f5f5f5] text-[#666] cursor-not-allowed" readOnly value={selectedInvoice?.subject || ''} />
                 </div>
-                <div className="input-group">
-                    <span className="label-text">Date:</span>
-                    <input className="text-field" readOnly value={selectedInvoice ? new Date(selectedInvoice.date).toLocaleDateString() : ''} />
+                <div className="flex flex-col gap-1">
+                    <span className="text-base font-bold text-[#333]">Date:</span>
+                    <input className="rounded-[5px] text-sm px-[15px] py-2.5 border border-[#ccc] outline-none min-w-[200px] bg-[#f5f5f5] text-[#666] cursor-not-allowed" readOnly value={selectedInvoice ? new Date(selectedInvoice.date).toLocaleDateString() : ''} />
                 </div>
             </div>
 
-            <div className="input-group" style={{ flex: 1 }}>
+            <div className="flex flex-col gap-1 flex-1">
                 <textarea 
                     readOnly 
-                    className="text-field" 
-                    style={{ minHeight: '150px', fontSize: '18px', resize: 'none' }} 
+                    className="rounded-[5px] px-[15px] py-2.5 border border-[#ccc] outline-none bg-[#f5f5f5] text-[#666] cursor-not-allowed min-h-[150px] text-[18px] resize-none" 
                     value={selectedInvoice?.content || ''}
                 />
             </div>

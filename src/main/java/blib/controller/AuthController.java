@@ -8,6 +8,7 @@ import blib.model.Member;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

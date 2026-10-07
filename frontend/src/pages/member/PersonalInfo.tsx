@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { memberService } from '../../services/memberService';
 import type { Activity, Member } from '../../types';
-import './Member.css';
 
 const PersonalInfo: React.FC = () => {
     const [member, setMember] = useState<Member | null>(null);
@@ -63,51 +62,54 @@ const PersonalInfo: React.FC = () => {
 
     if (!member) return <div>Loading...</div>;
 
+    const inputClass = "rounded-[17px] text-sm px-[15px] py-2 border border-[#ccc] bg-[#f9f9f9] read-only:bg-[#eee] read-only:text-[#555] read-only:cursor-not-allowed";
+    const btnClass = "bg-[#fec999] rounded-full text-black text-base font-semibold border-2 border-transparent px-5 py-2 cursor-pointer transition-all duration-200 hover:bg-[#fda95c]/65 hover:shadow-[inset_0_3px_8px_rgba(0,0,0,0.3)]";
+
     return (
-        <div className="member-container">
-            <div className="info-row">
-                <div className="info-group">
-                    <span className="label-text">Membership Number:</span>
-                    <input className="text-field" readOnly value={member.id} />
+        <div className="flex flex-col p-[30px] font-sans min-h-screen gap-[30px]">
+            <div className="flex gap-10 items-center">
+                <div className="flex items-center gap-2.5">
+                    <span className="text-base font-bold text-[#333]">Membership Number:</span>
+                    <input className={inputClass} readOnly value={member.id} />
                 </div>
-                <div className="info-group">
-                    <span className="label-text">Member freeze status:</span>
-                    <input className="text-field" readOnly value={member.freezeStatus} />
+                <div className="flex items-center gap-2.5">
+                    <span className="text-base font-bold text-[#333]">Member freeze status:</span>
+                    <input className={inputClass} readOnly value={member.freezeStatus} />
                 </div>
             </div>
 
-            <div className="info-row">
-                <div className="info-group">
-                    <span className="label-text">Phone Number:</span>
-                    <input className="text-field" readOnly value={member.phoneNum} />
-                    <button className="menu-button" onClick={handleUpdatePhone}>Update Phone Number</button>
+            <div className="flex gap-10 items-center">
+                <div className="flex items-center gap-2.5">
+                    <span className="text-base font-bold text-[#333]">Phone Number:</span>
+                    <input className={inputClass} readOnly value={member.phoneNum} />
+                    <button className={btnClass} onClick={handleUpdatePhone}>Update Phone Number</button>
                 </div>
-                <div className="info-group">
-                    <span className="label-text">Email Address:</span>
-                    <input className="text-field" readOnly value={member.email} />
-                    <button className="menu-button" onClick={handleUpdateEmail}>Update Email</button>
+                <div className="flex items-center gap-2.5">
+                    <span className="text-base font-bold text-[#333]">Email Address:</span>
+                    <input className={inputClass} readOnly value={member.email} />
+                    <button className={btnClass} onClick={handleUpdateEmail}>Update Email</button>
                 </div>
             </div>
 
             <div>
-                <h3 className="label-text" style={{ marginBottom: '10px' }}>Activities:</h3>
-                <table className="data-table">
+                <h3 className="text-base font-bold text-[#333] mb-2.5">Activities:</h3>
+                <table className="w-full bg-[#fff8f2] rounded-[5px] border-collapse border-2 border-[#fec999] font-semibold">
                     <thead>
                         <tr>
-                            <th>Date & Time</th>
-                            <th>Activity Type</th>
-                            <th>Description (Entity ID)</th>
+                            <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">Date & Time</th>
+                            <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">Activity Type</th>
+                            <th className="bg-[#fec999] p-2.5 text-left border-r border-[#e5b488]">Description (Entity ID)</th>
                         </tr>
                     </thead>
                     <tbody>
                         {activities.length === 0 ? (
-                            <tr><td colSpan={3}>No activities found yet.</td></tr>
+                            <tr><td colSpan={3} className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">No activities found yet.</td></tr>
                         ) : (
                             activities.map((act, idx) => (
-                                <tr key={idx}>
-                                    <td>{new Date(act.activityDateTime).toLocaleString()}</td>
-                                    <td>{act.type}</td>
-                                    <td>{act.entityId}</td>
+                                <tr key={idx} className="odd:bg-[#fdf6f0] even:bg-[#ffffff] hover:bg-[#f4e2e1] hover:cursor-pointer">
+                                    <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{new Date(act.activityDateTime).toLocaleString()}</td>
+                                    <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{act.type}</td>
+                                    <td className="p-2.5 border-r border-[#f6e6d8] border-b border-[#f6e6d8]">{act.entityId}</td>
                                 </tr>
                             ))
                         )}

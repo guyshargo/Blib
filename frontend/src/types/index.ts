@@ -120,7 +120,7 @@ export interface StatusTracking {
 }
 
 export interface Member {
-    id: number;
+    memberId: number;
     fullName: string;
     userName: string;
     password?: string;
@@ -157,7 +157,7 @@ export interface OrderRequest {
 }
 
 export interface RegisterRequest {
-    membershipNumber: number;
+    memberId: number;
     fullName: string;
     userName: string; 
     password: string;

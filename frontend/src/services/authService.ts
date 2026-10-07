@@ -16,7 +16,7 @@ export const authService = {
         }
 
         // Update status in database to true
-        await api.put(`/members/${member.id}/login-status`, null, {
+        await api.put(`/members/${member.memberId}/login-status`, null, {
             params: { status: true }
         });
 

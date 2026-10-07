@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { catalogService } from '../../services/catalogService';
 import type { Book } from '../../types';
-import './Catalog.css';
 
 const BookDetails: React.FC = () => {
     const location = useLocation();
@@ -20,7 +19,7 @@ const BookDetails: React.FC = () => {
         if (!selectedBook) return;
 
         const fetchAvailability = async () => {
-            // Replicates pulling the memberId from SessionManager
+            // pulling the memberId
             const userStr = localStorage.getItem('currentUser');
             const userType = localStorage.getItem('userType');
             let memberId = 0;
@@ -57,44 +56,41 @@ const BookDetails: React.FC = () => {
 
     if (!selectedBook) {
         return (
-            <div className="catalog-container">
-                <h2>No book selected.</h2>
-                <button className="menu-button" onClick={() => navigate(-1)}>Return</button>
+            <div className="flex flex-col items-center p-[30px] font-sans min-h-screen">
+                <h2 className="text-2xl font-bold mb-4">No book selected.</h2>
+                <button 
+                    className="bg-[#fec999] rounded-full text-black text-lg font-semibold border-2 border-transparent px-[25px] py-2 transition-all duration-200 hover:bg-[#fda95c]/65 hover:text-[#333] hover:shadow-[inset_0_3px_8px_rgba(0,0,0,0.3)]" 
+                    onClick={() => navigate(-1)}
+                >
+                    Return
+                </button>
             </div>
         );
     }
 
     return (
-        <div className="catalog-container">
-            <div className="details-box">
-                <div className="detail-row">
-                    <span>Book Name:</span>
-                    <input type="text" readOnly value={copyName} />
+        <div className="flex flex-col items-center p-[30px] font-sans min-h-screen">
+            <div className="flex flex-col gap-5 w-[600px] bg-white/80 p-[30px] rounded-[10px]">
+                <div className="flex items-center gap-5">
+                    <span className="w-[180px] text-xl font-semibold">Book Name:</span>
+                    <input className="flex-grow rounded-[30px] text-lg px-5 py-2.5 border border-[#ccc]" type="text" readOnly value={copyName} />
                 </div>
-                <div className="detail-row">
-                    <span>Book Status:</span>
-                    <input type="text" readOnly value={status} />
+                <div className="flex items-center gap-5">
+                    <span className="w-[180px] text-xl font-semibold">Book Status:</span>
+                    <input className="flex-grow rounded-[30px] text-lg px-5 py-2.5 border border-[#ccc]" type="text" readOnly value={status} />
                 </div>
-                <div className="detail-row">
-                    <span>Shelf Location:</span>
-                    <input type="text" readOnly value={shelf} />
+                <div className="flex items-center gap-5">
+                    <span className="w-[180px] text-xl font-semibold">Shelf Location:</span>
+                    <input className="flex-grow rounded-[30px] text-lg px-5 py-2.5 border border-[#ccc]" type="text" readOnly value={shelf} />
                 </div>
-                <div className="detail-row">
-                    <span>Closest Return:</span>
-                    <input type="text" readOnly value={returnDate} />
+                <div className="flex items-center gap-5">
+                    <span className="w-[180px] text-xl font-semibold">Closest Return:</span>
+                    <input className="flex-grow rounded-[30px] text-lg px-5 py-2.5 border border-[#ccc]" type="text" readOnly value={returnDate} />
                 </div>
-                <div className="detail-row">
-                    <span>Book Summary:</span>
-                    <textarea readOnly value={selectedBook.summary || ''} />
+                <div className="flex items-center gap-5">
+                    <span className="w-[180px] text-xl font-semibold">Book Summary:</span>
+                    <textarea className="flex-grow text-lg px-5 py-2.5 border border-[#ccc] rounded-[15px] min-h-[120px] resize-none" readOnly value={selectedBook.summary || ''} />
                 </div>
-                
-                <button 
-                    className="menu-button" 
-                    style={{ width: '150px', alignSelf: 'center', marginTop: '10px' }} 
-                    onClick={() => navigate(-1)} // Navigates back to the previous page
-                >
-                    Return
-                </button>
             </div>
         </div>
     );
