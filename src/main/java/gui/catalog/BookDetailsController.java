@@ -22,6 +22,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import model.Book;
@@ -34,10 +36,13 @@ import model.CopyOfBook;
  */
 public class BookDetailsController {
     @FXML private TextField bookName;
+    @FXML private Label authorLabel;
     @FXML private TextArea summaryTxt;
     @FXML private TextField BookStatus;
     @FXML private TextField ShelfLocation;
     @FXML private TextField ReturnDate;
+    @FXML private ImageView bookCover;
+
     @FXML private Button returnbtn;
     @FXML private Button LogoutBtn;
     @FXML private Button LoginBtn;
@@ -91,7 +96,22 @@ public class BookDetailsController {
 
     public void loadBooks(Book selectedBook) {
         bookName.setText(selectedBook.getBookName());
+        authorLabel.setText("by " + selectedBook.getAuthor());
         summaryTxt.setText(selectedBook.getBookSummary());
+
+        // Cover Image Loading
+        try {
+            String imagePath = "/gui/images/covers/" + selectedBook.getBookID() + ".jpg";
+            var resource = getClass().getResource(imagePath);
+            
+            if (resource != null) {
+                bookCover.setImage(new Image(resource.toExternalForm()));
+            } else {
+                bookCover.setImage(new Image(getClass().getResourceAsStream("/gui/images/book_logo.png")));
+            }
+        } catch (Exception e) {
+            bookCover.setImage(new Image(getClass().getResourceAsStream("/gui/images/book_logo.png")));
+        }
         
         int memberId = (SessionManager.currentSubscriber != null) ? SessionManager.currentSubscriber.getMembershipNumber() : 0;
 
@@ -100,7 +120,7 @@ public class BookDetailsController {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
 
-            // 1. Fetch available copy
+            // Fetch available copy
             HttpRequest availableReq = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:8080/api/borrows/book/" + selectedBook.getBookID() + "/available-copy/subscriber/" + memberId))
                     .GET().build();
@@ -114,7 +134,7 @@ public class BookDetailsController {
                 ShelfLocation.setText(availableCopy.getShelfLocation());
                 ReturnDate.setText("-");
             } else {
-                // 2. Fallback: Fetch closest return date
+                // Fallback: Fetch closest return date
                 HttpRequest closestReq = HttpRequest.newBuilder()
                         .uri(URI.create("http://localhost:8080/api/borrows/book/" + selectedBook.getBookID() + "/closest-return-date"))
                         .GET().build();

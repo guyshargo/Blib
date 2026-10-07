@@ -1,66 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="25.0" stylesheets="@BookDetails.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.catalog.BookDetailsController">
-   <children>
-      <HBox alignment="CENTER" prefHeight="68.0" prefWidth="800.0" spacing="20.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Name:" wrappingWidth="216.33670043945312">
-               <font>
-                  <Font name="Assistant SemiBold" size="16.0" />
-               </font>
-            </Text>
-            <TextField fx:id="bookName" editable="false" prefHeight="45.0" prefWidth="330.0" styleClass="text-field" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="61.0" prefWidth="800.0" spacing="20.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Status:" wrappingWidth="219.33670043945312">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="BookStatus" editable="false" prefHeight="45.0" prefWidth="330.0" styleClass="text-field" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="56.0" prefWidth="800.0" spacing="20.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Shelf Location:" wrappingWidth="222.33670043945312">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="ShelfLocation" editable="false" prefHeight="45.0" prefWidth="330.0" styleClass="text-field" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="800.0" spacing="20.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Closest Return Date:" wrappingWidth="242.93667602539062">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="ReturnDate" editable="false" prefHeight="45.0" prefWidth="330.0" styleClass="text-field" />
-         </children>
-      </HBox>
-      <HBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="800.0" spacing="20.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-text" text="Book Summary:" wrappingWidth="242.93667602539062">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <TextArea fx:id="summaryTxt" editable="false" prefHeight="150.0" prefWidth="330.0" wrapText="true">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextArea>
-         </children>
-      </HBox>
-   </children>
-</VBox>
+<HBox styleClass="root-container" stylesheets="@BookDetails.css" spacing="40.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.catalog.BookDetailsController">
+   
+   <!-- LEFT COLUMN: Physical Inventory & Actions -->
+   <VBox spacing="20.0" prefWidth="280.0" alignment="TOP_CENTER">
+      <ImageView fx:id="bookCover" fitHeight="400.0" fitWidth="280.0" preserveRatio="false" />
+      
+      <VBox styleClass="inventory-status-box" spacing="10.0" alignment="CENTER" prefWidth="280.0">
+          <Label text="CURRENT STATUS" styleClass="metadata-title" />
+          <Label fx:id="BookStatus" text="Checking..." styleClass="status-label-available" />
+          
+          <HBox alignment="CENTER" spacing="10.0">
+              <Label text="Location:" styleClass="metadata-title" />
+              <Label fx:id="ShelfLocation" text="-" styleClass="metadata-value" />
+          </HBox>
+      </VBox>
+
+      <Button text="Borrow Copy" styleClass="action-button" maxWidth="Infinity" />
+   </VBox>
+
+   <!-- RIGHT COLUMN: Book Information & Timeline -->
+   <VBox spacing="25.0" HBox.hgrow="ALWAYS">
+      
+      <VBox spacing="5.0">
+         <Label fx:id="bookName" text="Book Title" styleClass="book-title" wrapText="true" />
+         <Label fx:id="authorLabel" text="by Author Name" styleClass="book-author" />
+      </VBox>
+
+      <VBox spacing="10.0">
+         <Label text="Summary" styleClass="section-header" />
+         <TextArea fx:id="summaryTxt" editable="false" wrapText="true" prefHeight="200.0" styleClass="summary-text" />
+      </VBox>
+
+      <!-- Waitlist / Return Timeline -->
+      <VBox styleClass="timeline-box" spacing="10.0">
+         <Label text="Return Timeline" styleClass="section-header" />
+         <HBox spacing="15.0" alignment="CENTER_LEFT">
+             <Label text="Closest Return Date:" styleClass="metadata-title" />
+             <Label fx:id="ReturnDate" text="-" styleClass="metadata-value" />
+         </HBox>
+      </VBox>
+      
+   </VBox>
+</HBox>
