@@ -1,0 +1,102 @@
+.catalog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    font-family: 'Assistant', sans-serif;
+    min-height: 100vh;
+}
+
+/* Search Inputs */
+.search-bar-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.search-field {
+    border-radius: 17px;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    font-weight: 600;
+}
+
+/* Buttons */
+.menu-button {
+    background-color: #fec999;
+    border-radius: 100px;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    border: 2px solid transparent;
+    padding: 8px 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menu-button:hover {
+    background-color: rgba(253, 169, 92, 0.65);
+    color: #333;
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Table Styling */
+.catalog-table {
+    width: 100%;
+    max-width: 900px;
+    background-color: #fff8f2;
+    border-radius: 5px;
+    border-collapse: collapse;
+    font-weight: 600;
+}
+
+.catalog-table th, .catalog-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #fdf6f0;
+}
+
+.catalog-table tr:nth-child(odd) { background-color: #fdf6f0; }
+.catalog-table tr:nth-child(even) { background-color: #fee2cd; }
+.catalog-table tr:hover { 
+    background-color: #f4e2e1; 
+    cursor: pointer;
+}
+
+/* Book Details Layout */
+.details-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 600px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.detail-row span {
+    width: 180px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.detail-row input, .detail-row textarea {
+    flex-grow: 1;
+    border-radius: 30px;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+}
+
+.detail-row textarea {
+    border-radius: 15px;
+    min-height: 120px;
+    resize: none;
+}
