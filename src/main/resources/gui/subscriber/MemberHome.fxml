@@ -13,12 +13,7 @@
                 <VBox>
                     <children>
                         <Label styleClass="shelf-title" text="Currently reading" />
-                        <HBox styleClass="shelf-row">
-                            <children>
-                                <VBox styleClass="book-card-placeholder" />
-                                <VBox styleClass="book-card-placeholder" />
-                            </children>
-                        </HBox>
+                        <HBox fx:id="currentlyReadingShelf" styleClass="shelf-row" />
                     </children>
                 </VBox>
 
@@ -26,14 +21,7 @@
                 <VBox>
                     <children>
                         <Label styleClass="shelf-title" text="Top rated books" />
-                        <HBox styleClass="shelf-row">
-                            <children>
-                                <VBox styleClass="book-card-placeholder" />
-                                <VBox styleClass="book-card-placeholder" />
-                                <VBox styleClass="book-card-placeholder" />
-                                <VBox styleClass="book-card-placeholder" />
-                            </children>
-                        </HBox>
+                        <HBox fx:id="topRatedShelf" styleClass="shelf-row" />
                     </children>
                 </VBox>
 
@@ -41,13 +29,7 @@
                 <VBox>
                     <children>
                         <Label styleClass="shelf-title" text="Latest arrivals" />
-                        <HBox styleClass="shelf-row">
-                            <children>
-                                <VBox styleClass="book-card-placeholder" />
-                                <VBox styleClass="book-card-placeholder" />
-                                <VBox styleClass="book-card-placeholder" />
-                            </children>
-                        </HBox>
+                        <HBox fx:id="latestArrivalsShelf" styleClass="shelf-row" />
                     </children>
                 </VBox>
 

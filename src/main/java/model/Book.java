@@ -8,6 +8,7 @@ public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
     private String bookName;
     private String bookGenre;
+    private String author;
     private int NumberOfCopies;
     private int NumberOfBorrowedCopies;
     private String keywords;
@@ -16,10 +17,11 @@ public class Book implements Serializable {
     private int numberOforders;
     private String BookSummary;
 
-    public Book(String BookName, String bookGenre, int NumberOfCopies, int NumberOfBorrowedCopies, String keywords,
+    public Book(String BookName, String bookGenre, String author, int NumberOfCopies, int NumberOfBorrowedCopies, String keywords,
                 IsOrdered isOrdered, int bookID, int numberOforders) {
         this.bookName = BookName;
         this.bookGenre = bookGenre;
+        this.author = author;
         this.NumberOfCopies = NumberOfCopies;
         this.NumberOfBorrowedCopies = NumberOfBorrowedCopies;
         this.keywords = keywords;
@@ -33,6 +35,9 @@ public class Book implements Serializable {
     
     public String getBookGenre() { return this.bookGenre; }
     public void setBookGenre(String bookGenre) { this.bookGenre = bookGenre; }
+
+    public String getAuthor() { return this.author; }
+    public void setAuthor(String author) { this.author = author; }
 
     public int getNumberOfCopies() { return this.NumberOfCopies; }
     public void setNumberOfCopies(int NumberOfCopies) { this.NumberOfCopies = NumberOfCopies; }
