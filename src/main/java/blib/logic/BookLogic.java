@@ -252,7 +252,6 @@ public class BookLogic {
                 if (resultSet.next()) {
                     String title = resultSet.getString("title");
                     String genre = resultSet.getString("genre");
-                    String author = resultSet.getString("author");
                     int numberOfCopies = resultSet.getInt("number_of_copies");
                     int borrowedCopies = resultSet.getInt("number_of_borrowed_copies");
                     String keywords = resultSet.getString("keywords");
@@ -262,7 +261,7 @@ public class BookLogic {
                     int numberOfOrders = resultSet.getInt("number_of_orders");
                     IsOrdered is_ordered = IsOrdered.valueOf(resultSet.getString("is_ordered").toUpperCase());
 
-                    return new Book(title, genre, author, numberOfCopies, borrowedCopies, keywords, is_ordered, book_id, numberOfOrders);
+                    return new Book(title, genre, numberOfCopies, borrowedCopies, keywords, is_ordered, book_id, numberOfOrders);
                 }
             }
         } catch (SQLException e) {
@@ -315,7 +314,6 @@ public class BookLogic {
                     Book book = new Book(
                             rs.getString("title"),
                             rs.getString("genre"),
-                            rs.getString("author"),
                             rs.getInt("number_of_copies"),
                             rs.getInt("number_of_borrowed_copies"),
                             rs.getString("keywords"),
