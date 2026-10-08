@@ -1,13 +1,6 @@
 package blib.enums;
 
-/**
- * Description:
- * Enum class of the activitie's type
- */
 public enum ActivityType {
-    /**
-     * Attributes of the enum (Member status report, Borrow report,status tracking,borrow tracking)
-     */
     BORROW("Borrowing A Book", "borrow"),
     DEFAULT("Default", "default"),
     RETURN("Returning A Book", "returning"),
@@ -26,12 +19,6 @@ public enum ActivityType {
         this.DBvalue = DBvalue;
     }
 
-
-    public String getValue() {
-        return this.value;
-    }
-
-    public String getDBValue() {
-        return this.DBvalue;
-    }
+    public String getValue() { return this.value; }
+    public String getDBValue() { return this.DBvalue; }
 }

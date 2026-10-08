@@ -2,7 +2,7 @@ package blib.dto;
 
 public class ChangeReturnDateRequest {
     private int memberId;
-    private int copyOfBookId;
+    private int bookCopyId;
     private String newReturnDate;
     private String librarianName;
     private int librarianId;
@@ -10,8 +10,8 @@ public class ChangeReturnDateRequest {
 
     public int getMemberId() { return memberId; }
     public void setMemberId(int memberId) { this.memberId = memberId; }
-    public int getCopyOfBookId() { return copyOfBookId; }
-    public void setCopyOfBookId(int copyOfBookId) { this.copyOfBookId = copyOfBookId; }
+    public int getBookCopyId() { return bookCopyId; }
+    public void setBookCopyId(int bookCopyId) { this.bookCopyId = bookCopyId; }
     public String getNewReturnDate() { return newReturnDate; }
     public void setNewReturnDate(String newReturnDate) { this.newReturnDate = newReturnDate; }
     public String getLibrarianName() { return librarianName; }

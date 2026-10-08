@@ -9,7 +9,7 @@ import blib.enums.BorrowStatus;
 import blib.enums.IsOrdered;
 
 import blib.model.Book;
-import blib.model.CopyOfBook;
+import blib.model.BookCopy;
 
 public class BookLogic {
 
@@ -18,7 +18,7 @@ public class BookLogic {
     //// Singleton database connector
     public BookLogic() { dbConnector = MysqlConnection.getInstance(); }
 
-    public synchronized CopyOfBook findCopyOfBook(int copyOfBookID) {
+    public synchronized BookCopy findCopyOfBook(int copyOfBookID) {
         String queryAvailableCopy = "SELECT bc.*, b.title FROM book_copies bc JOIN books b ON bc.book_id = b.book_id WHERE bc.copy_id = ?";
         
         try (Connection connection = dbConnector.getConnection();
@@ -37,7 +37,7 @@ public class BookLogic {
                     BorrowStatus borrow_status = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
                     int bookId = resultSet.getInt("book_id");
                     
-                    return new CopyOfBook(copyOfBookId, copOfBookName, borrow_status, shelfLocation, barcode, bookId);
+                    return new BookCopy(copyOfBookId, copOfBookName, borrow_status, shelfLocation, barcode, bookId);
                 }
             }
         } catch (SQLException e) {
@@ -46,7 +46,7 @@ public class BookLogic {
         return null;
     }
 
-    public synchronized CopyOfBook getAvailableCopyOfBookByBarcode(String barcode) {
+    public synchronized BookCopy getAvailableCopyOfBookByBarcode(String barcode) {
         String queryAvailableCopy = "SELECT bc.*, b.title FROM book_copies bc JOIN books b ON bc.book_id = b.book_id WHERE bc.barcode = ? AND bc.borrow_status = 'NotBorrowed' LIMIT 1";
         
         try (Connection connection = dbConnector.getConnection();
@@ -65,7 +65,7 @@ public class BookLogic {
                     BorrowStatus borrow_status = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
                     int bookId = resultSet.getInt("book_id");
                     
-                    return new CopyOfBook(copyOfBookId, copyOfBookName, borrow_status, shelfLocation, barcodeResult, bookId);
+                    return new BookCopy(copyOfBookId, copyOfBookName, borrow_status, shelfLocation, barcodeResult, bookId);
                 }
             }
         } catch (SQLException e) {
@@ -74,7 +74,7 @@ public class BookLogic {
         return null;
     }
 
-    public synchronized CopyOfBook getAvailableCopyOfBook(int book_id) {
+    public synchronized BookCopy getAvailableCopyOfBook(int book_id) {
         String queryAvailableCopy = "SELECT bc.*, b.title FROM book_copies bc JOIN books b ON bc.book_id = b.book_id WHERE bc.book_id = ? AND bc.borrow_status = 'NotBorrowed' LIMIT 1";
         
         try (Connection connection = dbConnector.getConnection();
@@ -93,7 +93,7 @@ public class BookLogic {
                     BorrowStatus borrow_status = "NotBorrowed".equalsIgnoreCase(borrowStatusString) ? BorrowStatus.NOT_BORROWED : BorrowStatus.BORROWED;
                     int bookId = resultSet.getInt("book_id");
                     
-                    return new CopyOfBook(copyOfBookId, copOfBookName, borrow_status, shelfLocation, barcode, bookId);
+                    return new BookCopy(copyOfBookId, copOfBookName, borrow_status, shelfLocation, barcode, bookId);
                 }
             }
         } catch (SQLException e) {
@@ -224,14 +224,14 @@ public class BookLogic {
         }
     }
 
-    public synchronized boolean changeBookCopyBorrowStatus(CopyOfBook copyOfBook) {
+    public synchronized boolean changeBookCopyBorrowStatus(BookCopy copyOfBook) {
         String query = "UPDATE book_copies SET borrow_status = ? WHERE copy_id = ?";
         
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
              
             ps.setString(1, copyOfBook.getBorrowStatus().toString());
-            ps.setInt(2, copyOfBook.getCopyOfBookId());
+            ps.setInt(2, copyOfBook.getCopyId());
             return ps.executeUpdate() > 0;
             
         } catch (SQLException e) {

@@ -38,7 +38,7 @@ public class OrderLogic {
                  
                 ps.setString(1, "Arrived");
                 ps.setDate(2, currentDate);
-                ps.setInt(3, found.getOrderID());
+                ps.setInt(3, found.getOrderId());
                 return ps.executeUpdate() > 0;
                 
             } catch (SQLException e) {
@@ -130,7 +130,7 @@ public class OrderLogic {
              PreparedStatement ps = connection.prepareStatement(query)) {
              
             ps.setInt(1, borrowedBook.getBookId());
-            ps.setInt(2, borrowedBook.getMembershipNumber());
+            ps.setInt(2, borrowedBook.getMemberId());
 
             return ps.executeUpdate() > 0;
             

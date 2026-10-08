@@ -16,15 +16,15 @@ public class ActivityLogic {
     public ActivityLogic() { dbConnector = MysqlConnection.getInstance(); }
 
     public synchronized boolean addActivity(Activity activity) {
-        String query = "INSERT INTO activities (member_id, activity_name, entity_id, activity_date) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO activities (member_id, activity_name, affected_entity_id, activity_date) VALUES (?, ?, ?, ?)";
         
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             // Set parameters for the prepared statement
-            pstmt.setInt(1, activity.getMembershipNumber());
+            pstmt.setInt(1, activity.getMemberId());
             pstmt.setString(2, activity.getActivityType().getDBValue());
-            pstmt.setInt(3, activity.getEntityId());
+            pstmt.setInt(3, activity.getAffectedEntityId());
             pstmt.setTimestamp(4, Timestamp.valueOf(activity.getActivityDateTime()));
 
             // Execute the insert query
@@ -53,7 +53,7 @@ public class ActivityLogic {
                     Activity currActivity = new Activity(
                             rs.getInt("member_id"),
                             activityType,
-                            rs.getInt("entity_id"),
+                            rs.getInt("affected_entity_id"),
                             rs.getTimestamp("activity_date").toLocalDateTime()
                     );
                     activityList.add(currActivity);

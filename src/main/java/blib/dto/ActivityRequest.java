@@ -1,16 +1,16 @@
 package blib.dto;
 
 public class ActivityRequest {
-    private int membershipNumber;
-    private String activityType;
-    private int entityId;
+    private int memberId;
+    private String type;
+    private int affectedEntityId;
 
-    public int getMembershipNumber() { return membershipNumber; }
-    public void setMembershipNumber(int membershipNumber) { this.membershipNumber = membershipNumber; }
+    public int getMemberId() { return memberId; }
+    public void setMemberId(int memberId) { this.memberId = memberId; }
 
-    public String getActivityType() { return activityType; }
-    public void setActivityType(String activityType) { this.activityType = activityType; }
+    public String getActivityType() { return type; }
+    public void setActivityType(String type) { this.type = type; }
 
-    public int getEntityId() { return entityId; }
-    public void setEntityId(int entityId) { this.entityId = entityId; }
+    public int getAffectedEntityId() { return affectedEntityId; }
+    public void setAffectedEntityId(int affectedEntityId) { this.affectedEntityId = affectedEntityId; }
 }

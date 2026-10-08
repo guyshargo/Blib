@@ -2,14 +2,14 @@ package blib.dto;
 
 public class BorrowRequest {
     private int memberId;
-    private int copyOfBookId;
+    private int bookCopyId;
     private int librarianId;
     private String librarianName;
 
     public int getMemberId() { return memberId; }
     public void setMemberId(int memberId) { this.memberId = memberId; }
-    public int getCopyOfBookId() { return copyOfBookId; }
-    public void setCopyOfBookId(int copyOfBookId) { this.copyOfBookId = copyOfBookId; }
+    public int getBookCopyId() { return bookCopyId; }
+    public void setBookCopyId(int bookCopyId) { this.bookCopyId = bookCopyId; }
     public int getLibrarianId() { return librarianId; }
     public void setLibrarianId(int librarianId) { this.librarianId = librarianId; }
     public String getLibrarianName() { return librarianName; }

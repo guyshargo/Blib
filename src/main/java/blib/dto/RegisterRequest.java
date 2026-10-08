@@ -1,15 +1,15 @@
 package blib.dto;
 
 public class RegisterRequest {
-    private int membershipNumber;
+    private int memberId;
     private String fullName;
     private String userName;
     private String password;
     private String phone;
     private String email;
 
-    public int getMembershipNumber(){ return membershipNumber; }
-    public void setMembershipNumber(int membershipNumber){ this.membershipNumber = membershipNumber; }
+    public int getMemberId(){ return memberId; }
+    public void setMemberId(int memberId){ this.memberId = memberId; }
     
     public String getFullName(){ return fullName; }
     public void setFullName(String fullName){ this.fullName = fullName; }
@@ -28,7 +28,7 @@ public class RegisterRequest {
 
     public String toString() {
         return "RegisterRequest{" +
-                "membershipNumber=" + membershipNumber +
+                "memberId=" + memberId +
                 ", fullName='" + fullName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +

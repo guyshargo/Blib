@@ -44,6 +44,6 @@ public class ExtensionLogic {
         LocalDate newReturnDate = borrowedBook.getReturnDate().plusDays(14);
         
         // Directly return the boolean result of the database update
-        return borrowLogic.setReturnDate(borrowedBook.getMembershipNumber(), borrowedBook.getCopyOfBookId(), newReturnDate);
+        return borrowLogic.setReturnDate(borrowedBook.getMemberId(), borrowedBook.getCopyOfBookId(), newReturnDate);
     }
 }

@@ -27,9 +27,7 @@ public enum BookSubject {
         this.displayValue = displayValue;
     }
 
-    public String getDisplayValue() {
-        return displayValue;
-    }
+    public String getDisplayValue() { return displayValue; }
 
     public static BookSubject fromString(String text) {
         if (text == null) return FICTION;

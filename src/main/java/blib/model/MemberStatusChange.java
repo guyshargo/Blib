@@ -4,69 +4,24 @@ import java.time.LocalDate;
 
 import blib.enums.FreezeStatus;
 
-/**
- * Description:
- * Class for the member's status change report in the system
- */
 public class MemberStatusChange {
-    private int memberId;
-    private String memberName;
-    private FreezeStatus memberStatus;
+    private int id;
+    private String fullName;
+    private FreezeStatus freezeStatus;
     private LocalDate changeStatusDate;
 
-    /**
-     * Description:
-     * Method for constructing the given class
-     *
-     * @param memberId         int
-     * @param memberName       String.class
-     * @param memberStatus     FreezeStatus.class
-     * @param changeStatusDate LocalDate.class
-     */
-    public MemberStatusChange(int memberId, String memberName, FreezeStatus memberStatus, LocalDate changeStatusDate) {
-        this.memberId = memberId;
-        this.memberName = memberName;
-        this.memberStatus = memberStatus;
+    public MemberStatusChange(int id, String fullName, FreezeStatus freezeStatus, LocalDate changeStatusDate) {
+        this.id = id;
+        this.fullName = fullName;
+        this.freezeStatus = freezeStatus;
         this.changeStatusDate = changeStatusDate;
     }
 
-    /**
-     * Description:
-     * Getter method for the member status report's member name
-     *
-     * @return memberName String.class
-     */
-    public String getMemberName() {
-        return memberName;
-    }
+    public String getMemberName() { return fullName; }
 
-    /**
-     * Description:
-     * Getter method for the member status report's member id
-     *
-     * @return memberId int
-     */
-    public int getMemberId() {
-        return memberId;
-    }
+    public int getMemberId() { return id; }
 
-    /**
-     * Description:
-     * Getter method for the member status report's member freeze status
-     *
-     * @return memberStatus FreezeStatus.class
-     */
-    public FreezeStatus getMemberStatus() {
-        return memberStatus;
-    }
+    public FreezeStatus getFreezeStatus() { return freezeStatus; }
 
-    /**
-     * Description:
-     * Getter method for the member status report's date
-     *
-     * @return changeStatusDate LocalDate.class
-     */
-    public LocalDate getChangeStatusDate() {
-        return changeStatusDate;
-    }
+    public LocalDate getChangeStatusDate() { return changeStatusDate; }
 }

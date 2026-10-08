@@ -56,7 +56,7 @@ public class MemberController {
     @PostMapping("/register")
     public ResponseEntity<?> registerContact(@RequestBody RegisterRequest request){
         String dupErrors = memberLogic.checkDuplicates(
-            request.getMembershipNumber(),
+            request.getMemberId(),
             request.getUserName(),
             request.getEmail()
         );
@@ -67,7 +67,7 @@ public class MemberController {
         }
 
         Member newMember = memberLogic.registerNewMember(
-            request.getMembershipNumber(),
+            request.getMemberId(),
             request.getFullName(),
             request.getUserName(),
             request.getPassword(),
@@ -78,7 +78,7 @@ public class MemberController {
 
         if(newMember != null){
             reportLogic.saveMemberStatusChange(new MemberStatusChange(
-                request.getMembershipNumber(), request.getFullName(), FreezeStatus.NOT_FROZEN, LocalDate.now()
+                request.getMemberId(), request.getFullName(), FreezeStatus.NOT_FROZEN, LocalDate.now()
             ));
             reportLogic.updateStatusTracking(new StatusTracking(LocalDate.now(), 0, 1));
             return ResponseEntity.ok(newMember);
@@ -98,7 +98,7 @@ public class MemberController {
             if(setStatus){
                 Member member = memberLogic.fetchMemberById(id);
                 reportLogic.saveMemberStatusChange(new MemberStatusChange(
-                    member.getMembershipNumber(), member.getFullName(), FreezeStatus.fromDbValue(status), freezDate)
+                    member.getMemberId(), member.getFullName(), FreezeStatus.fromDbValue(status), freezDate)
                 );
 
                 if(member.getFreezeStatus() == FreezeStatus.NOT_FROZEN){

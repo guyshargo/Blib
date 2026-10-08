@@ -98,7 +98,7 @@ public class TimeManagement {
         //get a list of all borrowed books in the database
         List<OrderedBook> orderedBooks = orderLogic.importAllLateOrderedBooks(LocalDate.now());
         for (OrderedBook book : orderedBooks) {
-            orderLogic.cancelOrder(book.getOrderID());
+            orderLogic.cancelOrder(book.getOrderId());
             Notification.sendCanceledBookOrderNotificationByEmail(book,LocalDate.now());
         }
     }
@@ -125,7 +125,7 @@ public class TimeManagement {
         MemberLogic memberLogic = new MemberLogic();
         List<Member> memberUnFreezeList = memberLogic.fetchFrozenMembersOlderThanAMonth();
         for (Member member : memberUnFreezeList) {
-            memberLogic.setFreezeStatus(member.getMembershipNumber(), FreezeStatus.NOT_FROZEN.getDbValue(), LocalDate.now());
+            memberLogic.setFreezeStatus(member.getMemberId(), FreezeStatus.NOT_FROZEN.getDbValue(), LocalDate.now());
         }
     }
     /**

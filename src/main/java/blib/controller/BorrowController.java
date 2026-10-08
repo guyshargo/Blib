@@ -10,7 +10,7 @@ import blib.model.Book;
 import blib.model.BorrowHistory;
 import blib.model.BorrowTracking;
 import blib.model.BorrowedBook;
-import blib.model.CopyOfBook;
+import blib.model.BookCopy;
 import blib.model.Member;
 
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import blib.dto.BorrowRequest;
 import blib.dto.ChangeReturnDateRequest;
 import blib.enums.BorrowStatus;
-import blib.enums.Subject;
+import blib.enums.InvoiceSubject;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +43,7 @@ public class BorrowController {
     public ResponseEntity<?> borrowBook(@RequestBody BorrowRequest request) {
         BorrowedBook book = borrowLogic.borrowBook(
             request.getMemberId(), 
-            request.getCopyOfBookId(), 
+            request.getBookCopyId(), 
             request.getLibrarianId(), 
             request.getLibrarianName()
         );
@@ -52,12 +52,12 @@ public class BorrowController {
             Member member = memberLogic.fetchMemberById(request.getMemberId());
 
             reportLogic.saveBorrowHistory(new BorrowHistory(
-                member.getMembershipNumber(), 
+                member.getMemberId(), 
                 book.getNameOfBook(),
                 member.getFullName(), 
                 book.getBorrowDate(), 
                 book.getReturnDate(),
-                request.getCopyOfBookId()
+                request.getBookCopyId()
             ));
             reportLogic.updateBorrowTracking(new BorrowTracking(LocalDate.now(), 1, 0));
             
@@ -82,13 +82,13 @@ public class BorrowController {
 
             boolean updatedReturnDate = borrowLogic.setReturnDate(
                 request.getMemberId(),
-                request.getCopyOfBookId(),
+                request.getBookCopyId(),
                 extendedDueDate
             );
 
             boolean opLibrarian = borrowLogic.setLibrarianForReturnDate(
                 request.getMemberId(),
-                request.getCopyOfBookId(),
+                request.getBookCopyId(),
                 request.getLibrarianName(),
                 request.getLibrarianId(),
                 extensionApprovalDate
@@ -97,12 +97,12 @@ public class BorrowController {
             if(updatedReturnDate && opLibrarian){
                 BorrowedBook book = borrowLogic.fetchBorrowedBook(
                     request.getMemberId(),
-                    request.getCopyOfBookId()
+                    request.getBookCopyId()
                 );
 
                 reportLogic.updateOriginalReturnDate(
                     request.getMemberId(),
-                    request.getCopyOfBookId(),
+                    request.getBookCopyId(),
                     book.getBorrowDate(),
                     extendedDueDate
                 );
@@ -132,7 +132,7 @@ public class BorrowController {
             String notification = "Member " + member.getFullName() + "has extended the due date of the book \"" +
                 exBook.getNameOfBook() + "\". Please notice the change in his Activity List.";
             
-            invoiceLogic.sendMessage(memberId, member.getUserName(), member.getFullName(), Subject.EXTENSION, notification);
+            invoiceLogic.sendMessage(memberId, member.getUsername(), member.getFullName(), InvoiceSubject.EXTENSION, notification);
 
             return ResponseEntity.ok("Borrow successfully extended.");
         }
@@ -147,7 +147,7 @@ public class BorrowController {
         if(book != null){
             boolean delBook = borrowLogic.deleteBorrowedBook(copyOfBookId); 
             if(delBook){
-                CopyOfBook delBookCopyId = bookLogic.findCopyOfBook(copyOfBookId);
+                BookCopy delBookCopyId = bookLogic.findCopyOfBook(copyOfBookId);
                 delBookCopyId.setBorrowStatus(BorrowStatus.NOT_BORROWED);
                 bookLogic.changeBookCopyBorrowStatus(delBookCopyId);
 
@@ -162,8 +162,8 @@ public class BorrowController {
 
     // find a book copy which can be borrowed
     @GetMapping("/book/{bookId}/available-copy/member/{memberId}")
-    public ResponseEntity<CopyOfBook> findAvailableCopy(@PathVariable int bookId, @PathVariable int memberId){
-        CopyOfBook availableBookCopy = bookLogic.getAvailableCopyOfBook(bookId);
+    public ResponseEntity<BookCopy> findAvailableCopy(@PathVariable int bookId, @PathVariable int memberId){
+        BookCopy availableBookCopy = bookLogic.getAvailableCopyOfBook(bookId);
 
         if(availableBookCopy != null){
             Book book = bookLogic.fetchBook(bookId);

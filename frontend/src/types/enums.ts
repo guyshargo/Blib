@@ -1,69 +1,61 @@
-export enum ActivityType {
-    BORROW = 'Borrow',
-    RETURN = 'Return',
-    FREEZE_STATUS = 'Freeze Status',
-    EXTEND = 'Borrow Extension',
-    ORDER = 'Order',
-    CANCEL_ORDER = 'CancelOrder',
-    REGISTRATION = 'Registration',
-    LATE_BOOK_RETURN = 'Late Return',
-}
+export type ActivityType = 
+    | 'DEFAULT' 
+    | 'BORROW' 
+    | 'RETURN' 
+    | 'FREEZE_STATUS' 
+    | 'EXTEND' 
+    | 'ORDER' 
+    | 'CANCEL_ORDER' 
+    | 'REGISTRATION' 
+    | 'LATE_BOOK_RETURN';
 
-export enum ArrivalStatus {
-    ARRIVED = 'Arrived',
-    NOT_ARRIVED = 'Not Arrived',
-}
+export type ArrivalStatus = 
+    | 'ARRIVED' 
+    | 'NOT_ARRIVED';
 
-export enum BookGenre {
-    FICTION = 'Fiction',
-    ROMANCE = 'Romance',
-    FANTASY = 'Fantasy',
-    SCI_FI = 'Sci-Fi',
-    MYSTERY = 'Mystery',
-    THRILLER = 'Thriller',
-    HORROR = 'Horror',
-    HISTORICAL_FICTION = 'Historical Fiction',
-    LITERATURE = 'Literature',
-    SCIENCE = 'Science',
-    HISTORY = 'History',
-    TECHNOLOGY = 'Technology',
-    MATHEMATICS = 'Mathematics',
-    ART = 'Art',
-    PHILOSOPHY = 'Philosophy',
-    HEALTH = 'Health',
-    PSYCHOLOGY = 'Psychology',
-    BUSINESS = 'Business',
-    TRAVEL = 'Travel',
-}
+export type BookGenre = 
+    | 'FICTION' 
+    | 'ROMANCE' 
+    | 'FANTASY' 
+    | 'SCI_FI' 
+    | 'MYSTERY' 
+    | 'THRILLER' 
+    | 'HORROR' 
+    | 'HISTORICAL_FICTION' 
+    | 'LITERATURE' 
+    | 'SCIENCE' 
+    | 'HISTORY' 
+    | 'TECHNOLOGY' 
+    | 'MATHEMATICS' 
+    | 'ART' 
+    | 'PHILOSOPHY' 
+    | 'HEALTH' 
+    | 'PSYCHOLOGY' 
+    | 'BUSINESS' 
+    | 'TRAVEL';
 
-export enum BorrowStatus {
-    BORROWED = 'Borrowed',
-    NOT_BORROWED = 'NotBorrowed',
-}
+export type BorrowStatus = 
+    | 'BORROWED' 
+    | 'NOT_BORROWED';
 
-export enum FreezeStatus {
-    FROZEN = 'Frozen',
-    NOT_FROZEN = 'NotFrozen',
-}
+export type FreezeStatus = 
+    | 'FROZEN' 
+    | 'NOT_FROZEN';
 
-export enum IsOrdered {
-    YES = 'Yes',
-    NO = 'No',
-}
+export type IsOrdered = 
+    | 'YES' 
+    | 'NO';
 
-export enum IsRead {
-    READ = 'Read',
-    NOT_READ = 'Not Read',
-}
+export type IsRead = 
+    | 'READ' 
+    | 'NOT_READ';
 
-export enum ReportType {
-    MEMBER_STATUS_REPORT = 'memberStatusReport',
-    BORROW_REPORT = 'borrowReport',
-    STATUS_TRACKING = 'statusTracking',
-    BORROW_TRACKING = 'borrowTracking',
-}
+export type ReportType = 
+    | 'MEMBER_STATUS_REPORT' 
+    | 'BORROW_REPORT' 
+    | 'STATUS_TRACKING' 
+    | 'BORROW_TRACKING';
 
-export enum Subject {
-    GENERAL_MESSAGE = 'General',
-    EXTENSION = 'Extension',
-}
+export type InvoiceSubject = 
+    | 'GENERAL_MESSAGE' 
+    | 'EXTENSION';

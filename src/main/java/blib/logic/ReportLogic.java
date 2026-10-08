@@ -34,7 +34,7 @@ public class ReportLogic {
              
             ps.setInt(1, memberStatusChange.getMemberId());
             ps.setString(2, memberStatusChange.getMemberName());
-            ps.setString(3, memberStatusChange.getMemberStatus().getDbValue());
+            ps.setString(3, memberStatusChange.getFreezeStatus().getDbValue());
             
             if (memberStatusChange.getChangeStatusDate() != null) {
                 ps.setDate(4, Date.valueOf(memberStatusChange.getChangeStatusDate()));
@@ -219,7 +219,7 @@ public class ReportLogic {
                 ps.setNull(5, Types.DATE);
             }
             ps.setInt(6, borrowHistory.getLateDays());
-            ps.setInt(7, borrowHistory.getCopyOfBookId());
+            ps.setInt(7, borrowHistory.getBookCopyId());
             ps.executeUpdate();
             
         } catch (SQLException e) {
@@ -399,7 +399,7 @@ public class ReportLogic {
         List<Member> memberList = memberLogic.fetchAllMembers();
         for (Member member : memberList) {
             reportLogic.saveMemberStatusChange(new MemberStatusChange(
-                member.getMembershipNumber(),
+                member.getMemberId(),
                 member.getFullName(),
                 member.getFreezeStatus(),
                 member.getFreezeStatusDate()
@@ -427,8 +427,8 @@ public class ReportLogic {
         MemberLogic memberLogic = new MemberLogic();
         List<BorrowedBook> borrowedBooks = borrowLogic.importAllBorrowedBooks();
         for (BorrowedBook borrowedBook : borrowedBooks) {
-            Member member = memberLogic.fetchMemberById(borrowedBook.getMembershipNumber());
-            reportLogic.saveBorrowHistory(new BorrowHistory(borrowedBook.getMembershipNumber(), member.getFullName(), borrowedBook.getNameOfBook(), borrowedBook.getBorrowDate(), borrowedBook.getReturnDate(), borrowedBook.getCopyOfBookId()));
+            Member member = memberLogic.fetchMemberById(borrowedBook.getMemberId());
+            reportLogic.saveBorrowHistory(new BorrowHistory(borrowedBook.getMemberId(), member.getFullName(), borrowedBook.getNameOfBook(), borrowedBook.getBorrowDate(), borrowedBook.getReturnDate(), borrowedBook.getCopyOfBookId()));
         }
     }
 

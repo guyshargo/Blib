@@ -5,15 +5,11 @@ import java.time.LocalDate;
 
 import blib.enums.FreezeStatus;
 
-/**
- * Description:
- * Class for the representing the subscribers in the system
- */
 public class Member implements Serializable {
-    private static final long serialVersionUID = 1L; // Recommended for Serializable classes
+    private static final long serialVersionUID = 1L;
     private int memberId;
     private String fullName;
-    private String userName;
+    private String username;
     private String password;
     private FreezeStatus freezeStatus;
     private String email;
@@ -22,14 +18,13 @@ public class Member implements Serializable {
     private String readerCardBarcode;
     private boolean loginStatus;
 
-    public Member(){}
+    public Member() {}
 
-    
-    public Member(int memberId, String fullName, String userName, String password,
-                      FreezeStatus freezeStatus, String email, String phoneNum, String readerCardBarcode) {
+    public Member(int memberId, String fullName, String username, String password,
+                 FreezeStatus freezeStatus, String email, String phoneNum, String readerCardBarcode) {
         this.memberId = memberId;
         this.fullName = fullName;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.freezeStatus = freezeStatus;
         this.email = email;
@@ -37,12 +32,11 @@ public class Member implements Serializable {
         this.readerCardBarcode = readerCardBarcode;
     }
 
- 
-    public Member(int memberId, String fullName, String userName, String password,
-                      FreezeStatus freezeStatus, String email, String phoneNum, LocalDate freezeStatusDate, String readerCardBarcode) {
+    public Member(int memberId, String fullName, String username, String password,
+                 FreezeStatus freezeStatus, String email, String phoneNum, LocalDate freezeStatusDate, String readerCardBarcode) {
         this.memberId = memberId;
         this.fullName = fullName;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.freezeStatus = freezeStatus;
         this.email = email;
@@ -51,112 +45,42 @@ public class Member implements Serializable {
         this.readerCardBarcode = readerCardBarcode;
     }
 
+    public void setLoginStatus(boolean loginStatus) { this.loginStatus = loginStatus; }
+    public boolean getLoginStatus() { return loginStatus; }
 
-    public void setLoginStatus(boolean loginStatus) {
-        this.loginStatus = loginStatus;
-    }
+    public String getReaderCardBarcode() { return readerCardBarcode; }
+    public void setReaderCardBarcode(String readerCardBarcode) { this.readerCardBarcode = readerCardBarcode; }
 
-    public boolean getLoginStatus() {
-        return loginStatus;
-    }
+    public LocalDate getFreezeStatusDate() { return freezeStatusDate; }
+    public void setFreezeStatusDate(LocalDate freezeStatusDate) { this.freezeStatusDate = freezeStatusDate; }
 
+    public int getMemberId() { return memberId; }
+    public void setMemberId(int memberId) { this.memberId = memberId; }
 
-    public String getreaderCardBarcode() {
-        return readerCardBarcode;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public void setreaderCardBarcode(String readerCardBarcode) {
-        this.readerCardBarcode = readerCardBarcode;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
+    public FreezeStatus getFreezeStatus() { return freezeStatus; }
+    public void setFreezeStatus(FreezeStatus freezeStatus) { this.freezeStatus = freezeStatus; }
 
-    public LocalDate getFreezeStatusDate() {
-        return freezeStatusDate;
-    }
+    public String getEmailAddress() { return email; }
+    public void setEmailAddress(String email) { this.email = email; }
 
-    public void setFreezeStatusDate(LocalDate freezeStatusDate) {
-        this.freezeStatusDate = freezeStatusDate;
-    }
+    public String getPhoneNumber() { return phoneNum; }
+    public void setPhoneNumber(String phoneNum) { this.phoneNum = phoneNum; }
 
-    public int getMembershipNumber() {
-        return memberId;
-    }
-
-
-    public void setMembershipNumber(int memberId) {
-        this.memberId = memberId;
-    }
-
-
-    public String getFullName() {
-        return fullName;
-    }
-
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-
-    public String getUserName() {
-        return userName;
-    }
-
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public FreezeStatus getFreezeStatus() {
-        return freezeStatus;
-    }
-
-    public void setFreezeStatus(FreezeStatus freezeStatus) {
-        this.freezeStatus = freezeStatus;
-    }
-
-
-    public String getEmailAddress() {
-        return email;
-    }
-
-    public void setEmailAddress(String email) {
-        this.email = email;
-    }
-
-
-    public String getPhoneNumber() {
-        return phoneNum;
-    }
-
-    public void setPhoneNumber(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
-
-    /**
-     * Description:
-     * Method for generating a string representing the given class object
-     *
-     * @return String.class
-     */
     @Override
     public String toString() {
         return "Subscriber{" +
                 "membershipNumber=" + memberId +
                 ", memberFullName='" + fullName + '\'' +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", memberFreezeStatus=" + freezeStatus +
                 ", emailAddress='" + email + '\'' +
                 ", memberPhoneNumber='" + phoneNum + '\'' +

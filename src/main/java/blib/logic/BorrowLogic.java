@@ -2,7 +2,7 @@ package blib.logic;
 
 import blib.model.Book;
 import blib.model.BorrowedBook;
-import blib.model.CopyOfBook;
+import blib.model.BookCopy;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -52,7 +52,7 @@ public class BorrowLogic {
 
     
 
-    public synchronized boolean checkIfAMemberCanBorrowTheBook(int member_id, CopyOfBook cpbook, Book book) {
+    public synchronized boolean checkIfAMemberCanBorrowTheBook(int member_id, BookCopy cpbook, Book book) {
         String orderQuery = "SELECT * FROM orders WHERE book_id = ? AND member_id = ? AND arrival_status = 'Arrived'";
         
         try (Connection connection = dbConnector.getConnection();
@@ -87,7 +87,7 @@ public class BorrowLogic {
         BookLogic bookLogic = new BookLogic();
         OrderLogic orderLogic = new OrderLogic();
 
-        CopyOfBook availableCopy = bookLogic.findCopyOfBook(copyOfBookId);
+        BookCopy availableCopy = bookLogic.findCopyOfBook(copyOfBookId);
         
         if (availableCopy == null || availableCopy.getBorrowStatus() == BorrowStatus.BORROWED) {
             return null; 
@@ -101,8 +101,8 @@ public class BorrowLogic {
         
         BorrowedBook borrowedBook = new BorrowedBook(
                 memberId,
-                availableCopy.getCopyOfBookName(),
-                availableCopy.getCopyOfBookId(),
+                availableCopy.getBookTitle(),
+                availableCopy.getCopyId(),
                 LocalDate.now(),
                 librarian_name,
                 librarian_id,
@@ -214,7 +214,7 @@ public class BorrowLogic {
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
              
-            ps.setInt(1, borrowedBook.getMembershipNumber());
+            ps.setInt(1, borrowedBook.getMemberId());
             ps.setDate(2, java.sql.Date.valueOf(borrowedBook.getBorrowDate()));
             ps.setDate(3, java.sql.Date.valueOf(borrowedBook.getReturnDate()));
             ps.setString(4, borrowedBook.getLibrarianName());
@@ -241,7 +241,7 @@ public class BorrowLogic {
     public synchronized BorrowedBook fetchBorrowedBook(int member_id, int copy_id) {
         List<BorrowedBook> borrowedBooks = this.importBorrowedBooks(member_id);
         for (BorrowedBook borrow : borrowedBooks) {
-            if (borrow.getMembershipNumber() == member_id && borrow.getCopyOfBookId() == copy_id) {
+            if (borrow.getMemberId() == member_id && borrow.getCopyOfBookId() == copy_id) {
                 return borrow;
             }
         }

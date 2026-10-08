@@ -10,7 +10,7 @@ import java.util.List;
 
 import blib.database.MysqlConnection;
 import blib.enums.IsRead;
-import blib.enums.Subject;
+import blib.enums.InvoiceSubject;
 import blib.model.InvoiceMessage;
 
 
@@ -30,7 +30,7 @@ public class InvoiceLogic {
              ResultSet rs = ps.executeQuery()) {
              
             while (rs.next()) {
-                Subject subject = this.getSubject(rs.getString("subject"));
+                InvoiceSubject subject = this.getSubject(rs.getString("subject"));
                 IsRead is_read = this.getIsRead(rs.getString("is_read"));
                 
                 InvoiceMessage message = new InvoiceMessage(
@@ -52,7 +52,7 @@ public class InvoiceLogic {
     }
 
 
-    public synchronized boolean sendMessage(int member_id, String username, String member_name, Subject subject, String content) {
+    public synchronized boolean sendMessage(int member_id, String username, String member_name, InvoiceSubject subject, String content) {
         String query = "INSERT INTO invoices (member_id, username, member_name, subject, content, message_date, is_read) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         Date tempDate = new Date();
@@ -93,11 +93,11 @@ public class InvoiceLogic {
         }
     }
 
-    private synchronized Subject getSubject(String subject) {
+    private synchronized InvoiceSubject getSubject(String subject) {
         if ("Extension".equals(subject)) {
-            return Subject.EXTENSION;
+            return InvoiceSubject.EXTENSION;
         } else {
-            return Subject.GENERAL_MESSAGE;
+            return InvoiceSubject.GENERAL_MESSAGE;
         }
     }
 

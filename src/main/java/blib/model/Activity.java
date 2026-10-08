@@ -10,30 +10,30 @@ import blib.enums.ActivityType;
 public class Activity implements Serializable {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final long serialVersionUID = 1L;
-    private int membershipNumber;
+    private int memberId;
     private ActivityType type;
-    private int entityId;
+    private int affectedEntityId;
     private LocalDateTime activityDateTime;
 
 
-    public Activity(int membershipNumber, ActivityType type, int entityId,
+    public Activity(int memberId, ActivityType type, int affectedEntityId,
                     LocalDateTime activityDateTime) {
-        this.membershipNumber = membershipNumber;
+        this.memberId = memberId;
         this.type = type;
-        this.entityId = entityId;
+        this.affectedEntityId = affectedEntityId;
         this.activityDateTime = activityDateTime;
     }
 
     public Activity(){};
 
-    public int getMembershipNumber() { return membershipNumber; }
-    public void setMembershipNumber(int membershipNumber) { this.membershipNumber = membershipNumber; }
+    public int getMemberId() { return memberId; }
+    public void setMemberId(int memberId) { this.memberId = memberId; }
 
     public ActivityType getActivityType() { return type; }
     public void setActivityType(ActivityType activityType) { this.type = activityType; }
 
-    public int getEntityId() {return entityId; }
-    public void setEntityId(int entityId) { this.entityId = entityId; }
+    public int getAffectedEntityId() {return affectedEntityId; }
+    public void setAffectedEntityId(int affectedEntityId) { this.affectedEntityId = affectedEntityId; }
 
     public LocalDateTime getActivityDateTime() { return activityDateTime; }
     public void setActivityDateTime(LocalDateTime activityDateTime) { this.activityDateTime = activityDateTime; }
@@ -41,7 +41,7 @@ public class Activity implements Serializable {
     @Override
     public String toString() {
         return String.format("Name: %s, Target ID: %d, Date: %s",
-                type.getValue(), entityId, activityDateTime.format(formatter));
+                type.getValue(), affectedEntityId, activityDateTime.format(formatter));
     }
 
 
@@ -52,7 +52,7 @@ public class Activity implements Serializable {
 
         Activity activity = (Activity) obj;
 
-        if (membershipNumber != activity.membershipNumber) return false;
+        if (memberId != activity.memberId) return false;
         if (!type.getValue().equals(activity.getActivityType().getValue())) return false;
         return activityDateTime.equals(activity.activityDateTime);
     }
@@ -60,8 +60,8 @@ public class Activity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = membershipNumber;
-        result = 31 * result + entityId;
+        int result = memberId;
+        result = 31 * result + affectedEntityId;
         result = 31 * result + activityDateTime.hashCode();
         return result;
     }

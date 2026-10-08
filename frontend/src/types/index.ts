@@ -1,18 +1,18 @@
-import { BookGenre,
+import type { BookGenre,
     FreezeStatus,
     ActivityType,
     IsOrdered,
     BorrowStatus,
-    Subject,
+    InvoiceSubject,
     IsRead,
     ArrivalStatus,
     ReportType
  } from './enums';
 
 export interface Activity {
-    membershipNumber: number;
+    memberId: number;
     type: ActivityType;
-    entityId: number;
+    affectedEntityId: number;
     activityDateTime: string;
 }
 
@@ -20,7 +20,7 @@ export interface Book {
     title: string;
     genre: BookGenre;
     copiesNum: number;
-    borrowedNum: number;
+    borrowedCopiesNum: number;
     keywords: string;
     isOrdered: IsOrdered;
     bookId: number;
@@ -34,17 +34,17 @@ export interface BorrowedBook {
     memberId: number;
     title: string;
     librarianName: string;
-    copyOfBookId: number;
+    bookCopyId: number;
     extensionDate?: string;
     librarianId: number;
     bookId: number;
 }
 
 export interface BorrowHistory {
-    copyOfBookId: number;
+    bookCopyId: number;
     memberId: number;
     memberName: string;
-    bookName: string;
+    title: string;
     borrowDate: string;
     originalReturnDate: string;
     actualReturnDate?: string;
@@ -57,9 +57,9 @@ export interface BorrowTracking {
     lateCount: number;
 }
 
-export interface CopyOfBook {
+export interface BookCopy {
     copyId: number;
-    CopyOfBookName: string;
+    title: string;
     borrowStatus: BorrowStatus;
     shelfLocation: string;
     barcode: string;
@@ -69,9 +69,9 @@ export interface CopyOfBook {
 export interface InvoiceMessage {
     msgId: number;
     memberId: number;
-    userName: string;
+    username: string;
     fullName: string;
-    subject: Subject;
+    subject: InvoiceSubject;
     content: string;
     date: string;
     isRead: IsRead;
@@ -81,9 +81,22 @@ export interface Librarian {
     fullName: string;
     phoneNum: string;
     id: number;
-    userName: string;
+    username: string;
     password?: string;
     email: string;
+    loginStatus: boolean;
+}
+
+export interface Member {
+    memberId: number;
+    fullName: string;
+    username: string;
+    password?: string;
+    freezeStatus: FreezeStatus;
+    email: string;
+    phoneNum: string;
+    freezeStatusDate?: string;
+    readerCardBarcode: string;
     loginStatus: boolean;
 }
 
@@ -119,29 +132,16 @@ export interface StatusTracking {
     notFrozenMembers: number;
 }
 
-export interface Member {
-    memberId: number;
-    fullName: string;
-    userName: string;
-    password?: string;
-    freezeStatus: FreezeStatus;
-    email: string;
-    phoneNum: string;
-    freezeStatusDate?: string;
-    readerCardBarcode: string;
-    loginStatus: boolean;
-}
-
 export interface BorrowRequest {
     memberId: number;
-    copyOfBookId: number;
+    bookCopyId: number;
     librarianId: number;
     librarianName: string;
 }
 
 export interface ChangeReturnDateRequest {
     memberId: number;
-    copyOfBookId: number;
+    bookCopyId: number;
     newReturnDate: string;
     librarianName: string;
     librarianId: number;
@@ -166,7 +166,7 @@ export interface RegisterRequest {
 }
 
 export interface ActivityRequest {
-    membershipNumber: number;
+    memberId: number;
     activityType: string;
     entityId: number;
 }

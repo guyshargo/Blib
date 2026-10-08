@@ -31,7 +31,7 @@ public class Notification {
     public static void sendReturnBookReminderByEmail(BorrowedBook book, LocalDate returnDate) {
         //get member's information
         MemberLogic memberLogic = new MemberLogic();
-        Member sendToSub = memberLogic.fetchMemberById(book.getMembershipNumber());
+        Member sendToSub = memberLogic.fetchMemberById(book.getMemberId());
         //set the receiver email address
         String to = sendToSub.getEmailAddress();
         // Construct the email content
@@ -66,7 +66,7 @@ public class Notification {
                         "<p>The book will be reserved for you until <strong>%s</strong>. Please make sure to visit the library and borrow it by this date to secure your reservation.</p>" +
                         "<p>If you have any questions, feel free to contact us.</p>" +
                         "<p>Best regards,<br/>Blib Library</p>",
-                sendToSub.getFullName(), book.getBookName(), formattedExpiryDate);
+                sendToSub.getFullName(), book.getBookTitle(), formattedExpiryDate);
         // Send the email
         SendEmail(emailContent, to);
     }
@@ -91,7 +91,7 @@ public class Notification {
                         "<p>The book was reserved for you but was not picked up yesterday. As a result, the reservation was canceled on <strong>%s</strong>.</p>" +
                         "<p>We encourage you to place a new order if you still wish to borrow the book.</p>" +
                         "<p>Best regards,<br/>Blib Library</p>",
-                sendToSub.getFullName(), book.getBookName(), formattedCancellationDate);
+                sendToSub.getFullName(), book.getBookTitle(), formattedCancellationDate);
         // Send the email
         SendEmail(emailContent, to);
     }

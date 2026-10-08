@@ -2,200 +2,57 @@ package blib.model;
 
 import java.io.Serializable;
 
-/**
- * Description:
- * Class for the representing the librarians in the system
- */
 public class Librarian implements Serializable {
-    /**
-     * Unique identifier for serialization
-     */
     private static final long serialVersionUID = 1L;
     private String fullName;
-    private String phoneNumber;
-    private int librarianID; // Primary Key
-    private String userName;
+    private String phoneNum;
+    private int id;
+    private String username;
     private String password;
-    private String emailAddress;
+    private String email;
     private boolean loginStatus;
 
-    public Librarian(){}
+    public Librarian() {}
 
-    /**
-     * Description:
-     * Method for constructing the given class
-     *
-     * @param fullName     String.class
-     * @param phoneNumber  String.class
-     * @param librarianID  int
-     * @param emailAddress String.class
-     * @param userName     String.class
-     * @param password     String.class
-     */
-    public Librarian(String fullName, String phoneNumber, int librarianID, String emailAddress,
-                     String userName, String password) {
+    public Librarian(String fullName, String phoneNum, int id, String email,
+                     String username, String password) {
         this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
-        this.librarianID = librarianID;
-        this.userName = userName;
+        this.phoneNum = phoneNum;
+        this.id = id;
+        this.username = username;
         this.password = password;
-        this.emailAddress = emailAddress;
+        this.email = email;
     }
 
-    /**
-     * Description:
-     * Setter method for the librarian's login status
-     *
-     * @param loginStatus boolean
-     */
-    public void setLoginStatus(boolean loginStatus) {
-        this.loginStatus = loginStatus;
-    }
+    public boolean getLoginStatus() { return loginStatus; }
+    public void setLoginStatus(boolean loginStatus) { this.loginStatus = loginStatus; }
 
-    /**
-     * Description:
-     * Getter method for the librarian's login status
-     *
-     * @return loginStatus boolean
-     */
-    public boolean getLoginStatus() {
-        return loginStatus;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    /**
-     * Description:
-     * Getter method for the librarian's full name
-     *
-     * @return fullName String.class
-     */
-    public String getFullName() {
-        return fullName;
-    }
+    public String getPhoneNumber() { return phoneNum; }
+    public void setPhoneNumber(String phoneNum) { this.phoneNum = phoneNum; }
 
-    /**
-     * Description:
-     * Setter method for the librarian's full name
-     *
-     * @param fullName String.class
-     */
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+    public int getLibrarianId() { return id; }
+    public void setLibrarianId(int id) { this.id = id; }
 
-    /**
-     * Description:
-     * Getter method for the librarian's phone number
-     *
-     * @return phoneNumber String.class
-     */
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    /**
-     * Description:
-     * Setter method for the librarian's phone number
-     *
-     * @param phoneNumber String.class
-     */
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    /**
-     * Description:
-     * Getter method for the librarian's id
-     *
-     * @return librarianID int
-     */
-    public int getLibrarianID() {
-        return librarianID;
-    }
+    public String getEmailAddress() { return email; }
+    public void setEmailAddress(String email) { this.email = email; }
 
-    /**
-     * Description:
-     * Setter method for the librarian's id
-     *
-     * @param librarianID int
-     */
-    public void setLibrarianID(int librarianID) {
-        this.librarianID = librarianID;
-    }
-
-    /**
-     * Description:
-     * Getter method for the librarian's username
-     *
-     * @return userName String.class
-     */
-    public String getUserName() {
-        return userName;
-    }
-
-    /**
-     * Description:
-     * Setter method for the librarian's username
-     *
-     * @param userName String.class
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    /**
-     * Description:
-     * Getter method for the librarian's password
-     *
-     * @return password String.class
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Description:
-     * Setter method for the librarian's password
-     *
-     * @param password String.class
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Description:
-     * Getter method for the librarian's email
-     *
-     * @return emailAddress String.class
-     */
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    /**
-     * Description:
-     * Setter method for the librarian's email
-     *
-     * @param emailAddress String.class
-     */
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    /**
-     * Description:
-     * Method for generating a string representing the given class object
-     *
-     * @return String.class
-     */
     @Override
     public String toString() {
         return "Librarian{" +
                 "fullName='" + fullName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", librarianID=" + librarianID +
-                ", userName='" + userName + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

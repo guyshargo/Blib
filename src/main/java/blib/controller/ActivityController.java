@@ -30,9 +30,9 @@ public class ActivityController {
             // EchoServer generated the enum and the timestamp right before saving
             ActivityType type = activityLogic.generateActivityType(request.getActivityType());
             Activity activity = new Activity(
-                    request.getMembershipNumber(),
+                    request.getMemberId(),
                     type,
-                    request.getEntityId(),
+                    request.getAffectedEntityId(),
                     LocalDateTime.now()
             );
 
