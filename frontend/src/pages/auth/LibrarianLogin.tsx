@@ -53,7 +53,7 @@ const LibrarianLogin: React.FC = () => {
                             <img src="/images/user.png" alt="User" className="w-[45px] h-[45px] object-contain" />
                             <input 
                                 type="text" 
-                                placeholder="UserName"
+                                placeholder="Username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required

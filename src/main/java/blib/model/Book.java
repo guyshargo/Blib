@@ -1,7 +1,7 @@
 package blib.model;
 
 import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import blib.enums.IsOrdered;
 
 public class Book implements Serializable {
@@ -28,31 +28,40 @@ public class Book implements Serializable {
         this.ordersNum = ordersNum;
     }
 
+    @JsonProperty("title")
     public String getBookTitle() { return this.title; }
     public void setBookTitle(String title) { this.title = title; }
     
+    @JsonProperty("genre")
     public String getBookGenre() { return this.genre; }
     public void setBookGenre(String genre) { this.genre = genre; }
 
+    @JsonProperty("copiesNum")
     public int getNumberOfCopies() { return this.copiesNum; }
     public void setNumberOfCopies(int copiesNum) { this.copiesNum = copiesNum; }
 
+    @JsonProperty("borrowedCopiesNum")
     public int getNumberOfBorrowedCopies() { return this.borrowedCopiesNum; }
     public void setNumberOfBorrowedCopies(int borrowedCopiesNum) { this.borrowedCopiesNum = borrowedCopiesNum; }
 
+    @JsonProperty("keywords")
     public String getKeywords() { return this.keywords; }
     public void setKeywords(String keywords) { this.keywords = keywords; }
 
+    @JsonProperty("isOrdered")
     public IsOrdered getIsOrdered() { return this.isOrdered; }
     public void setIsOrdered(IsOrdered isOrdered) { this.isOrdered = isOrdered; }
     public boolean getIsOrderedBoolean() { return this.isOrdered.getValue(); }
     
-    public int getBookID() { return this.bookId; }
-    public void setBookID(int bookId) { this.bookId = bookId; }
+    @JsonProperty("bookId")
+    public int getBookId() { return this.bookId; }
+    public void setBookId(int bookId) { this.bookId = bookId; }
 
+    @JsonProperty("ordersNum")
     public int getNumberOforders() { return this.ordersNum; }
     public void setNumberOforders(int ordersNum) { this.ordersNum = ordersNum; }
 
+    @JsonProperty("summary")
     public String getBookSummary() { return this.summary; }
     public void setBookSummary(String summary) { this.summary = summary; }
     

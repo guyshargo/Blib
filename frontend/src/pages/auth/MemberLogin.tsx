@@ -21,6 +21,12 @@ const MemberLogin: React.FC = () => {
         } catch (error: any) {
             if (error.response?.status === 401 || error.response?.status === 404) {
                 setErrorMessage('Username or Password are incorrect. Please try again.');
+            } else if (error.message === 'The user is already logged into the system.') {
+                // Catches the manual error thrown from authService.ts for ghost sessions
+                setErrorMessage(error.message);
+            } else if (error.code === 'ERR_NETWORK') {
+                // Catches Spring Boot being offline or CORS blockages
+                setErrorMessage('Network Error: Cannot connect to the server.');
             } else {
                 setErrorMessage('An unexpected error occurred. Please try again.');
             }
@@ -52,7 +58,7 @@ const MemberLogin: React.FC = () => {
                             <img src="/images/user.png" alt="User" className="w-[45px] h-[45px] object-contain" />
                             <input 
                                 type="text" 
-                                placeholder="UserName"
+                                placeholder="Username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required

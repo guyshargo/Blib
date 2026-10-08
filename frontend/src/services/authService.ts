@@ -63,7 +63,7 @@ export const authService = {
             
             try {
                 if (userType === 'MEMBER') {
-                    await api.put(`/members/${user.id}/login-status`, null, { params: { status: false } });
+                    await api.put(`/members/${user.memberId}/login-status`, null, { params: { status: false } });
                 } else if (userType === 'LIBRARIAN') {
                     await api.put(`/librarians/${user.id}/login-status`, null, { params: { status: false } });
                 }

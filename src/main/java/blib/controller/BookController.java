@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -28,10 +29,10 @@ public class BookController {
     // search books
     @GetMapping("/search")
     public ResponseEntity<List<Book>> searchBooks(
-        @RequestParam(defaultValue = "is empty") String name,
+        @RequestParam(defaultValue = "is empty") String title,
         @RequestParam(defaultValue = "is empty") String genre,
         @RequestParam(defaultValue = "is empty") String freeText){
-            List<Book> bookList = bookLogic.searchBooks(name, genre, freeText);
+            List<Book> bookList = bookLogic.searchBooks(title, genre, freeText);
             
             if(bookList != null){
                 return ResponseEntity.ok(bookList);

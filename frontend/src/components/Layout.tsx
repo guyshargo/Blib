@@ -11,7 +11,7 @@ const Layout: React.FC = () => {
     
     const user = userStr ? JSON.parse(userStr) : null;
     const userName = user?.fullName || 'Guest';
-    const roleLabel = userType === 'LIBRARIAN' ? 'Librarian' : 'Member';
+    const roleLabel = userType === 'LIBRARIAN' ? 'Librarian' : (userType === 'MEMBER' ? 'Member' : '');
 
     useEffect(() => {
         const handleUnload = () => {
@@ -20,9 +20,10 @@ const Layout: React.FC = () => {
             
             if (currentStr && currentType) {
                 const currentUser = JSON.parse(currentStr);
+
                 const endpoint = currentType === 'LIBRARIAN' 
                     ? `/librarians/${currentUser.id}/login-status` 
-                    : `/members/${currentUser.id}/login-status`;
+                    : `/members/${currentUser.memberId}/login-status`;
                 
                 fetch(`http://localhost:8080/api${endpoint}?status=false`, {
                     method: 'PUT',
@@ -76,8 +77,10 @@ const Layout: React.FC = () => {
                     </div>
                 </button>
                 
-                <button className="border-[1.2px] border-[#B83A24] text-[#B83A24] rounded-full text-xs font-extrabold px-4 py-1 transition-colors hover:bg-[#B83A24] hover:text-white" onClick={handleLogout}>
-                    Logout
+                <button className="border-[1.2px] border-[#B83A24] text-[#B83A24] rounded-full text-xs font-extrabold px-4 py-1 transition-colors hover:bg-[#B83A24] hover:text-white" 
+                    onClick={user ? handleLogout : () => navigate('/login')}
+                >
+                    {user ? 'Logout' : 'Login'}
                 </button>
             </header>
 

@@ -20,13 +20,13 @@ const BorrowBook: React.FC = () => {
             return;
         }
         try {
-            const sub = await librarianService.getMember(parseInt(memberIdInput));
-            if (sub.freezeStatus === 'Frozen') {
+            const member = await librarianService.getMember(parseInt(memberIdInput));
+            if (member.freezeStatus === 'FROZEN') {
                 alert("Member Status Is Frozen.");
                 setMember(null);
                 return;
             }
-            setMember(sub);
+            setMember(member);
         } catch (error) {
             setMember(null);
             alert("No member found with the given ID.");
@@ -39,7 +39,7 @@ const BorrowBook: React.FC = () => {
         
         try {
             const member = await librarianService.getMemberByBarcode(barcode.trim());
-            setMemberIdInput(member.id.toString());
+            setMemberIdInput(member.memberId.toString());
             setMember(member);
         } catch (error) {
             alert("No member found with barcode.");
@@ -52,7 +52,7 @@ const BorrowBook: React.FC = () => {
             return;
         }
         try {
-            const copy = await borrowService.getAvailableCopyById(parseInt(bookIdInput), member.id);
+            const copy = await borrowService.getAvailableCopyById(parseInt(bookIdInput), member.memberId);
             setCopyOfBook(copy);
             setBookName(copy.CopyOfBookName);
             
@@ -72,7 +72,7 @@ const BorrowBook: React.FC = () => {
         if (!barcode || !barcode.trim()) return;
 
         try {
-            const copy = await borrowService.getAvailableCopyByBarcode(barcode.trim(), member.id);
+            const copy = await borrowService.getAvailableCopyByBarcode(barcode.trim(), member.memberId);
             setCopyOfBook(copy);
             setBookIdInput(copy.bookId.toString());
             setBookName(copy.CopyOfBookName);
@@ -88,7 +88,7 @@ const BorrowBook: React.FC = () => {
 
         try {
             // Check for late books before borrowing
-            const borrows = await borrowService.getMemberBorrows(member.id);
+            const borrows = await borrowService.getMemberBorrows(member.memberId);
             const lateBooks = borrows.filter(b => new Date(b.returnDate) < new Date());
             
             if (lateBooks.length > 0) {
@@ -100,8 +100,8 @@ const BorrowBook: React.FC = () => {
             const librarianUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
             
             const payload = {
-                memberId: member.id,
-                copyOfBookId: copyOfBook.copyId,
+                memberId: member.memberId,
+                bookCopyId: copyOfBook.copyId,
                 librarianId: librarianUser.id || 101,
                 librarianName: librarianUser.fullName || "Librarian"
             };
@@ -109,7 +109,7 @@ const BorrowBook: React.FC = () => {
             await borrowService.commitBorrow(payload);
             
             await borrowService.addActivity({
-                membershipNumber: member.id,
+                memberId: member.memberId,
                 activityType: "borrow",
                 entityId: copyOfBook.copyId
             });

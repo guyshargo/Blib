@@ -1,11 +1,11 @@
 import api from './api';
-import type { Book, CopyOfBook, BorrowedBook } from '../types';
+import type { Book, BookCopy, BorrowedBook } from '../types';
 
 export const catalogService = {
-    searchBooks: async (name: string, genre: string, freeText: string): Promise<Book[]> => {
+    searchBooks: async (title: string, genre: string, freeText: string): Promise<Book[]> => {
         const response = await api.get<Book[]>('/books/search', {
             params: {
-                name: name || 'is empty',
+                title: title || 'is empty',
                 genre: genre || 'is empty',
                 freeText: freeText || 'is empty'
             }
@@ -13,8 +13,8 @@ export const catalogService = {
         return response.data;
     },
 
-    getAvailableCopy: async (bookId: number, memberId: number): Promise<CopyOfBook> => {
-        const response = await api.get<CopyOfBook>(`/borrows/book/${bookId}/available-copy/subscriber/${memberId}`);
+    getAvailableCopy: async (bookId: number, memberId: number): Promise<BookCopy> => {
+        const response = await api.get<BookCopy>(`/borrows/book/${bookId}/available-copy/member/${memberId}`);
         return response.data;
     },
 

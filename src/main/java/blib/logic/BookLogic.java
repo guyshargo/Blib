@@ -112,7 +112,7 @@ public class BookLogic {
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
              
-            ps.setInt(1, book.getBookID());
+            ps.setInt(1, book.getBookId());
             return ps.executeUpdate() > 0;
             
         } catch (SQLException e) {
@@ -143,7 +143,7 @@ public class BookLogic {
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
-            ps.setInt(1, book.getBookID());
+            ps.setInt(1, book.getBookId());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -186,7 +186,7 @@ public class BookLogic {
 
     public synchronized boolean increaseQuantityOfBook(Book book) {
         // Check if book exists
-        Book existingBook = fetchBook(book.getBookID());
+        Book existingBook = fetchBook(book.getBookId());
         if (existingBook == null) {
             return false; // Book doesn't exist
         }
@@ -195,7 +195,7 @@ public class BookLogic {
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
-            ps.setInt(1, book.getBookID());
+            ps.setInt(1, book.getBookId());
             return ps.executeUpdate() > 0;
             
         } catch (SQLException e) {
@@ -206,7 +206,7 @@ public class BookLogic {
 
     public synchronized boolean decreaseQuantityOfBook(Book book) {
         // Check if book exists
-        Book existingBook = fetchBook(book.getBookID());
+        Book existingBook = fetchBook(book.getBookId());
         if (existingBook == null) {
             return false; // Book doesn't exist
         }
@@ -215,7 +215,7 @@ public class BookLogic {
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
              
-            ps.setInt(1, book.getBookID());
+            ps.setInt(1, book.getBookId());
             return ps.executeUpdate() > 0;
             
         } catch (SQLException e) {
@@ -307,7 +307,7 @@ public class BookLogic {
             
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    String bookSummary = rs.getString("BookSummary");
+                    String bookSummary = rs.getString("summary");
                     if (bookSummary == null) bookSummary = "";
                     
                     IsOrdered isOrderedEnum = IsOrdered.valueOf(rs.getString("is_ordered").toUpperCase());
