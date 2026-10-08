@@ -1,25 +1,19 @@
 # Blib — Library Management System
 
-Blib is a full-stack, client-server Java application designed for library management. It features a responsive JavaFX graphical user interface and a centralized MySQL relational database for persistent storage and inventory synchronization. 
+Blib is a full-stack library platform for managing book inventory, borrowing, member records, and librarian workflows. The project has moved from the legacy desktop/client-server approach to a modern web-based architecture centered on a Spring Boot backend and a React frontend.
 
-Originally developed as an academic project using the Object Client-Server Framework (OCSF), the application is currently undergoing a complete architectural modernization to align with enterprise software engineering standards.
+## Current project stage
+The repository is currently in an active modernization and integration phase:
 
-## 🛠 Tech Stack
-* **Backend:** Java 17, Spring Boot, RESTful APIs, Embedded Tomcat
-* **Frontend:** JavaFX (FXML/CSS), Java `HttpClient`, Jackson JSON Parser
-* **Database:** MySQL, JDBC
-* **Build Tool:** Maven
+- The backend is built as a Spring Boot REST API and exposes endpoints for authentication, catalog browsing, member management, borrowing, returns, reports, and invoice activity.
+- The frontend is implemented in React with Vite and includes dedicated pages for catalog browsing, member login, librarian dashboards, borrow/return flows, and reports.
+- The remaining focus is on final API/frontend wiring, validation, and polishing the user experience.
 
-## 🏗 Architecture & Engineering Highlights
-* **RESTful API Migration:** The backend network layer has been completely transitioned from raw multi-threaded TCP/IP sockets to a stateless Spring Boot REST API.
-* **Strict Layered Architecture (MVC/3-Tier):** The codebase enforces a clean Separation of Concerns by isolating the Web Layer (Controllers), Data Access/Logic Layer, and Data Entities (Models).
-* **Secure Resource Management:** The database logic relies entirely on the modern Java `Try-With-Resources` pattern, eliminating memory leaks by ensuring the safe, automatic closure of SQL connections and result sets across the application.
+## Tech stack
+- Backend: Java 17, Spring Boot 3, REST APIs, Maven
+- Frontend: React 19, TypeScript, Vite, React Router
+- Database: MySQL 8
+- UI: Tailwind CSS
 
-## 📚 Core Features
-* **Role-Based Access Control:** Distinct control panels, permissions, and authentication flows for Subscribers and Librarians.
-* **Inventory & Transaction Management:** Real-time catalog searching, book reservations, borrowing extensions, and return tracking.
-* **Automated Routines:** Autonomous background threads running daily system updates, status tracking, and late-return notifications.
-* **System Analytics:** Automated generation of library activity and status reports.
-
-## 🚀 Current Project Status (WIP)
-The backend architecture has been successfully rebuilt as a fully functional Spring Boot server. Active development is currently focused on the frontend—rewiring the JavaFX client controllers to replace legacy socket messaging with standard HTTP requests and JSON data mapping.
+## Project status
+Blib is currently in an active web migration and feature-completion phase. The modern Spring Boot + React stack is in place, the core domain flows are present, and the project is being refined toward a fully integrated library-management application.
