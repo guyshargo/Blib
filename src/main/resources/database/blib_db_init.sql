@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `activities`;
 CREATE TABLE `activities` (
   `member_id` int NOT NULL,
   `activity_name` varchar(255) NOT NULL,
-  `entity_id` int DEFAULT NULL,
+  `affected_entity_id` int DEFAULT NULL,
   `activity_date` datetime NOT NULL,
   PRIMARY KEY (`activity_name`,`member_id`,`activity_date`),
   KEY `fk_activities_member_id_idx` (`member_id`),
@@ -320,7 +320,7 @@ CREATE TABLE `members` (
 
 LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (101,'Omri Spitzer','omrisimo1','123','Frozen','2026-09-23','omrisimo1@gmail.com','0587577241','MTAxfE9tcmkgU3BpdHplcg==',0),(102,'Stav Avraham','stav1','123','NotFrozen',NULL,'stav.a2008@gmail.com','0522222222','MTAyfFN0YXYgQXZyYWhhbQ==',0),(103,'Yarden Nahum','yarden','123','NotFrozen',NULL,'yardennahum2@gmail.com','0526532245','MTAzfFlhcmRlbiBOYWh1bQ==',0),(104,'Guy Shargorodsky','guy','123','NotFrozen',NULL,'shargo501@gmail.com','05000000000','MTA0fEd1eSBTaGFyZ29kc2t5',0),(105,'Adan Ibrahim','adan','123','NotFrozen',NULL,'adan@gmail.com','0544444444','MTA1fEFkYW4gSWJyYWhpbQ==',0),(106,'David Smith','david','123','NotFrozen',NULL,'david.smith@gmail.com','0577777777','MTA2fERhdmlkIFNtaXRo',0),(107,'Michelle Davis','michelle1','123','NotFrozen','2026-09-03','michelle1@gmail.com','0566666666','MTA3fE1pY2hlbGxlIERhdmlz',0),(108,'Nir Levi','nir','123','NotFrozen',NULL,'nir.levi@gmail.com','0599999999','MTA4fE5pciBMZXZp',0),(109,'Shahar Dov','Shahar','123','NotFrozen',NULL,'shahar@gmail.com','02022222','MTIzNHxzaHVoaQ==',0),(110,'Tony Curtis','tony','123','NotFrozen',NULL,'tony@gmail.com','0540587245','MTEwfFRvbnkgQ3VydGlz',0);
+INSERT INTO `members` VALUES (101,'Omri Spitzer','omrisimo1','123','Frozen','2026-09-23','omrisimo1@gmail.com','0587577241','MTAxfE9tcmkgU3BpdHplcg==',0),(102,'Stav Avraham','stav1','123','NotFrozen',NULL,'stav.a2008@gmail.com','0522222222','MTAyfFN0YXYgQXZyYWhhbQ==',0),(103,'Yarden Nahum','yarden','123','NotFrozen',NULL,'yardennahum2@gmail.com','0526532245','MTAzfFlhcmRlbiBOYWh1bQ==',0),(104,'Guy Shargorodsky','guy','123','NotFrozen',NULL,'shargo501@gmail.com','05000000000','MTA0fEd1eSBTaGFyZ29kc2t5',1),(105,'Adan Ibrahim','adan','123','NotFrozen',NULL,'adan@gmail.com','0544444444','MTA1fEFkYW4gSWJyYWhpbQ==',0),(106,'David Smith','david','123','NotFrozen',NULL,'david.smith@gmail.com','0577777777','MTA2fERhdmlkIFNtaXRo',0),(107,'Michelle Davis','michelle1','123','NotFrozen','2026-09-03','michelle1@gmail.com','0566666666','MTA3fE1pY2hlbGxlIERhdmlz',0),(108,'Nir Levi','nir','123','NotFrozen',NULL,'nir.levi@gmail.com','0599999999','MTA4fE5pciBMZXZp',0),(109,'Shahar Dov','Shahar','123','NotFrozen',NULL,'shahar@gmail.com','02022222','MTIzNHxzaHVoaQ==',0),(110,'Tony Curtis','tony','123','NotFrozen',NULL,'tony@gmail.com','0540587245','MTEwfFRvbnkgQ3VydGlz',0);
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,4 +417,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-07 13:16:40
+-- Dump completed on 2026-10-08 14:51:23

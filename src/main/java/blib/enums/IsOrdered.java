@@ -1,0 +1,21 @@
+package blib.enums;
+
+public enum IsOrdered {
+    YES(true), 
+    NO(false);
+
+    private final boolean value;
+
+    IsOrdered(boolean value) {
+        this.value = value;
+    }
+
+    public boolean getValue() { return value; }
+
+    public String toString() {
+        if (value)
+            return "Yes";
+        else
+            return "No";
+    }
+}
