@@ -2,6 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-login {
-    background-image: url('/images/background.png');
-}

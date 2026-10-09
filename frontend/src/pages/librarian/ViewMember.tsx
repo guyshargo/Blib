@@ -62,7 +62,7 @@ const ViewMember: React.FC = () => {
                 copyOfBookId: book.copyOfBookId,
                 newReturnDate: newDate,
                 librarianName: librarianUser.fullName || "Librarian",
-                librarianId: librarianUser.id || 101,
+                librarianId: librarianUser.librarianId || 101,
                 extensionDate: new Date().toISOString().split('T')[0]
             };
 

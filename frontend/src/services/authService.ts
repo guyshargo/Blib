@@ -42,7 +42,7 @@ export const authService = {
         }
 
         // Update status in database to true
-        await api.put(`/librarians/${librarian.id}/login-status`, null, {
+        await api.put(`/librarians/${librarian.librarianId}/login-status`, null, {
             params: { status: true }
         });
 
@@ -65,7 +65,7 @@ export const authService = {
                 if (userType === 'MEMBER') {
                     await api.put(`/members/${user.memberId}/login-status`, null, { params: { status: false } });
                 } else if (userType === 'LIBRARIAN') {
-                    await api.put(`/librarians/${user.id}/login-status`, null, { params: { status: false } });
+                    await api.put(`/librarians/${user.librarianId}/login-status`, null, { params: { status: false } });
                 }
             } catch (error) {
                 console.error("Failed to update logout status in database", error);

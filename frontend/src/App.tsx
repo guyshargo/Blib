@@ -2,9 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Layout from './components/Layout';
 
-import MainLogin from './pages/auth/MainLogin';
-import MemberLogin from './pages/auth/MemberLogin';
-import LibrarianLogin from './pages/auth/LibrarianLogin';
+import Login from './pages/auth/Login';
 
 import SearchCatalog from './pages/catalog/SearchCatalog';
 import BookDetails from './pages/catalog/BookDetails';
@@ -29,9 +27,9 @@ function App() {
       <Routes>
         {/* Standalone Gateway Windows */}
         <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/login" element={<MainLogin />} />
-        <Route path="/login/member" element={<MemberLogin />} />
-        <Route path="/login/librarian" element={<LibrarianLogin />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/member" element={<Navigate to="/login" replace />} />
+        <Route path="/login/librarian" element={<Navigate to="/login" replace />} />
 
         {/* Core System Pages - Wrapped in Main Layout */}
         <Route element={<Layout />}>

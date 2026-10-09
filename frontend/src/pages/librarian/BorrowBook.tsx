@@ -102,7 +102,7 @@ const BorrowBook: React.FC = () => {
             const payload = {
                 memberId: member.memberId,
                 bookCopyId: copyOfBook.copyId,
-                librarianId: librarianUser.id || 101,
+                librarianId: librarianUser.librarianId || 101,
                 librarianName: librarianUser.fullName || "Librarian"
             };
 

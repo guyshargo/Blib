@@ -31,7 +31,7 @@ const BookDetails: React.FC = () => {
             try {
                 // Try to fetch an available copy
                 const copy = await catalogService.getAvailableCopy(selectedBook.bookId, memberId);
-                setCopyName(copy.CopyOfBookName);
+                setCopyName(copy.title);
                 setStatus('Available');
                 setShelf(copy.shelfLocation);
                 setReturnDate('-');

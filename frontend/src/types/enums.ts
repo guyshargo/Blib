@@ -59,3 +59,7 @@ export type ReportType =
 export type InvoiceSubject = 
     | 'GENERAL_MESSAGE' 
     | 'EXTENSION';
+
+export type LoginRole = 
+    | 'MEMBER' 
+    | 'LIBRARIAN';

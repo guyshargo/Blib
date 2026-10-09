@@ -79,11 +79,11 @@ export interface InvoiceMessage {
 
 export interface Librarian {
     fullName: string;
-    phoneNum: string;
-    id: number;
+    phoneNumber: string;
+    librarianId: number;
     username: string;
     password?: string;
-    email: string;
+    emailAddress: string;
     loginStatus: boolean;
 }
 
